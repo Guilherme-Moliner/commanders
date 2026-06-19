@@ -1,0 +1,127 @@
+id,name,kind,type,vibe,range,star,cost,hp,atk,speed,tribute,copies,special,effect,effectVal,effectDur,emoji,ability,img
+peon_atk,Sem Terra,pawn,ATK,vermelho,melee,1,1,100,60,fast,0,3,,,,,,,peon_atk.png
+peon_def,Malhadinho,pawn,DEF,azul,melee,1,1,200,30,slow,0,3,,,,,,,peon_def.png
+peon_bal,Economista,pawn,BAL,verde,mid,2,1,150,50,medium,0,3,,,,,,,peon_bal.png
+peon_def2,Bombado,pawn,DEF,azul,melee,2,1,280,40,slow,0,3,,,,,,,peon_def2.png
+peon_atk2,Camarada,pawn,ATK,vermelho,melee,2,1,150,80,slow,0,3,,,,,,,peon_atk2.png
+peon_atk3,Comunista,pawn,ATK,vermelho,melee,4,1,200,100,slow,0,3,,,,,,,peon_atk3.png
+peon_atk4,PTista,pawn,ATK,vermelho,melee,6,1,240,120,slow,0,3,,,,,,,peon_atk4.png
+peon_atk5,Presidente,pawn,ATK,vermelho,melee,13,1,300,160,slow,0,3,,,,,,,peon_atk5.png
+peon_def3,Amante do Suco,pawn,DEF,azul,melee,5,1,360,60,slow,0,3,,,,,,,peon_def3.png
+peon_def4,Trembolono,pawn,DEF,azul,melee,6,1,500,80,slow,0,3,,,,,,,peon_def4.png
+peon_def5,Mr Olympia,pawn,DEF,azul,melee,9,1,750,100,slow,0,3,,,,,,,peon_def5.png
+peon_bal2,Investidor,pawn,DEF,azul,melee,4,1,200,70,slow,0,3,,,,,,,peon_bal2.png
+peon_bal3,Rico Top 1%,pawn,BAL,verde,mid,5,1,250,85,slow,0,3,,,,,,,peon_bal3.png
+peon_bal4,Banqueiro,pawn,BAL,verde,mid,8,1,400,100,slow,0,3,,,,,,,peon_bal4.png
+peon_bal5,Schead Musk,pawn,BAL,verde,mid,10,1,600,130,slow,0,3,,,,,,,peon_bal5.png
+peon_nerd,Streamer,pawn,DEF,amarelo,melee,1,1,200,30,slow,0,3,,,,,,,peon_nerd.png
+peon_nerd2,Minezeiro,pawn,DEF,amarelo,melee,2,1,280,40,slow,0,3,,,,,,,peon_nerd2.png
+peon_nerd3,BoardGaymer,pawn,DEF,amarelo,melee,3,1,360,60,slow,0,3,,,,,,,peon_nerd3.png
+peon_nerd4,Suequeiro,pawn,DEF,amarelo,melee,5,1,500,80,slow,0,3,,,,,,,peon_nerd4.png
+peon_nerd5,Elden Lord,pawn,DEF,amarelo,melee,6,1,750,100,slow,0,3,,,,,,,peon_nerd5.png
+peon_role,Muleque Piranha,pawn,ATK,roxo,melee,1,1,100,60,slow,0,3,,,,,,,peon_role.png
+peon_role2,Pegador,pawn,ATK,roxo,melee,2,1,150,80,slow,0,3,,,,,,,peon_role2.png
+peon_role3,Boleiro,pawn,ATK,roxo,melee,4,1,200,100,slow,0,3,,,,,,,peon_role3.png
+peon_role4,PIMP,pawn,ATK,roxo,melee,5,1,240,120,slow,0,3,,,,,,,peon_role4.png
+peon_role5,Rei do Camarote,pawn,ATK,roxo,melee,8,1,360,130,slow,0,3,,,,,,,peon_role5.png
+arthur,Arthur,hero,ATK,azul,long,3,3,700,60,fast,0,1,,,,,,Heroi,arthur.png
+fanta,Fanta,hero,BAL,amarelo,mid,3,3,600,70,medium,0,1,recycler,,,,,Heroi,fanta.png
+nathan,Nathan,hero,DEF,amarelo,melee,3,3,350,180,slow,0,1,,,,,,Heroi,nathan.png
+garopaba,Garopaba,hero,ATK,vermelho,melee,4,4,250,300,medium,0,1,deathbuff,,,,,Heroi,garopaba.png
+bala,Bala,hero,DEF,verde,melee,4,4,450,150,slow,0,1,provoker,,,,,Heroi,bala.png
+leo,Léo,hero,ATK,roxo,melee,4,4,250,300,medium,0,1,,,,,,Heroi,leo.png
+zaga,Zaga,hero,BAL,roxo,mid,4,4,200,350,medium,0,1,,,,,,Heroi,zaga.png
+vitao,Vitão,hero,BAL,azul,mid,5,5,350,180,medium,1,1,healer,,,,,Heroi,vitao.png
+borba,Borba,hero,DEF,vermelho,melee,5,5,600,70,slow,1,1,,,,,,Heroi,borba.png
+letti,Letti,hero,ATK,verde,melee,6,6,500,100,veryfast,1,1,rusher,,,,,Heroi,letti.png
+tata,Tata,hero,ATK,verde,melee,6,6,450,150,veryfast,1,1,rusher,,,,,Heroi,tata.png
+dede,Dedé,hero,ATK,roxo,melee,6,6,500,100,veryfast,1,1,rusher,,,,,Heroi,dede.png
+churrasco,Churrasco,item,ITEM,azul,-,0,2,,,-,0,3,,heal_all,80,,,Cura suas unidades +80 HP,churrasco.png
+energetico,Energético,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.3,,,+30% ATK no seu campo nesta resolução,energetico.png
+rodada,Rodada,item,ITEM,amarelo,-,0,1,,,-,0,3,,draw2,2,,,Compra 2 cartas,rodada.png
+turboboost,Turbo Boost,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.2,,,Turbo: +20% ATK neste turno (TODO redesenhar),turboboost.png
+ressurreicao,Tadalinha,item,ITEM,verde,-,0,4,,,-,0,3,,resurrect,0.5,,,Revive última unidade do cemitério (50% HP),ressurreicao.png
+reforco,Costela,item,ITEM,verde,-,0,3,,,-,0,3,,heal_all,100,,,Cura suas unidades +100 HP,reforco.png
+ressaca,Ressaca,item,ITEM,amarelo,-,0,2,,,-,0,2,,debuff_all_atk,80,,,Todos inimigos −80 ATK nesta resolução,ressaca.png
+dedinho,Romper Ligamento,item,ITEM,roxo,-,0,2,,,-,0,2,,debuff_strongest,0.3,,,Inimigo mais forte −30% ATK,dedinho.png
+calunia,Ordens do STF,item,ITEM,roxo,-,0,3,,,-,0,2,,debuff_silence,1,,,Inimigo mais forte não ataca neste turno,calunia.png
+jogaareia,Calvice,item,ITEM,vermelho,-,0,1,,,-,0,2,,debuff_flat,200,,,Inimigo mais forte −200 ATK nesta resolução,jogaareia.png
+barraco,Saudades do Borba,item,ITEM,roxo,-,0,4,,,-,0,1,,debuff_all_atk,100,,,Todos inimigos −100 ATK nesta resolução,barraco.png
+vp_amarelo,Festeiro,pawn,ATK,amarelo,melee,2,2,140,55,fast,0,2,vibe_party,,,,,Vibe Festa (passiva TODO),
+vp_vermelho,Brutamonte,pawn,ATK,vermelho,melee,2,2,130,70,medium,0,2,vibe_charge,,,,,Vibe Força (passiva TODO),
+vp_azul,Maestrinho,pawn,DEF,azul,mid,2,2,200,35,medium,0,2,vibe_heal,,,,,Vibe Controle (passiva TODO),
+vp_roxo,Caótico,pawn,BAL,roxo,mid,2,2,150,55,medium,0,2,vibe_chaos,,,,,Vibe Caos (passiva TODO),
+vp_verde,Brotinho,pawn,DEF,verde,melee,2,2,180,40,slow,0,2,vibe_grow,,,,,Vibe Sustain (passiva TODO),
+trap_buraco,Buraco na Pista,trap,TRAP,amarelo,-,0,2,,,-,0,2,,trap_skip,1,,,Arapuca: inimigo não ataca neste turno,
+trap_emboscada,Brotheragem,trap,TRAP,vermelho,-,0,3,,,-,0,1,,trap_double,2,,,Arapuca: seu dano dobra nesta resolução,
+trap_rede,Rede,trap,TRAP,azul,-,0,2,,,-,0,2,,trap_net,40,,,Arapuca: inimigo −40 ATK + cura um aliado,
+trap_praga,Praga,trap,TRAP,verde,-,0,3,,,-,0,2,,trap_drain,50,,,Arapuca: drena 50 ATK do inimigo,
+trap_fumaca,Bomba de Fumaça,trap,TRAP,roxo,-,0,3,,,-,0,1,,trap_smoke,30,,,Arapuca: inimigo −30 ATK (placeholder),
+fus_resenha,Caçadores de Perereca,fusion,ATK,amarelo,melee,5,0,380,200,medium,0,0,,,,,,Fusão Festa+Festa (placeholder),baladinha.jpg
+fus_camarote,Rei do Camarote,fusion,BAL,amarelo,mid,5,0,420,170,medium,0,0,,,,,,Fusão Festa+Controle (placeholder),reidocamarote.jpeg
+fus_climao,Comedor de Amigo,fusion,ATK,vermelho,melee,5,0,300,220,medium,0,0,,,,,,Fusão Força+Caos (placeholder),bolado.jpg
+fus_brotheragem,Pica Gigante,fusion,DEF,verde,melee,5,0,600,120,slow,0,0,,,,,,Fusão Sustain+Sustain (placeholder),apoio.jpeg
+fus_lenda,Leiteart,fusion,ATK,vermelho,melee,6,0,360,300,fast,0,0,,,,,,Fusão específica Arthur+Letti (placeholder),nobrilho.jpg
+fus_brigarole,Gibirueinau,fusion,ATK,vermelho,melee,5,0,320,200,medium,0,0,,,,,,Fusão Festa+Força (placeholder),armlock.jpg
+fus_apagao,Uiiii,fusion,BAL,roxo,mid,5,0,300,240,medium,0,0,,,,,,Fusão Festa+Caos (placeholder),deitei.jpg
+fus_resistencia,Encantador de Cobras,fusion,DEF,verde,melee,5,0,520,190,slow,0,0,,,,,,Fusão Festa+Sustain (placeholder),torredechopp.jpg
+fus_marombeiro,Fadinha Sapeca,fusion,ATK,vermelho,melee,6,0,290,210,medium,0,0,,,,,,Fusão Força+Força (placeholder),posefitness.jpg
+fus_leaochacara,Jogador Europeu,fusion,DEF,azul,melee,5,0,310,190,slow,0,0,,,,,,Fusão Força+Controle (placeholder),pewpew.jpg
+fus_tanque,Salva Vidas,fusion,DEF,verde,melee,6,0,600,100,slow,0,0,,,,,,Fusão Força+Sustain (placeholder),to no shape pai.jpeg
+fus_mestrecerimonia,Vitão de Peruca,fusion,BAL,azul,mid,5,0,360,195,medium,0,0,,,,,,Fusão Controle+Controle (placeholder),newalbum.jpg
+fus_mentemestra,Vocalista de Banda,fusion,BAL,roxo,mid,5,0,310,190,medium,0,0,,,,,,Fusão Controle+Caos (placeholder),mindfuck.jpeg
+fus_zen,ABROB,fusion,DEF,azul,mid,5,0,320,185,medium,0,0,,,,,,Fusão Controle+Sustain (placeholder),sónaboa.jpg
+fus_surto,Cu do André,fusion,ATK,roxo,melee,5,0,280,250,medium,0,0,,,,,,Fusão Caos+Caos (placeholder),oloco.jpeg
+fus_mauelemento,Trio Maligno,fusion,BAL,verde,mid,5,0,420,195,medium,0,0,,,,,,Fusão Caos+Sustain (placeholder),cigarrinho.jpg
+shape_verao,Shape de Ver?o,item,ITEM,azul,-,0,3,,,-,0,3,,atk_buff,0.5,,,FUNCIONA_AGORA: +50% ATK no seu campo nesta resolu??o,shape_verao.png
+cafe_premium,Caf? Premium,item,ITEM,amarelo,-,0,2,,,-,0,3,,draw2,2,,,FUNCIONA_AGORA: compra 2 cartas,cafe_premium.png
+segunda_chance,Segunda Chance,item,ITEM,amarelo,-,0,4,,,-,0,2,,resurrect,0.5,,,FUNCIONA_AGORA: revive a ?ltima unidade do cemit?rio com 50% HP,segunda_chance.png
+lesao_muscular,Les?o Muscular,item,ITEM,vermelho,-,0,2,,,-,0,3,,debuff_strongest,0.4,,,FUNCIONA_AGORA: inimigo mais forte perde 40% do ATK nesta resolu??o,lesao_muscular.png
+cancelamento,Cancelamento,item,ITEM,vermelho,-,0,4,,,-,0,2,,debuff_silence,1,,,FUNCIONA_AGORA_APROX: zera o ATK do inimigo mais forte nesta resolu??o,cancelamento.png
+motivacao_aleatoria,Motiva??o Aleat?ria,item,ITEM,roxo,-,0,2,,,-,0,3,,atk_buff,0.35,,,FUNCIONA_AGORA_APROX: +35% ATK; futuro: sortear buff/debuff,motivacao_aleatoria.png
+patch_balanceamento,Patch de Balanceamento,item,ITEM,roxo,-,0,3,,,-,0,2,,debuff_all_atk,70,,,FUNCIONA_AGORA_APROX: inimigos -70 ATK; futuro: modificar atributos aleatoriamente,patch_balanceamento.png
+insider_trading,Insider Trading,item,ITEM,verde,-,0,1,,,-,0,3,,draw2,1,,,FUNCIONA_AGORA_APROX: compra 1 carta; futuro: gerar recurso instant?neo,insider_trading.png
+black_friday_evento,Black Friday,item,ITEM,verde,-,0,2,,,-,0,2,,next_hp_buff,0.3,,,FUNCIONA_AGORA_APROX: pr?xima unidade +30% HP; futuro: equipamentos custam menos,black_friday.png
+powerlifting,Powerlifting,item,ITEM,azul,-,0,3,,,-,0,2,,next_hp_buff,0.6,,,FUNCIONA_AGORA_APROX: pr?xima unidade +60% HP; futuro: evolui/ranka criatura,powerlifting.png
+pausa_cafe,Pausa para Caf?,trap,TRAP,amarelo,-,0,3,,,-,0,2,,trap_skip,1,,,FUNCIONA_AGORA: arapuca que impede o ataque inimigo nesta resolu??o,pausa_cafe.png
+roleta_corporativa,Roleta Corporativa,trap,TRAP,roxo,-,0,3,,,-,0,2,,trap_double,2,,,FUNCIONA_AGORA_APROX: dobra seu dano; futuro: roleta ca?tica,roleta_corporativa.png
+campo_academia_suprema,Academia Suprema,field,FIELD,azul,-,0,3,,,-,0,1,,field_academia_atk,0.2,,,PRECISA_CAMPO: cartas Academia +20% ATK,academia_suprema.png
+campo_faria_lima,Faria Lima,field,FIELD,verde,-,0,3,,,-,0,1,,field_money_resource,1,,,PRECISA_CAMPO_RECURSO: cartas Dinheiro geram +1 recurso/benef?cio por turno,faria_lima.png
+campo_twitchcon,TwitchCon,field,FIELD,amarelo,-,0,3,,,-,0,1,,field_gamer_rank,1,,,PRECISA_CAMPO_TAGS: cartas Gamer rankam/ganham XP dobrado,twitchcon.png
+campo_carnaval,Carnaval,field,FIELD,roxo,-,0,3,,,-,0,1,,field_chaos_boost,0.1,,,PRECISA_CAMPO: todos +10% ATK; efeitos aleat?rios mais fortes,carnaval.png
+campo_congresso,Congresso Nacional,field,FIELD,vermelho,-,0,3,,,-,0,1,,field_control_discount,1,,,PRECISA_CAMPO_TAGS: cartas Controle custam -1,congresso_nacional.png
+campo_shopping,Shopping Center,field,FIELD,verde,-,0,3,,,-,0,1,,field_equip_discount,1,,,PRECISA_CAMPO_EQUIP: equipamentos custam -1,shopping_center.png
+campo_lan_house,Lan House,field,FIELD,amarelo,-,0,3,,,-,0,1,,field_draw_extra,1,,,PRECISA_CAMPO: compra +1 carta por turno,lan_house.png
+campo_crise,Crise Econ?mica,field,FIELD,roxo,-,0,3,,,-,0,1,,field_money_down,0.5,,,PRECISA_CAMPO_RECURSO: reduz gera??o de recursos,crise_economica.png
+campo_campeonato,Campeonato Mundial,field,FIELD,azul,-,0,3,,,-,0,1,,field_elite_atk,0.2,,,PRECISA_CAMPO_TAGS: cartas Elite +20% ATK,campeonato_mundial.png
+campo_apocalipse_zumbi,Apocalipse Zumbi,field,FIELD,roxo,-,0,3,,,-,0,1,,field_fusion_boost,0.2,,,PRECISA_CAMPO: fus?es +20% ATK/HP,apocalipse_zumbi.png
+equip_creatina,Creatina Suprema,equip,EQUIP,azul,-,0,2,,,-,0,2,,equip_hp_mult,0.3,,,PRECISA_EQUIP: unidade equipada +30% HP,creatina_suprema.png
+equip_whey,Whey Isolado,equip,EQUIP,azul,-,0,2,,,-,0,2,,equip_regen,30,,,PRECISA_EQUIP: recupera HP por turno,whey_isolado.png
+equip_pretreino,Pr?-Treino Nuclear,equip,EQUIP,azul,-,0,2,,,-,0,2,,equip_atk_flat,40,,,PRECISA_EQUIP: unidade equipada +40 ATK,pre_treino_nuclear.png
+equip_academia_premium,Academia Premium,equip,EQUIP,azul,-,0,3,,,-,0,2,,equip_rank_fast,1,,,PRECISA_EQUIP: unidade ranka mais r?pido,academia_premium.png
+equip_porsche,Carr?o de Arrasta,equip,EQUIP,verde,-,0,3,,,-,0,2,,equip_resource_on_attack,1,,,PRECISA_EQUIP_RECURSO: gera recurso ao atacar,carrao_arrasta.png
+equip_cartao_black,Cart?o Black,equip,EQUIP,verde,-,0,2,,,-,0,2,,equip_next_discount,1,,,PRECISA_EQUIP_RECURSO: pr?xima carta custa -1,cartao_black.png
+equip_mba,MBA Executivo,equip,EQUIP,verde,-,0,2,,,-,0,2,,equip_draw_on_attach,1,,,PRECISA_EQUIP: compra 1 carta ao equipar,mba_executivo.png
+equip_carteira,Carteira de Investimentos,equip,EQUIP,verde,-,0,3,,,-,0,2,,equip_scale,0.1,,,PRECISA_EQUIP: ganha stats progressivamente,carteira_investimentos.png
+equip_setup_rgb,Setup RGB,equip,EQUIP,amarelo,-,0,2,,,-,0,2,,equip_xp_rank,1,,,PRECISA_EQUIP: +1 turno de rank por turno,setup_rgb.png
+equip_headset,Headset Pro,equip,EQUIP,amarelo,-,0,2,,,-,0,2,,equip_combo_boost,0.2,,,PRECISA_EQUIP_TAGS: melhora efeitos de combo Gamer,headset_pro.png
+equip_dados,Dados Viciados,equip,EQUIP,roxo,-,0,2,,,-,0,2,,equip_random_power,1,,,PRECISA_EQUIP_CAOS: efeito aleat?rio poderoso,dados_viciados.png
+equip_portal_caos,Portal do Caos,equip,EQUIP,roxo,-,0,4,,,-,0,2,,equip_special_unlock,1,,,PRECISA_EQUIP_CAOS: permite ativar efeito especial,portal_caos.png
+equip_processo,Processo Judicial,equip,EQUIP,vermelho,-,0,3,,,-,0,2,,equip_enemy_debuff,0.25,,,PRECISA_EQUIP_TARGET: debuff permanente em inimigo,processo_judicial.png
+equip_dossie,Dossi? Confidencial,equip,EQUIP,vermelho,-,0,2,,,-,0,2,,equip_reveal_hand,1,,,PRECISA_EQUIP_UI: revela m?o/inten??es do advers?rio,dossie_confidencial.png
+equip_microfone_cpi,Microfone da CPI,equip,EQUIP,vermelho,-,0,3,,,-,0,2,,equip_silence,1,,,PRECISA_EQUIP_TARGET: unidade inimiga perde especiais,microfone_cpi.png
+boss_mr_olympia,Mr Olympia Supremo,pawn,DEF,azul,melee,8,6,900,150,slow,1,1,boss_body,,,,,CHEFAO: Blue Eyes do deck azul; puro status e muralha,mr_olympia_supremo.png
+fus_deus_shape,Deus do Shape,fusion,ATK,azul,melee,10,0,1000,360,medium,0,0,fusion_supreme,,,,,FUSAO_CHEFAO: Ultimate Dragon do deck Academia,deus_do_shape.png
+boss_rei_faria_lima,Rei da Faria Lima,pawn,BAL,verde,mid,8,6,650,260,medium,1,1,boss_money,,,,,CHEFAO: motor final do deck Dinheiro; precisa economia para brilhar,rei_faria_lima.png
+boss_ceo_multimilionario,CEO Multimilion?rio,pawn,BAL,verde,mid,9,7,750,280,medium,1,1,boss_resource,,,,,CHEFAO: gerador absurdo de recursos; precisa sistema de recurso,ceo_multimilionario.png
+boss_streamer_supremo,Streamer Supremo,pawn,BAL,amarelo,mid,8,6,560,300,medium,1,1,boss_combo,,,,,CHEFAO: combo master Gamer; funciona como atacante forte por enquanto,streamer_supremo.png
+boss_proplayer_lendario,Pro Player Lend?rio,pawn,ATK,amarelo,long,8,6,520,330,medium,1,1,boss_synergy,,,,,CHEFAO: sinergia Gamer; futuro escala por aliados Gamer,proplayer_lendario.png
+boss_agente_caos,Agente do Caos,pawn,BAL,roxo,mid,8,6,520,310,medium,1,1,boss_chaos,,,,,CHEFAO: manipula regras; por enquanto monstro forte Caos,agente_caos.png
+boss_entidade_vazio,Entidade do Vazio,pawn,ATK,roxo,long,9,7,500,380,medium,1,1,boss_void,,,,,CHEFAO: imprevis?vel; futuro sorteia efeito ao resolver,entidade_vazio.png
+boss_grande_censor,Grande Censor,pawn,DEF,vermelho,mid,8,6,700,240,slow,1,1,boss_control,,,,,CHEFAO: controle absoluto; futuro bloqueia itens/efeitos,grande_censor.png
+boss_imperador_burocracia,Imperador da Burocracia,pawn,DEF,vermelho,melee,9,7,850,230,slow,1,1,boss_lock,,,,,CHEFAO: trava jogo; futuro limita cartas r?pidas do oponente,imperador_burocracia.png
+fus_ceo_startup,CEO da Startup,fusion,BAL,verde,mid,7,0,560,250,medium,0,0,fusion_hybrid,,,,,FUSAO_HIBRIDA: Gamer + Dinheiro,ceo_startup.png
+fus_streamer_fitness,Streamer Fitness,fusion,ATK,amarelo,mid,7,0,520,270,medium,0,0,fusion_hybrid,,,,,FUSAO_HIBRIDA: Academia + Gamer,streamer_fitness.png
+fus_alpha_bilionario,Alpha Bilion?rio,fusion,ATK,verde,melee,8,0,720,260,medium,0,0,fusion_hybrid,,,,,FUSAO_HIBRIDA: Dinheiro + Academia,alpha_bilionario.png
+fus_magnata_digital,Magnata Digital,fusion,BAL,verde,mid,7,0,580,255,medium,0,0,fusion_hybrid,,,,,FUSAO_HIBRIDA: Influencer/Social + Empres?rio,magnata_digital.png
+fus_guru_financeiro,Guru Financeiro,fusion,BAL,verde,mid,6,0,500,220,medium,0,0,fusion_hybrid,,,,,FUSAO: Coach + Investidor,guru_financeiro.png

@@ -1,0 +1,12 @@
+mode,a,b,result,note
+specific,peon_def5,equip_pretreino,boss_mr_olympia,Maromba forte + Pr?-Treino vira Mr Olympia Supremo (precisa aceitar equip em receita ou adaptar ingrediente)
+specific,boss_mr_olympia,equip_creatina,fus_deus_shape,Mr Olympia Supremo + Creatina Suprema vira Deus do Shape (receita planejada)
+recipe,vibe:verde,vibe:amarelo,fus_ceo_startup,Dinheiro + Gamer -> CEO da Startup
+recipe,vibe:azul,vibe:amarelo,fus_streamer_fitness,Academia + Gamer -> Streamer Fitness
+recipe,vibe:verde,vibe:azul,fus_alpha_bilionario,Dinheiro + Academia -> Alpha Bilion?rio
+recipe,vibe:roxo,vibe:verde,fus_magnata_digital,Caos/Social + Dinheiro -> Magnata Digital
+specific,peon_bal2,boss_rei_faria_lima,boss_ceo_multimilionario,Investidor + Rei da Faria Lima -> CEO Multimilion?rio
+specific,peon_nerd,boss_proplayer_lendario,boss_streamer_supremo,Streamer + Pro Player -> Streamer Supremo
+specific,peon_role4,equip_portal_caos,boss_agente_caos,Influencer/Social + Portal do Caos -> Agente do Caos
+specific,boss_grande_censor,equip_microfone_cpi,boss_imperador_burocracia,Grande Censor + Microfone da CPI -> Imperador da Burocracia
+specific,boss_agente_caos,equip_dados,boss_entidade_vazio,Agente do Caos + Dados Viciados -> Entidade do Vazio

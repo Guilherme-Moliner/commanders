@@ -1,0 +1,39 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node (caso adicione tooling futuro)
+node_modules/
+npm-debug.log*
+
+# Temporários
+*.tmp
+*.log
+# Lock de planilha aberta (LibreOffice/Excel) — não versionar
+.~lock.*#
+~$*
+
+# Tooling de preview local
+.claude/
+
+# Clones/pastas soltas e versão antiga do Card Lab (substituída por cardlab/)
+fortbc-main/
+Card Lab/
+
+# Áudio bruto (fontes a curar/renomear — NÃO versionar)
+*.7z
+*.zip
+assets/audio/**/Placeholders/
+assets/audio/Placeholders/
+assets/audio/YTDown_*
+assets/audio/Yu-Gi-Oh*
+assets/audio/sfx/Forbidden Sound Effects/
+assets/audio/sfx/Forbidden Sound Effects.7z
+assets/audio/sfx/PC _ Computer*
