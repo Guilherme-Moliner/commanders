@@ -477,7 +477,10 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-fdcell{width:110px;display:grid;place-items:center;height:30px}
 .bf-fdslot{width:62px;height:28px;border-radius:5px;border:1px dashed var(--bf-line2);display:grid;place-items:center;color:var(--bf-ink3);font-size:11px;font-weight:700;opacity:.6;transition:all .15s}
 .bf-fdslot.set{background:repeating-linear-gradient(45deg,#33312a 0 5px,#211f19 5px 10px);border-style:solid;opacity:1}
-.bf-slot{width:110px;aspect-ratio:.72;border-radius:9px;position:relative;display:grid;place-items:center;border:1px solid var(--bf-line);background:var(--bf-slot)}
+.bf-slot{width:92px;aspect-ratio:.72;border-radius:9px;position:relative;display:grid;place-items:center;border:1px solid var(--bf-line);background:var(--bf-slot)}
+/* zonas herdam a cor da vibe do Comandante daquele lado (--bf-zone setado em JS) */
+.bf-row .bf-slot{border-color:var(--bf-zone,var(--bf-line));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bf-zone,transparent) 22%,transparent)}
+.bf-slot:not(.has-card)::after{content:'UNIDADE';position:absolute;font-family:'Oswald';font-size:8px;letter-spacing:1.5px;color:var(--bf-ink3);opacity:.6}
 .bf-slot-drop{box-shadow:0 0 22px rgba(90,140,240,.7)!important;border-color:var(--bf-blue)!important;opacity:1!important}
 .bf-fdslot.bf-slot-drop{box-shadow:0 0 16px rgba(95,201,154,.8)!important;border-color:var(--bf-teal)!important}
 .bf-frontline{flex:0 0 1px;margin:1px 34px;border-top:1px dashed var(--bf-line2);position:relative}
@@ -565,6 +568,66 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-toggle .sw i{position:absolute;top:2px;width:17px;height:17px;border-radius:50%;background:#fff;transition:left .2s}
 .bf-danger{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 0;border-radius:11px;cursor:pointer;border:1px solid rgba(226,83,63,.4);background:rgba(226,83,63,.08);color:#f4a597;font-family:'Oswald';font-size:13px;font-weight:600;letter-spacing:.5px;width:100%}
 .bf-gravecard{aspect-ratio:.72;border-radius:9px;overflow:hidden;border:1px solid var(--bf-line2);position:relative;cursor:pointer}
+
+/* ═══ COMANDANTE DO CAOS — campo de batalha v6 ═══ */
+#phase-track{flex:1;display:flex;justify-content:center;gap:7px}
+.bf-turn-sim{display:inline-block;margin-left:8px;font-size:8px;letter-spacing:1.4px;text-transform:uppercase;color:var(--bf-teal);border:1px solid rgba(95,201,154,.4);border-radius:10px;padding:1px 7px;vertical-align:middle}
+/* carta do Comandante (coluna esquerda) — substitui o profile genérico */
+.bf-cmd{flex:0 0 auto;border-radius:13px;padding:9px 10px;display:flex;flex-direction:column;gap:7px;cursor:pointer;position:relative;border:2px solid var(--cmd-vibe,var(--bf-line2));background:linear-gradient(180deg,color-mix(in srgb,var(--cmd-vibe,#444) 16%,transparent),rgba(0,0,0,.04));box-shadow:0 0 16px color-mix(in srgb,var(--cmd-vibe,transparent) 28%,transparent);transition:box-shadow .2s}
+.bf-cmd:hover{box-shadow:0 0 24px color-mix(in srgb,var(--cmd-vibe,transparent) 46%,transparent)}
+.bf-cmd-head{display:flex;align-items:center;gap:7px}
+.bf-cmd-dot{width:12px;height:12px;flex:0 0 12px;border-radius:50%;background:var(--cmd-vibe,#666);box-shadow:0 0 7px var(--cmd-vibe,transparent)}
+.bf-cmd-name{font-family:'Oswald';font-weight:600;font-size:16px;line-height:1;letter-spacing:.3px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bf-cmd-tag{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:var(--bf-red);font-weight:700}
+.bf-cmd-tag.you{color:var(--bf-blue)}
+.bf-cmd-art{height:74px;border-radius:9px;background:var(--bf-slot) center/cover;border:1px solid var(--bf-line);position:relative;overflow:hidden}
+.bf-cmd-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bf-cmd-pv{display:flex;justify-content:space-between;align-items:baseline}
+.bf-cmd-pv .lbl{font-size:8px;letter-spacing:.6px;color:var(--bf-ink3)}
+.bf-cmd-pv b{font-family:'JetBrains Mono';font-size:17px;color:var(--bf-ink)}
+.bf-cmd-chips{display:flex;gap:6px}
+.bf-cmd-chip{flex:1;font-size:11px;text-align:center;padding:4px 0;border-radius:7px;background:#0e0b1d;border:1px solid var(--bf-line);color:var(--bf-ink2)}
+.bf-cmd-chip b{font-family:'JetBrains Mono';color:var(--bf-ink)}
+.bf-cmd-chip.inf{border-color:rgba(240,180,41,.4);color:var(--bf-gold)}
+.bf-cmd-chip.inf b{color:var(--bf-gold)}
+.bf-cmd-foot{display:flex;justify-content:space-between;gap:6px;font-size:10px;font-family:'JetBrains Mono';color:var(--bf-ink2);border-top:1px solid var(--bf-line);padding-top:5px}
+.bf-cmd-foot .vb{color:var(--cmd-vibe,var(--bf-ink3))}
+/* linha de campo: pilhas | fileira de zonas | espelho */
+.bf-fieldline{display:flex;align-items:center;gap:8px}
+.bf-fieldline .bf-row{flex:1}
+.bf-piles{flex:0 0 58px;display:flex;flex-direction:column;gap:5px}
+.bf-piles.ghost{visibility:hidden}
+.bf-piles .bf-pile2{height:46px}
+.bf-pile2.deck .pn{transition:none}
+.bf-pile2.clickable{cursor:pointer}
+/* mão do oponente — versos espiando no topo */
+.bf-foehand{height:26px;display:flex;justify-content:center;align-items:flex-start;position:relative}
+.bf-foecard{width:46px;height:64px;margin:0 -10px;border-radius:7px;border:1px solid var(--bf-line2);background:repeating-linear-gradient(45deg,#2a2440 0 6px,#1c1733 6px 12px);box-shadow:0 4px 10px rgba(0,0,0,.5);transition:transform .18s}
+.bf-foehand:hover .bf-foecard{transform:translateY(8px)}
+.bf-foecount{position:absolute;right:4px;top:0;font-size:10px;color:var(--bf-ink3);font-family:'JetBrains Mono'}
+/* Lixo central compartilhado */
+.bf-trash{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:5px;background:#0e0b1d;border:1px solid var(--bf-line2);border-radius:9px;padding:3px 9px;font-family:'JetBrains Mono';font-size:11px;color:var(--bf-ink2);cursor:pointer}
+.bf-trash .ic{font-size:13px}
+.bf-frontline{position:relative}
+/* carta virada (face down) na zona, até a RESOLUÇÃO */
+.bf-cardface.facedown .art{background:repeating-linear-gradient(45deg,#2a2440 0 8px,#1c1733 8px 16px)!important}
+.bf-cardface.facedown .ov,.bf-cardface.facedown .ty,.bf-cardface.facedown .cost,.bf-cardface.facedown .tier,.bf-cardface.facedown .vibe-sph{display:none!important}
+.bf-cardface.facedown::after{content:'VIRADA';position:absolute;inset:0;display:grid;place-items:center;font-family:'Oswald';font-size:9px;letter-spacing:2px;color:var(--bf-ink3)}
+/* frame: esfera de vibe (monstro) + custo ✦ no canto sup. dir. (sem tag de tipo/ITEM) */
+.bf-cardface .vibe-sph{position:absolute;top:5px;left:5px;width:13px;height:13px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),0 0 6px rgba(0,0,0,.5);z-index:2}
+.bf-cardface .cost{position:absolute;top:4px;right:4px;display:flex;gap:3px;align-items:center;font-family:'JetBrains Mono';font-size:10px;font-weight:700;color:var(--bf-gold);background:rgba(8,5,18,.72);border-radius:7px;padding:1px 5px;z-index:2}
+.bf-cardface .cost .gen{color:var(--bf-teal)}
+.bf-cardface.itemcard .art{filter:brightness(.5)}
+/* abas extras do trilho */
+.bf-arte-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.bf-arte-slot{aspect-ratio:1;border-radius:10px;border:1px dashed var(--bf-line2);display:grid;place-items:center;font-size:22px;background:#0e0b1d;color:var(--bf-ink2);cursor:default}
+.bf-arte-slot.filled{border-style:solid;border-color:var(--bf-gold);background:var(--bf-panel2)}
+.bf-shop-item{display:flex;align-items:center;gap:11px;padding:11px;border-radius:11px;border:1px solid var(--bf-line2);background:var(--bf-panel2);margin-bottom:10px}
+.bf-shop-item .ic{width:42px;height:42px;flex:0 0 42px;border-radius:8px;display:grid;place-items:center;font-size:22px;background:#0e0b1d}
+.bf-shop-item .nm{font-family:'Oswald';font-size:14px;font-weight:600}
+.bf-shop-item .ds{font-size:11px;color:var(--bf-ink2)}
+.bf-shop-buy{margin-left:auto;font-family:'Oswald';font-size:12px;font-weight:600;padding:7px 13px;border-radius:9px;border:1px solid var(--bf-gold);background:var(--bf-gold);color:#1c1405;cursor:pointer}
+.bf-shop-buy:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.6)}
 
 </style>
 </head>
@@ -801,12 +864,11 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 
   <!-- ===== TOPBAR ===== -->
   <div id="bf-top">
-    <div class="bf-turn">Turno <b id="turn-num">1</b></div>
+    <div class="bf-turn">Turno <b id="turn-num">1</b><span class="bf-turn-sim">simultâneo</span></div>
     <div id="phase-track">
       <span class="bf-phase" id="ps-draw">DRAW</span>
       <span class="bf-phase" id="ps-standby">STANDBY</span>
-      <span class="bf-phase" id="ps-main">DOWN FASE</span>
-      <span class="bf-phase" id="ps-lastminute">ITENS</span>
+      <span class="bf-phase" id="ps-action">AÇÃO</span>
       <span class="bf-phase" id="ps-resolution">RESOLUÇÃO</span>
     </div>
     <div class="bf-topright">
@@ -819,85 +881,87 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
   <!-- ===== ARENA ===== -->
   <div id="bf-arena">
 
-    <!-- LEFT: identidade -->
+    <!-- LEFT: Comandantes (a carta do Comandante substitui o profile genérico) -->
     <div class="bf-idcol">
-      <div class="bf-id enemy">
-        <div class="bf-id-top">
-          <div class="bf-portrait enemy" id="enemy-portrait"></div>
-          <div class="bf-id-name"><div class="nm" id="enemy-name">FLORIPA</div><div class="sub">inimigo</div></div>
-          <div class="bf-id-lp"><div class="lbl">PV</div><b id="enemy-lp">2000</b></div>
-        </div>
+      <!-- contadores de mão/deck do enibo já vivem no board; aqui é só o Comandante -->
+      <div class="bf-cmd enemy" id="enemy-cmd" onclick="bfInspectCmd('ai')" title="inspecionar Comandante">
+        <div class="bf-cmd-head"><span class="bf-cmd-dot" id="enemy-cmd-dot"></span><span class="bf-cmd-name" id="enemy-name">FLORIPA</span><span class="bf-cmd-tag">inimigo</span></div>
+        <div class="bf-cmd-art" id="enemy-cmd-art"></div>
+        <div class="bf-cmd-pv"><span class="lbl">PV</span><b id="enemy-lp">2000</b></div>
         <div class="bf-lpbar"><i id="enemy-lp-bar" style="width:100%"></i></div>
-        <div class="bf-chips">
-          <div class="bf-chip">Deck <b id="enemy-deck">0</b></div>
-          <div class="bf-chip grave clickable" onclick="bfOpenGrave('ai')">Cemit. <b id="enemy-grave">0</b></div>
-          <div class="bf-chip">Mão <b id="enemy-hand">0</b></div>
+        <div class="bf-cmd-chips">
+          <span class="bf-cmd-chip" title="Fusões disponíveis no turno">🌀 <b id="enemy-fuse">0/1</b></span>
+          <span class="bf-cmd-chip inf" title="Influência">✦ <b id="enemy-inf">0</b></span>
         </div>
+        <div class="bf-cmd-foot"><span>⚔ <b id="enemy-cmd-atk">0</b></span><span>♥ <b id="enemy-cmd-hp">2000</b></span><span class="vb" id="enemy-cmd-vibe">—</span></div>
       </div>
-      <div class="bf-id you" id="you-panel">
-        <div class="bf-id-top">
-          <div class="bf-portrait you" id="you-portrait"></div>
-          <div class="bf-id-name"><div class="nm" id="player-name">BC</div><div class="sub">você · turno ativo</div></div>
-          <div class="bf-id-lp"><div class="lbl">PV</div><b id="you-lp">2000</b></div>
-        </div>
+      <div class="bf-cmd you" id="you-cmd" onclick="bfInspectCmd('player')" title="inspecionar Comandante">
+        <div class="bf-cmd-head"><span class="bf-cmd-dot" id="you-cmd-dot"></span><span class="bf-cmd-name" id="player-name">BC</span><span class="bf-cmd-tag you">você</span></div>
+        <div class="bf-cmd-art" id="you-cmd-art"></div>
+        <div class="bf-cmd-pv"><span class="lbl">PV</span><b id="you-lp">2000</b></div>
         <div class="bf-lpbar"><i id="you-lp-bar" style="width:100%"></i></div>
-        <div class="bf-chips">
-          <div class="bf-chip">Deck <b id="you-deck">0</b></div>
-          <div class="bf-chip grave clickable" onclick="bfOpenGrave('player')">Cemit. <b id="you-grave">0</b></div>
-          <div class="bf-chip" style="border-color:rgba(90,140,240,.35);color:#bcd2ff">Mão <b id="you-hand">0</b>/9</div>
+        <div class="bf-cmd-chips">
+          <span class="bf-cmd-chip" title="Fusões disponíveis no turno">🌀 <b id="you-fuse">0/1</b></span>
+          <span class="bf-cmd-chip inf" title="Influência">✦ <b id="you-inf">0</b></span>
         </div>
+        <div class="bf-cmd-foot"><span>⚔ <b id="you-cmd-atk">0</b></span><span>♥ <b id="you-cmd-hp">2000</b></span><span class="vb" id="you-cmd-vibe">—</span></div>
       </div>
-      <!-- pilhas Cemitério/Deck (movidas pra cá, liberando largura pro leque) -->
-      <div class="bf-leftrow">
-        <div class="bf-pile2 grave" onclick="bfOpenGrave('player')"><div class="pt">CEMITÉRIO</div><div class="pn" id="grave-count">0</div></div>
-        <div class="bf-pile2 deck" onclick="bfOpenModal('deckmenu')"><div class="pt">DECK</div><div class="pn" id="deck-count">0</div></div>
-      </div>
-      <!-- barra de ação da fase (texto + botão passar) -->
+      <!-- barra de ação da fase (texto + botão Resolver) -->
       <div id="action-bar" class="bf-actionbar"><span class="action-hint">—</span></div>
     </div>
 
     <!-- CENTER: board -->
     <div class="bf-board">
-      <!-- zona inimiga -->
-      <div class="bf-zone">
-        <div class="bf-terr" id="terr-enemy" style="display:none"><div class="tg"></div><div class="sc"></div><div class="lb" id="terr-enemy-lb" style="top:6px"></div></div>
-        <div class="bf-fdrow" id="ai-fd-row"></div>
+      <!-- mão do oponente (só os versos, ~50% espiando) -->
+      <div class="bf-foehand" id="bf-foehand"></div>
+      <!-- linha inimiga: pilhas + 6 zonas -->
+      <div class="bf-fieldline enemy">
+        <div class="bf-piles">
+          <div class="bf-pile2 deck" title="Deck do inimigo"><div class="pt">DECK</div><div class="pn" id="enemy-deck">0</div></div>
+          <div class="bf-pile2 grave clickable" onclick="bfOpenGrave('ai')" title="Descarte do inimigo"><div class="pt">DESC.</div><div class="pn" id="enemy-grave">0</div></div>
+        </div>
         <div class="bf-row" id="ai-board-row">
-          <div class="bf-slot" id="ai-fieldzone"></div>
           <div class="bf-slot ai-slot" id="ai-slot-0"></div>
           <div class="bf-slot ai-slot" id="ai-slot-1"></div>
           <div class="bf-slot ai-slot" id="ai-slot-2"></div>
           <div class="bf-slot ai-slot" id="ai-slot-3"></div>
           <div class="bf-slot ai-slot" id="ai-slot-4"></div>
+          <div class="bf-slot ai-slot" id="ai-slot-5"></div>
         </div>
+        <div class="bf-piles ghost"></div>
       </div>
-      <!-- linha de frente -->
-      <div class="bf-frontline"><span>LINHA DE FRENTE</span></div>
-      <!-- zona do jogador -->
-      <div class="bf-zone">
-        <div class="bf-terr" id="terr-you" style="display:none"><div class="tg"></div><div class="sc"></div><div class="lb" id="terr-you-lb" style="bottom:6px"></div></div>
+      <!-- linha de frente + Lixo central compartilhado -->
+      <div class="bf-frontline"><span>LINHA DE FRENTE</span>
+        <div class="bf-trash clickable" id="bf-trash" onclick="bfOpenTrash()" title="Lixo — compartilhado pelos dois lados"><span class="ic">🗑</span><b id="trash-count">0</b></div>
+      </div>
+      <!-- linha do jogador: pilhas + 6 zonas -->
+      <div class="bf-fieldline you">
+        <div class="bf-piles">
+          <div class="bf-pile2 deck clickable" onclick="bfOpenModal('deckmenu')" title="Deck"><div class="pt">DECK</div><div class="pn" id="deck-count">0</div></div>
+          <div class="bf-pile2 grave clickable" onclick="bfOpenGrave('player')" title="Descarte"><div class="pt">DESC.</div><div class="pn" id="grave-count">0</div></div>
+        </div>
         <div class="bf-row" id="player-board-row">
           <div class="bf-drophl"></div>
-          <div class="bf-slot" id="player-fieldzone" onclick="clickFieldZone()"></div>
           <div class="bf-slot player-slot" id="player-slot-0" onclick="clickSlot(0)"></div>
           <div class="bf-slot player-slot" id="player-slot-1" onclick="clickSlot(1)"></div>
           <div class="bf-slot player-slot" id="player-slot-2" onclick="clickSlot(2)"></div>
           <div class="bf-slot player-slot" id="player-slot-3" onclick="clickSlot(3)"></div>
           <div class="bf-slot player-slot" id="player-slot-4" onclick="clickSlot(4)"></div>
+          <div class="bf-slot player-slot" id="player-slot-5" onclick="clickSlot(5)"></div>
         </div>
-        <div class="bf-fdrow" id="player-fd-row"></div>
+        <div class="bf-piles ghost"></div>
       </div>
       <!-- faixa da mão (leque em largura cheia) -->
       <div class="bf-handband">
         <div id="bf-handwrap">
           <div class="bf-fusionbar" id="bf-fusionbar">
-            <span class="lbl">FUSÃO <b id="bf-fusion-n">0</b>/5</span>
+            <span class="lbl">FUSÃO <b id="bf-fusion-n">0</b>/2</span>
             <button class="bf-fbtn" onclick="bfDoFusion()">Fundir</button>
             <button class="bf-fbtn ghost" onclick="bfClearFusion()">Limpar</button>
           </div>
         </div>
       </div>
-      <div class="bf-handhint">passe o mouse p/ destacar · arraste pro slot p/ baixar · clique p/ marcar fusão</div>
+      <div class="bf-handhint">passe o mouse p/ destacar · arraste pra uma zona p/ baixar (vira p/ baixo) · clique p/ marcar fusão (máx 2)</div>
     </div>
 
     <!-- RIGHT: trilho -->
@@ -905,10 +969,14 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
       <div class="bf-railtabs">
         <button class="bf-tab on" id="bf-tab-insp" onclick="bfSetTab('insp')">INSPETOR</button>
         <button class="bf-tab" id="bf-tab-log" onclick="bfSetTab('log')">LOG</button>
+        <button class="bf-tab" id="bf-tab-arte" onclick="bfSetTab('arte')">ARTEFATOS</button>
+        <button class="bf-tab" id="bf-tab-shop" onclick="bfSetTab('shop')">LOJA</button>
         <div class="bf-iconbtn" style="width:34px;height:34px;flex:0 0 34px" onclick="bfToggleRail()" title="recolher trilho">›</div>
       </div>
       <div class="bf-railbody" id="bf-insp"><div style="color:var(--bf-ink3);font-size:12px;text-align:center;margin-top:30px">Passe o mouse ou clique<br>com o botão direito numa carta.</div></div>
       <div class="bf-railbody" id="bf-log" style="display:none"></div>
+      <div class="bf-railbody" id="bf-arte" style="display:none"></div>
+      <div class="bf-railbody" id="bf-shop" style="display:none"></div>
     </div>
     <div id="bf-handle" onclick="bfToggleRail()" title="abrir trilho"><span>‹ PAINEL</span></div>
   </div>
@@ -1347,7 +1415,16 @@ function juiceFlash(el){ if(!el||!JUICE.on)return; el.classList.remove('juice-fl
 const HAND_LIMIT=9;     // teto da mão (nunca passa disso)
 const INITIAL_HAND=5;   // compra inicial; a partir do turno 2 compra +1/turno, acumulando até HAND_LIMIT
 const BASE_HP=2000;
-const PHASES=['draw','standby','main','lastminute','resolution'];
+const PHASES=['draw','standby','action','resolution'];
+const ZONES=6;                       // zonas de unidade por lado (Comandante fica FORA do campo)
+// ── ECONOMIA (placeholders TUNÁVEIS; geração real por Comandante está EM ABERTO no GAME_DESIGN) ──
+const INF_START=4;                   // Influência inicial
+const INF_PER_TURN=3;                // ganho-base por turno (placeholder)
+const INF_PER_ZONE=1;                // +Influência por zona ocupada própria (placeholder)
+const INF_CAP=12;                    // teto de Influência
+const DEFAULT_PLAY_COST=2;           // custo de baixar uma carta sem 'cost' no dado
+const FUSES_PER_TURN=1;              // 🌀 fusões disponíveis por turno (ampliável por artefato — futuro)
+const SHOP_PAWN_COST=3;             // custo fixo do peão básico da própria vibe na Loja
 
 const LS_SCORES='fortbc_scores';
 const LS_LEVELS='fortbc_levels';
@@ -1758,28 +1835,49 @@ function applyItem(card,owner){const my=G.units.filter(u=>u.owner===owner&&!u.dy
 
 function initFight(fightNum,difficulty,playerDeck,extraHandSize=0){
   const handBonus=(APP.mode!=='free'&&PLAYER_HAND_BONUS[fightNum])||0;
+  const aiDeck=buildAIDeck(difficulty,fightNum);
+  const emptyField=()=>Array(ZONES).fill(null);
   G={
     fightNum,difficulty,turn:1,phase:'draw',gameOver:false,winner:null,score:0,
     playerDeck:[...playerDeck],playerHand:[],playerGrave:[],
-    playerField:[null,null,null,null,null],
-    playerHidden:[null,null,null,null],
-    playerFieldCard:null,
-    playerBase:{hp:BASE_HP,maxHp:BASE_HP},
+    playerField:emptyField(),
+    playerBase:{hp:BASE_HP,maxHp:BASE_HP},          // PV = PV do Comandante do jogador
+    playerCmd:pickCommander('player',playerDeck),
+    playerInf:INF_START, playerFuses:{used:0,limit:FUSES_PER_TURN},
     playerHandLimit:HAND_LIMIT,
-    aiDeck:buildAIDeck(difficulty,fightNum),aiHand:[],aiGrave:[],
-    aiField:[null,null,null,null,null],
-    aiHidden:[null,null,null,null],
-    aiFieldCard:null,
-    aiBase:{hp:BASE_HP,maxHp:BASE_HP},
+    aiDeck,aiHand:[],aiGrave:[],
+    aiField:emptyField(),
+    aiBase:{hp:BASE_HP,maxHp:BASE_HP},              // PV = PV do Comandante inimigo
+    aiCmd:pickCommander('ai',aiDeck),
+    aiInf:INF_START, aiFuses:{used:0,limit:FUSES_PER_TURN},
+    trash:[],                                        // Lixo central compartilhado
     selectedHandIdx:null,selectedHandCard:null,
-    mainConfirmed:false,aiMainCard:null,aiMainSlot:null,
-    // turn-based effect layer (itens/arapucas/vibes) — resetado a cada DRAW
+    actionDone:false, aiPlan:null,                  // AÇÃO: plano da IA revelado na RESOLUÇÃO
     mods:newMods(), playerQuickUsed:false, aiQuickUsed:false,
     nextHpBuff:{player:0,ai:0},
   };
+  G.playerBase.hp=G.playerCmd.pv; G.aiBase.hp=G.aiCmd.pv;
   const initPlayer=Math.min(HAND_LIMIT,INITIAL_HAND+extraHandSize+handBonus);
   for(let i=0;i<initPlayer;i++)drawOne('player');
   for(let i=0;i<INITIAL_HAND;i++)drawOne('ai');
+}
+// Deriva o Comandante de um lado. Qual herói vira Comandante ainda está EM ABERTO (GAME_DESIGN §3):
+// pega uma carta marcada .commander no deck; senão, sintetiza pela vibe dominante.
+function pickCommander(side,deck){
+  const flagged=(deck||[]).find(c=>c&&c.commander);
+  const vibeCount={}; (deck||[]).forEach(c=>{if(c&&c.vibe)vibeCount[c.vibe]=(vibeCount[c.vibe]||0)+1;});
+  let domV=null,mx=0; for(const k in vibeCount)if(vibeCount[k]>mx){mx=vibeCount[k];domV=k;}
+  const base=flagged||{};
+  const name=side==='player'
+    ? ((Save&&Save.data&&Save.data.name)||(APP&&APP.playerName)||base.name||'COMANDANTE')
+    : ((APP&&APP.opponentName)||base.name||'FLORIPA');
+  return {
+    id:base.id||('cmd_'+side), name, vibe:base.vibe||domV||'roxo',
+    atk:base.atk||0, emoji:base.emoji||'👑', img:base.img||null,
+    type:base.type||'BAL', kind:'commander',
+    ability:base.ability||base.desc||'Comandante do Caos — seu PV é a vida deste lado.',
+    pv:BASE_HP, maxPv:BASE_HP, commander:true,
+  };
 }
 // Modificadores temporários de ATK/efeito por lado (valem só na resolução do turno).
 function newMods(){return{player:{atkMult:1,atkFlat:0,skip:false},ai:{atkMult:1,atkFlat:0,skip:false}};}
@@ -1798,13 +1896,29 @@ function drawOne(side){
 function startPhase(phase){
   G.phase=phase;updatePhaseBanner(phase);updatePhaseBadge(phase);
   const delay=phase==='draw'||phase==='standby'?700:200;
-  const h={draw:phaseDraw,standby:phaseStandby,main:phaseMain,lastminute:phaseLastMinute,resolution:phaseResolution};
+  const h={draw:phaseDraw,standby:phaseStandby,action:phaseAction,resolution:phaseResolution};
   if(h[phase])setTimeout(h[phase],delay);
 }
+// Geração de Influência (PLACEHOLDER tunável — fórmula real é por-Comandante, EM ABERTO).
+function regenInfluence(side){
+  const field=side==='player'?G.playerField:G.aiField;
+  const occ=field.filter(Boolean).length;
+  const gain=INF_PER_TURN+occ*INF_PER_ZONE;
+  if(side==='player')G.playerInf=Math.min(INF_CAP,G.playerInf+gain);
+  else G.aiInf=Math.min(INF_CAP,G.aiInf+gain);
+}
+function infOf(side){return side==='player'?G.playerInf:G.aiInf;}
+function spendInf(side,n){ if(side==='player')G.playerInf=Math.max(0,G.playerInf-n); else G.aiInf=Math.max(0,G.aiInf-n); }
+function playCost(card){return card&&card.cost!=null?card.cost:DEFAULT_PLAY_COST;}
 
 function phaseDraw(){
-  // novo turno: zera buffs/debuffs temporários e o "1 carta rápida por turno"
+  // novo turno: zera buffs/debuffs temporários, fusões e o "1 carta rápida por turno"
   G.mods=newMods(); G.playerQuickUsed=false; G.aiQuickUsed=false;
+  G.playerFuses={used:0,limit:FUSES_PER_TURN}; G.aiFuses={used:0,limit:FUSES_PER_TURN};
+  // Influência do turno (placeholder — ver regenInfluence)
+  regenInfluence('player'); regenInfluence('ai');
+  // Deck vazio: reembaralha o Descarte automaticamente (UI_CAMPO §4)
+  reshuffleIfEmpty('player'); reshuffleIfEmpty('ai');
   // turno 1 já recebeu a mão inicial no initFight; a partir do turno 2, +1/turno (acumula até o teto)
   if(G.turn>1){
     if(G.playerHand.length<HAND_LIMIT&&G.playerDeck.length)G.playerHand.push(G.playerDeck.shift());
@@ -1812,7 +1926,16 @@ function phaseDraw(){
   }
   if(!G.playerDeck.length&&!G.playerHand.length){showMsg('💀 Deck Out! Derrota!','red');setTimeout(()=>endFight('ai'),1000);return;}
   playSFX('ui_card_draw');
-  renderHand();updateDeckUI();startPhase('standby');
+  renderHand();updateDeckUI();updateBaseUI();startPhase('standby');
+}
+// Deck esgotado → reembaralha o Descarte e ele volta a ser fonte de compra.
+function reshuffleIfEmpty(side){
+  const deck=side==='player'?G.playerDeck:G.aiDeck;
+  const grave=side==='player'?G.playerGrave:G.aiGrave;
+  if(deck.length||!grave.length)return;
+  while(grave.length)deck.push(grave.shift());
+  for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+  if(side==='player'){showMsg('♻ Descarte reembaralhado no Deck!','green');bfLog('Descarte → Deck (reembaralho)','green');}
 }
 
 function phaseStandby(){
@@ -1824,69 +1947,93 @@ function phaseStandby(){
       if(nr>card.fieldRank){card.fieldRank=nr;if(side==='player'){showMsg(`★ ${card.name} virou ${['','Prata','Ouro'][nr]}!`,'orange');playSFX('ui_atb_full');}}
     });
   });
-  updateFieldUI();startPhase('main');
+  updateFieldUI();startPhase('action');
 }
 
-function phaseMain(){
-  G.selectedHandCard=null;G.selectedHandIdx=null;G.mainConfirmed=false;G.aiMainCard=null;G.aiMainSlot=null;
-  aiDecideMain();
-  setActionBar(MAIN_HINT);
-  renderHand();clearSlotHighlights();
+// ═══ FASE AÇÃO (fusão de "Guerreiros"+"Itens") ═══
+// Turno simultâneo: o jogador age livremente gastando Influência; a IA monta seu plano
+// em segredo (aiDecideAction) e ele é revelado/aplicado ao apertar "Resolver".
+function phaseAction(){
+  G.selectedHandCard=null;G.selectedHandIdx=null;G.actionDone=false;
+  aiDecideAction();
+  actionBarPhase();
+  renderHand();clearSlotHighlights();updateBaseUI();
+}
+function actionBarPhase(){
+  setActionBar(`<span class="action-hint">⚙ AÇÃO — arraste cartas pras zonas (custa ✦), use itens e funda (máx 2). Influência: <b>${G.playerInf}</b> ✦</span><button class="play-btn confirm" onclick="endAction()">Resolver ›</button>`);
+}
+function endAction(){
+  if(G.phase!=='action'||G.actionDone)return;
+  G.actionDone=true; G.selectedHandCard=null;G.selectedHandIdx=null;clearSlotHighlights();
+  applyAiPlan(); updateFieldUI();renderHand();updateDeckUI();updateBaseUI();
+  showMsg('⚔ Resolução!'); setTimeout(()=>startPhase('resolution'),900);
 }
 
 // helpers de tipo de carta
 function isMonster(c){return c&&(c.kind==='pawn'||c.kind==='hero'||c.kind==='fusion');}
 function isQuickCard(c){return c&&(c.kind==='item'||c.kind==='trap');}
 
-const MAIN_HINT=`<span class="action-hint">⬇ DOWN FASE — baixe 1 monstro (clique na carta e no slot) ou passe</span><button class="play-btn pass" onclick="confirmMain(-1,-1)">Passar</button>`;
-
 function selectHandCard(idx){
-  if(G.phase==='lastminute'){selectQuickCard(idx);return;}
-  if(G.phase!=='main'||G.mainConfirmed)return;
+  if(G.phase!=='action'||G.actionDone)return;
   const card=G.playerHand[idx];
-  if(isQuickCard(card)){showMsg('Itens e arapucas se jogam na fase 🎒 ITENS','orange');playSFX('ui_error');return;}
+  if(isQuickCard(card)){ playCard(idx); return; }           // item/arapuca: joga direto
   playSFX('ui_card_select');
-  if(G.selectedHandIdx===idx){G.selectedHandIdx=null;G.selectedHandCard=null;clearSlotHighlights();setActionBar(MAIN_HINT);}
-  else{G.selectedHandIdx=idx;G.selectedHandCard=card;highlightSlots();setActionBar(`<span class="action-info">${card.name} selecionada — escolha o slot</span><button class="play-btn pass" onclick="confirmMain(-1,-1)">Passar</button>`);}
+  if(G.selectedHandIdx===idx){G.selectedHandIdx=null;G.selectedHandCard=null;clearSlotHighlights();actionBarPhase();}
+  else{G.selectedHandIdx=idx;G.selectedHandCard=card;highlightSlots();setActionBar(`<span class="action-info">${card.name} (custo ${playCost(card)} ✦) — escolha uma zona</span><button class="play-btn confirm" onclick="endAction()">Resolver ›</button>`);}
   renderHand();
 }
-
-function clickSlot(slotIdx){
-  if(G.phase!=='main'||G.mainConfirmed||G.selectedHandCard===null)return;
-  if(slotIdx===4&&!G.selectedHandCard.commander){showMsg('Só o Comandante ocupa o slot CMD!','red');return;}
-  if(slotIdx<4&&G.selectedHandCard.commander){showMsg('Comandante só vai para o slot CMD!','red');return;}
-  confirmMain(G.selectedHandIdx,slotIdx);
+function clickSlot(zoneIdx){
+  if(G.phase!=='action'||G.actionDone||G.selectedHandCard===null)return;
+  playCard(G.selectedHandIdx,zoneIdx);
 }
-function clickHidden(slotIdx){if(G.phase!=='main'||G.mainConfirmed||G.selectedHandCard===null)return;confirmMain(G.selectedHandIdx,10+slotIdx);}
-function clickFieldZone(){if(G.phase!=='main'||G.mainConfirmed||G.selectedHandCard===null)return;confirmMain(G.selectedHandIdx,20);}
-
-function confirmMain(cardIdx,slotTarget){
-  G.mainConfirmed=true;clearSlotHighlights();
-  if(cardIdx>=0){
-    const card=G.playerHand.splice(cardIdx,1)[0];
-    if(slotTarget>=0&&slotTarget<=4){const fc=makeFC(card,'player');if(G.playerField[slotTarget])G.playerGrave.push(G.playerField[slotTarget]);G.playerField[slotTarget]=fc;playSFX('hit_melee');}
-    else if(slotTarget>=10&&slotTarget<=13){const fc=makeFC(card,'player');fc.faceDown=true;const hi=slotTarget-10;if(G.playerHidden[hi])G.playerGrave.push(G.playerHidden[hi]);G.playerHidden[hi]=fc;playSFX('trap_place');}
-    else if(slotTarget===20){if(G.playerFieldCard)G.playerGrave.push(G.playerFieldCard);G.playerFieldCard=makeFC(card);playSFX('item_buff');}
-    else {G.playerGrave.push(card);playSFX('item_debuff');}
+// Baixa UMA carta. Monstro/arapuca → face para baixo numa zona; item → efeito imediato.
+function playCard(cardIdx,zoneIdx){
+  if(G.phase!=='action'||G.actionDone)return;
+  const card=G.playerHand[cardIdx]; if(!card)return;
+  const cost=playCost(card);
+  if(card.kind==='item'){
+    if(G.playerInf<cost){bfToast('Influência insuficiente ('+cost+' ✦)');playSFX('ui_error');return;}
+    G.playerHand.splice(cardIdx,1); spendInf('player',cost);
+    applyTurnItem(card,'player'); G.playerGrave.push(card);
+    G.selectedHandIdx=null;G.selectedHandCard=null;
+    updateFieldUI();renderHand();updateDeckUI();updateBaseUI();actionBarPhase();return;
   }
-  const aiSlot=G.aiMainSlot;
-  applyAiMain();updateFieldUI();renderHand();updateDeckUI();
-  juiceLand('player',slotTarget); if(aiSlot!=null)juiceLand('ai',aiSlot);
-  showMsg('⚔ Cartas reveladas!');setTimeout(()=>startPhase('lastminute'),1200);
+  // monstro ou arapuca → ocupa uma zona, face para baixo
+  if(!isMonster(card)&&card.kind!=='trap'){bfToast('Essa carta não vai pra zona');return;}
+  let z=(zoneIdx!=null&&zoneIdx>=0)?zoneIdx:G.playerField.findIndex(s=>!s);
+  if(z==null||z<0||z>=ZONES){bfToast('Sem zona livre');playSFX('ui_error');return;}
+  if(G.playerField[z]){bfToast('Zona ocupada');playSFX('ui_error');return;}
+  if(G.playerInf<cost){bfToast('Influência insuficiente ('+cost+' ✦)');playSFX('ui_error');return;}
+  G.playerHand.splice(cardIdx,1); spendInf('player',cost);
+  const fc=makeFC(card,'player'); fc.faceDown=true; G.playerField[z]=fc;
+  playSFX(card.kind==='trap'?'trap_place':'hit_melee');
+  G.selectedHandIdx=null;G.selectedHandCard=null;clearSlotHighlights();
+  updateFieldUI();renderHand();updateDeckUI();updateBaseUI();juiceLand('player',z);actionBarPhase();
 }
+function clickHidden(){/* fileira face-down removida — zonas seguram as cartas viradas */}
+function clickFieldZone(){/* terreno removido (GAME_DESIGN §8) */}
 
-function aiDecideMain(){
-  const cands=G.aiHand.filter(isMonster);if(!cands.length)return;
-  cands.sort((a,b)=>(b.atk||0)-(a.atk||0));G.aiMainCard=cands[0];
-  for(let i=0;i<5;i++){if(!G.aiField[i]){if(i===4&&!G.aiMainCard.commander)continue;if(i<4&&G.aiMainCard.commander)continue;G.aiMainSlot=i;break;}}
-  if(G.aiMainSlot===null||G.aiMainSlot===undefined)G.aiMainCard=null;
+// ── IA na AÇÃO: monta um plano (cartas+zonas) gastando sua Influência; aplicado na resolução ──
+function aiDecideAction(){
+  G.aiPlan={plays:[],items:[]};
+  let inf=G.aiInf; const hand=[...G.aiHand];
+  const free=[]; G.aiField.forEach((s,i)=>{if(!s)free.push(i);});
+  const mons=hand.filter(isMonster).sort((a,b)=>(b.atk||0)-(a.atk||0));
+  for(const c of mons){ if(!free.length)break; const cost=playCost(c); if(inf<cost)continue; inf-=cost; G.aiPlan.plays.push({card:c,zone:free.shift()}); }
+  if(AI_DECKS[G.difficulty].usesItems){
+    const items=hand.filter(c=>c.kind==='item');
+    const it=items.find(c=>c.effect==='atk_buff')||items.find(c=>c.effect&&c.effect.indexOf('debuff')===0)||items[0];
+    if(it&&inf>=playCost(it)){ inf-=playCost(it); G.aiPlan.items.push(it); }
+  }
 }
-function applyAiMain(){
-  if(!G.aiMainCard||G.aiMainSlot===null||G.aiMainSlot===undefined)return;
-  const fc=makeFC(G.aiMainCard,'ai');const idx=G.aiHand.indexOf(G.aiMainCard);
-  if(idx>=0)G.aiHand.splice(idx,1);
-  if(G.aiField[G.aiMainSlot])G.aiGrave.push(G.aiField[G.aiMainSlot]);
-  G.aiField[G.aiMainSlot]=fc;
+function applyAiPlan(){
+  if(!G.aiPlan)return;
+  G.aiPlan.plays.forEach(p=>{
+    const i=G.aiHand.indexOf(p.card); if(i>=0)G.aiHand.splice(i,1);
+    if(G.aiField[p.zone])return;
+    const fc=makeFC(p.card,'ai'); fc.faceDown=true; G.aiField[p.zone]=fc; spendInf('ai',playCost(p.card));
+  });
+  G.aiPlan.items.forEach(it=>{ const i=G.aiHand.indexOf(it); if(i>=0)G.aiHand.splice(i,1); applyTurnItem(it,'ai'); G.aiGrave.push(it); spendInf('ai',playCost(it)); });
 }
 
 function phaseLastMinute(){
@@ -1938,8 +2085,9 @@ function aiDecideLastMinute(){
 }
 
 function phaseResolution(){
-  setActionBar(`<span class="action-hint">⚔️ RESOLUÇÃO — somando ataques...</span>`);
-  resolveTraps('player');resolveTraps('ai');   // arapucas disparam antes do cálculo
+  setActionBar(`<span class="action-hint">⚔️ RESOLUÇÃO — virando cartas e somando ataques...</span>`);
+  flipFaceUp('player');flipFaceUp('ai');         // cartas baixadas viram p/ cima (UI_CAMPO §3)
+  resolveTraps('player');resolveTraps('ai');     // arapucas disparam antes do cálculo
   updateFieldUI();
   const pAtk=computeFieldAtk('player'),aAtk=computeFieldAtk('ai');
   if(!JUICE.on){ setTimeout(()=>resolveApply(pAtk,aAtk),800); return; }
@@ -1970,7 +2118,7 @@ async function tallySide(side,totalReal,valEl){
   const field=side==='player'?G.playerField:G.aiField;
   const pre=side==='player'?'player-slot-':'ai-slot-';
   let base=0, step=JUICE.resolveStepMs, pitch=JUICE.sfxPitchBase;
-  for(let i=0;i<5;i++){
+  for(let i=0;i<ZONES;i++){
     const c=field[i]; if(!c)continue;
     const slot=document.getElementById(pre+i);
     if(slot){slot.classList.add('attacking');setTimeout(()=>slot&&slot.classList.remove('attacking'),Math.max(180,step));}
@@ -2020,13 +2168,13 @@ async function resolveApply(pAtk,aAtk){
 function juiceDie(side,before){
   const pre=side==='player'?'player-slot-':'ai-slot-';
   const field=side==='player'?G.playerField:G.aiField;
-  for(let i=0;i<5;i++){ if(before[i]&&!field[i]){ const s=document.getElementById(pre+i); if(s){s.classList.add('juice-die'); setTimeout(()=>s&&s.classList.remove('juice-die'),440);} } }
+  for(let i=0;i<ZONES;i++){ if(before[i]&&!field[i]){ const s=document.getElementById(pre+i); if(s){s.classList.add('juice-die'); setTimeout(()=>s&&s.classList.remove('juice-die'),440);} } }
 }
 function juiceImpact(pOver,aOver){
   if(pOver>0){const b=document.querySelector('.bf-id.enemy');juiceShake(b);juiceFlash(b);}
   if(aOver>0){const b=document.querySelector('.bf-id.you');juiceShake(b);juiceFlash(b);}
 }
-function juiceLand(side,slot){ if(!JUICE.on||slot==null||slot<0||slot>4)return; const s=document.getElementById((side==='player'?'player-slot-':'ai-slot-')+slot); if(s&&s.classList.contains('has-card')){s.classList.add('juice-land');setTimeout(()=>s&&s.classList.remove('juice-land'),380);} }
+function juiceLand(side,slot){ if(!JUICE.on||slot==null||slot<0||slot>=ZONES)return; const s=document.getElementById((side==='player'?'player-slot-':'ai-slot-')+slot); if(s&&s.classList.contains('has-card')){s.classList.add('juice-land');setTimeout(()=>s&&s.classList.remove('juice-land'),380);} }
 // Dano carta a carta na ordem dos slots: destaca a carta, mostra -X e dreca o HP.
 // Visual apenas (o estado real é mutado depois por applyDamageToField).
 async function animateFieldDamage(defSide,totalAtk){
@@ -2034,7 +2182,7 @@ async function animateFieldDamage(defSide,totalAtk){
   const field=defSide==='player'?G.playerField:G.aiField;
   const pre=defSide==='player'?'player-slot-':'ai-slot-';
   let rem=totalAtk;
-  for(let i=0;i<5;i++){
+  for(let i=0;i<ZONES;i++){
     const c=field[i]; if(!c)continue; if(rem<=0)break;
     const dealt=Math.min(rem,c.currentHp), newHp=c.currentHp-dealt; rem-=dealt;
     const slot=document.getElementById(pre+i);
@@ -2113,16 +2261,21 @@ function applyTurnItem(card,side){
   }
 }
 
-// ── ARAPUCAS (face-down; auto-disparam na resolução se o inimigo atacar) ──
+// Vira p/ cima todas as cartas face-down de um lado (na abertura da RESOLUÇÃO).
+function flipFaceUp(side){
+  const field=side==='player'?G.playerField:G.aiField;
+  field.forEach(c=>{ if(c&&c.faceDown)c.faceDown=false; });
+}
+// ── ARAPUCAS (ficam face-down numa zona; auto-disparam na resolução se o inimigo atacar) ──
 function resolveTraps(side){
-  const hidden=side==='player'?G.playerHidden:G.aiHidden;
+  const field=side==='player'?G.playerField:G.aiField;
   const grave=side==='player'?G.playerGrave:G.aiGrave;
   const opp=side==='player'?'ai':'player';
   const oppField=opp==='player'?G.playerField:G.aiField;
   if(sumAtk(oppField)<=0)return;                 // só dispara se o inimigo está atacando
-  hidden.forEach((t,i)=>{
+  field.forEach((t,i)=>{
     if(!t||t.kind!=='trap')return;
-    applyTrap(t,side);grave.push(t);hidden[i]=null;
+    applyTrap(t,side);grave.push(t);field[i]=null;
     playSFX('trap_trigger');
     if(side==='player')showMsg(`🪤 ${t.name} disparou!`,'orange');
   });
@@ -2143,7 +2296,7 @@ function applyTrap(t,side){
 }
 function applyDamageToField(totalAtk,field,grave){
   let rem=totalAtk;
-  for(let i=0;i<5&&rem>0;i++){if(!field[i])continue;const card=field[i];if(rem>=card.currentHp){rem-=card.currentHp;addScore(card.atk||0);grave.push({...card});field[i]=null;}else{card.currentHp-=rem;rem=0;}}
+  for(let i=0;i<ZONES&&rem>0;i++){if(!field[i])continue;const card=field[i];if(rem>=card.currentHp){rem-=card.currentHp;addScore(card.atk||0);grave.push({...card});field[i]=null;}else{card.currentHp-=rem;rem=0;}}
   return rem;
 }
 function nextTurn(){G.turn++;setActionBar(`<span class="action-hint">Turno ${G.turn} iniciando...</span>`);startPhase('draw');}
@@ -2627,11 +2780,39 @@ function updateBaseUI(){
   if(yb)yb.style.width=pPct+'%'; if(eb)eb.style.width=aPct+'%';
   const yl=document.getElementById('you-lp'),el=document.getElementById('enemy-lp');
   if(yl)animateNumber(yl,Math.max(0,pb.hp)); if(el)animateNumber(el,Math.max(0,ab.hp));
-  setText('enemy-name',(APP&&APP.opponentName)||'FLORIPA');
-  setText('player-name',(Save&&Save.data&&Save.data.name)||(APP&&APP.playerName)||'BC');
+  renderCmd('player'); renderCmd('ai');
   setText('you-deck',G.playerDeck.length); setText('enemy-deck',G.aiDeck.length);
-  setText('you-hand',G.playerHand.length); setText('enemy-hand',G.aiHand.length);
   setText('you-grave',G.playerGrave.length); setText('enemy-grave',G.aiGrave.length);
+  renderFoeHand();
+  setText('trash-count',(G.trash||[]).length);
+  // zonas herdam a cor da vibe do Comandante de cada lado
+  const pv=vibeOf(G.playerCmd), av=vibeOf(G.aiCmd);
+  const pr=document.getElementById('player-board-row'); if(pr)pr.style.setProperty('--bf-zone',pv?pv.color:'var(--bf-line)');
+  const ar=document.getElementById('ai-board-row'); if(ar)ar.style.setProperty('--bf-zone',av?av.color:'var(--bf-line)');
+}
+// Renderiza a carta do Comandante na coluna esquerda.
+function renderCmd(side){
+  const cmd=side==='player'?G.playerCmd:G.aiCmd; if(!cmd)return;
+  const base=side==='player'?G.playerBase:G.aiBase;
+  const fuses=side==='player'?G.playerFuses:G.aiFuses;
+  const inf=side==='player'?G.playerInf:G.aiInf;
+  const v=vibeOf(cmd); const card=document.getElementById(side==='player'?'you-cmd':'enemy-cmd');
+  if(card)card.style.setProperty('--cmd-vibe',v?v.color:'#6a6a82');
+  setText(side==='player'?'player-name':'enemy-name',cmd.name);
+  const dot=document.getElementById(side==='player'?'you-cmd-dot':'enemy-cmd-dot'); if(dot)dot.style.background=v?v.color:'#6a6a82';
+  const art=document.getElementById(side==='player'?'you-cmd-art':'enemy-cmd-art');
+  if(art){const src=cardImgSrc(cmd); art.innerHTML=src?`<img src="${src}" onerror="this.remove()">`:`<div style="position:absolute;inset:0;display:grid;place-items:center;font-size:30px">${cmd.emoji||'👑'}</div>`; }
+  setText(side==='player'?'you-fuse':'enemy-fuse',`${fuses.used}/${fuses.limit}`);
+  setText(side==='player'?'you-inf':'enemy-inf',inf);
+  setText(side==='player'?'you-cmd-atk':'enemy-cmd-atk',cmd.atk||0);
+  setText(side==='player'?'you-cmd-hp':'enemy-cmd-hp',Math.max(0,base.hp));
+  setText(side==='player'?'you-cmd-vibe':'enemy-cmd-vibe',v?v.name:'—');
+}
+// Mão do oponente: só os versos (~50% espiando), com a contagem real.
+function renderFoeHand(){
+  const host=document.getElementById('bf-foehand'); if(!host)return;
+  const n=G.aiHand.length; const show=Math.min(n,10);
+  host.innerHTML=Array.from({length:show},()=>`<div class="bf-foecard"></div>`).join('')+`<span class="bf-foecount">${n}</span>`;
 }
 function bfSlotGhost(kind,n){
   if(kind==='terreno')return `<div class="bf-ghosticon" style="opacity:.5"><div style="font-size:24px;line-height:1">🌍</div><div class="lb">TERRENO</div></div>`;
@@ -2641,39 +2822,25 @@ function bfSlotGhost(kind,n){
 function updateFieldUI(){
   ['player','ai'].forEach(side=>{
     const field=side==='player'?G.playerField:G.aiField;
-    for(let i=0;i<5;i++){
+    for(let i=0;i<ZONES;i++){
       const el=document.getElementById(`${side}-slot-${i}`);if(!el)continue;
       el.innerHTML='';el.className=`bf-slot ${side}-slot`;el.style.animation='';el.style.border='';
-      if(field[i]){ el.classList.add('has-card'); el.appendChild(renderFC(field[i],side));
-        if(i===4){el.style.border='2px solid var(--bf-gold)';el.style.animation='cmdPulse 2.6s ease-in-out infinite';}
-      } else {
-        el.innerHTML=bfSlotGhost(i===4?'cmd':'monster', i+1);
-        if(i===4){el.style.border='2px solid rgba(240,180,41,.6)';el.style.background='linear-gradient(180deg,rgba(240,180,41,.1),var(--bf-slot))';el.style.animation='cmdPulse 2.6s ease-in-out infinite';}
-      }
-    }
-    // zona de campo (terreno)
-    const fz=document.getElementById(`${side}-fieldzone`); const fc=side==='player'?G.playerFieldCard:G.aiFieldCard;
-    if(fz){ fz.innerHTML=''; if(fc){fz.classList.add('has-card');fz.appendChild(renderFC(fc,side));} else fz.innerHTML=bfSlotGhost('terreno'); }
-    // face-down row: [edge, h0..h3, edge]
-    const hidden=side==='player'?G.playerHidden:G.aiHidden;
-    const row=document.getElementById(`${side}-fd-row`);
-    if(row){ row.innerHTML='';
-      const cells=['edge',0,1,2,3,'edge'];
-      cells.forEach(c=>{ const d=document.createElement('div');d.className='bf-fdcell';
-        if(c==='edge'){d.innerHTML='';}
-        else{ const card=hidden[c]; const idAttr=side==='player'?`id="player-fd-${c}"`:'';
-          if(card)d.innerHTML=`<div ${idAttr} class="bf-fdslot set">?</div>`;
-          else d.innerHTML=`<div ${idAttr} class="bf-fdslot"><span>▽</span></div>`;
-        }
-        row.appendChild(d);
-      });
+      if(field[i]){ el.classList.add('has-card'); el.appendChild(renderFC(field[i],side)); }
+      // zona vazia: o rótulo "UNIDADE" é desenhado via CSS (::after)
     }
   });
   setText('grave-count',G.playerGrave.length);
+  setText('trash-count',(G.trash||[]).length);
 }
 function renderFC(card,side){
   const div=document.createElement('div');div.className='field-card';
-  if(card.faceDown){const fd=document.createElement('div');fd.className='card-face-down';fd.textContent='⁉';div.appendChild(fd);return div;}
+  if(card.faceDown){
+    const fd=document.createElement('div');fd.className='card-face-down';
+    fd.style.cssText='position:absolute;inset:0;border-radius:inherit;display:grid;place-items:center;background:repeating-linear-gradient(45deg,#2a2440 0 9px,#1c1733 9px 18px);font-family:\'Oswald\';font-size:9px;letter-spacing:2px;color:var(--bf-ink3)';
+    fd.textContent='VIRADA';div.appendChild(fd);
+    div.onclick=(e)=>{e.stopPropagation();if(side==='player')showCardDetail(card);};
+    return div;
+  }
   const tb=document.createElement('div');tb.className=`type-badge badge-${card.type}`;tb.textContent=TYPE_EMOJI[card.type]||'';tb.style.background=bfVibeColor(card);tb.style.color='#fff';div.appendChild(tb);
   const rb=document.createElement('div');rb.className=`rank-badge rank-${card.fieldRank}`;rb.textContent=['🥉','🥈','🥇'][card.fieldRank];div.appendChild(rb);
   const fcSrc=cardImgSrc(card),fcEmo=card.emoji||TYPE_EMOJI[card.type]||'?';
@@ -2684,13 +2851,21 @@ function renderFC(card,side){
   const hb=document.createElement('div');hb.className='fc-hpbar';const hf=document.createElement('div');hf.className='fc-hpfill';const pct=Math.max(0,card.currentHp/card.maxHp*100);hf.style.width=pct+'%';hf.style.background=pct>60?'#4caf50':pct>25?'#ff9800':'#f44336';hb.appendChild(hf);info.appendChild(hb);
   const st=document.createElement('div');st.className='fc-stats';st.innerHTML=`<span class="fc-hp">❤${card.currentHp}</span><span class="fc-atk">⚔${getEffAtk(card)}</span>`;info.appendChild(st);
   div.appendChild(info);
-  div.onclick=(e)=>{e.stopPropagation();showCardDetail(card);};
+  div.onclick=(e)=>{e.stopPropagation();bfInspect(card);};          // inspeciona no painel (inclui cartas visíveis do oponente)
+  div.onmouseenter=()=>bfInspect(card);
   div.oncontextmenu=(e)=>{e.preventDefault();showCardDetail(card);};
   return div;
 }
-function highlightSlots(){const card=G.selectedHandCard;if(!card)return;for(let i=0;i<5;i++){const el=document.getElementById(`player-slot-${i}`);if(!el)continue;if(i===4&&card.commander)el.classList.add('selectable');else if(i<4&&!card.commander&&isMonster(card))el.classList.add('selectable');}}
-function clearSlotHighlights(){for(let i=0;i<5;i++){const el=document.getElementById(`player-slot-${i}`);if(el)el.classList.remove('selectable','selected-slot');}}
-function updateDeckUI(){const dc=document.getElementById('deck-count');if(dc)dc.textContent=G.playerDeck.length;}
+function highlightSlots(){const card=G.selectedHandCard;if(!card||!(isMonster(card)||card.kind==='trap'))return;for(let i=0;i<ZONES;i++){const el=document.getElementById(`player-slot-${i}`);if(el&&!G.playerField[i])el.classList.add('selectable');}}
+function clearSlotHighlights(){for(let i=0;i<ZONES;i++){const el=document.getElementById(`player-slot-${i}`);if(el)el.classList.remove('selectable','selected-slot');}}
+function updateDeckUI(){
+  setText('deck-count',G.playerDeck.length); setText('enemy-deck',G.aiDeck.length);
+  setText('grave-count',G.playerGrave.length); setText('enemy-grave',G.aiGrave.length);
+  setText('trash-count',(G.trash||[]).length);
+  // volume visual do deck (pilha mais "cheia" com mais cartas)
+  const dpile=document.querySelector('.bf-fieldline.you .bf-pile2.deck');
+  if(dpile){const n=G.playerDeck.length;const h=Math.min(6,Math.round(n/6));dpile.style.boxShadow=h?`${h}px -${h}px 0 -1px var(--bf-panel), ${h}px -${h}px 0 0 var(--bf-line)`:'none';}
+}
 function setActionBar(html){const bar=document.getElementById('action-bar');if(bar)bar.innerHTML=html;}
 function showDmgFloat(dmg,side){const el=document.getElementById(side==='ai'?'enemy-lp':'you-lp');if(!el)return;const rect=el.getBoundingClientRect();const d=document.createElement('div');d.className='dmg-float';d.textContent='-'+dmg;d.style.left=(rect.left+rect.width/2)+'px';d.style.top=rect.top+'px';d.style.color=side==='ai'?'#f44336':'#ff9800';document.body.appendChild(d);setTimeout(()=>d.remove(),900);}
 function showGrave(){bfOpenGrave('player');}
@@ -2710,7 +2885,12 @@ function bfCardArt(card){
   const imgTag=src?`<img src="${src}" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:'';
   const hp=card.currentHp!=null?card.currentHp:card.hp;
   const stats=isMon?`<span>⚔ ${typeof getEffAtk==='function'?getEffAtk(card):card.atk}</span><span class="pv">♥ ${hp}</span>`:`<span style="color:var(--bf-gold)">${card.kind==='trap'?'Arapuca':'Item'}</span>`;
-  return `<div class="bf-cardface"><div class="art" style="background:${bfGrad(card)}"></div>${fall}${imgTag}<span class="ty" style="background:${vcol};color:#fff">${tc[0]}</span>${tier?`<span class="tier" style="background:${tcol}">${tier}</span>`:''}<div class="ov"><div class="nm">${card.name}</div><div class="st">${stats}</div></div></div>`;
+  // §6: sem tag de tipo/ITEM. Monstro = esfera de vibe (sup. esq). Canto sup. dir. = ✦ custo (+ geração).
+  const cost=(typeof playCost==='function')?playCost(card):(card.cost!=null?card.cost:2);
+  const sph=isMon?`<span class="vibe-sph" style="background:${vcol}"></span>`:'';
+  const gen=card.infGen?`<span class="gen">+${card.infGen}</span>`:'';
+  const itemCls=(card.kind==='item'||card.kind==='trap')?' itemcard':'';
+  return `<div class="bf-cardface${itemCls}"><div class="art" style="background:${bfGrad(card)}"></div>${fall}${imgTag}${sph}<span class="cost">✦${cost}${gen}</span>${tier?`<span class="tier" style="background:${tcol}">${tier}</span>`:''}<div class="ov"><div class="nm">${card.name}</div><div class="st">${stats}</div></div></div>`;
 }
 function bfMeasure(){ const el=document.getElementById('bf-handwrap'); if(!el)return; const w=el.clientWidth; if(w&&Math.abs(w-BF.wrapW)>1)BF.wrapW=w; }
 function renderHand(){
@@ -2737,8 +2917,8 @@ function bfLayoutHand(){
   const W=BF.wrapW,CW=110; const usable=Math.max(120,W-CW-6);
   const stride=n>1?Math.min(usable/(n-1),CW):0; const span=stride*(n-1); const x0=(W-CW)/2-span/2; const mid=(n-1)/2;
   const dragging=!!(BF.drag&&BF.drag.moved);
-  const playable=card=>(G.phase==='main'&&isMonster(card))||(G.phase==='lastminute'&&isQuickCard(card)&&!G.playerQuickUsed);
-  const actPhase=(G.phase==='main'||G.phase==='lastminute');
+  const playable=card=>G.phase==='action'&&!G.actionDone&&G.playerInf>=playCost(card);
+  const actPhase=(G.phase==='action');
   cards.forEach((el,i)=>{
     const card=G.playerHand[i]; if(!card)return;
     const d=i-mid,ang=d*2.8,arc=d*d*1.3;
@@ -2775,54 +2955,33 @@ function bfShowGhost(card){ const g=document.getElementById('bf-dragghost'); if(
 // hit-test: qual slot do jogador está sob o ponteiro
 function bfSlotAt(e){
   const hit=(id)=>{const el=document.getElementById(id);if(!el)return false;const r=el.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top-12&&e.clientY<=r.bottom+12;};
-  for(let i=0;i<5;i++)if(hit('player-slot-'+i))return {kind:'slot',idx:i};
-  for(let i=0;i<4;i++)if(hit('player-fd-'+i))return {kind:'hidden',idx:i};
-  if(hit('player-fieldzone'))return {kind:'fieldzone'};
+  for(let i=0;i<ZONES;i++)if(hit('player-slot-'+i))return {kind:'slot',idx:i};
   return null;
 }
-function bfSlotEl(at){ if(!at)return null; if(at.kind==='slot')return document.getElementById('player-slot-'+at.idx); if(at.kind==='hidden')return document.getElementById('player-fd-'+at.idx); if(at.kind==='fieldzone')return document.getElementById('player-fieldzone'); return null; }
+function bfSlotEl(at){ if(!at)return null; if(at.kind==='slot')return document.getElementById('player-slot-'+at.idx); return null; }
 function bfDropValid(card,at){
-  if(!card||!at)return false;
-  if(G.phase==='main'){
-    if(G.mainConfirmed||!isMonster(card))return false;
-    if(at.kind!=='slot')return false;
-    if(G.playerField[at.idx])return false;
-    if(at.idx===4)return !!card.commander; if(card.commander)return false;
-    return true;
-  }
-  if(G.phase==='lastminute'){
-    if(G.playerQuickUsed)return false;
-    if(card.kind==='trap')return at.kind==='hidden'&&!G.playerHidden[at.idx];
-    if(card.kind==='item')return at.kind==='slot'||at.kind==='fieldzone'||at.kind==='hidden'; // item: qualquer lugar do board
-    return false;
-  }
+  if(!card)return false;
+  if(G.phase!=='action'||G.actionDone)return false;
+  if(G.playerInf<playCost(card))return false;
+  if(card.kind==='item')return true;                                   // item: solta em qualquer ponto do board
+  if(isMonster(card)||card.kind==='trap')return !!(at&&at.kind==='slot'&&!G.playerField[at.idx]);
   return false;
 }
 function bfPlay(i,at){
   const card=G.playerHand[i]; if(!card)return;
-  if(G.phase==='main'){
-    if(G.mainConfirmed){bfToast('Você já agiu nesta fase');return;}
-    if(!isMonster(card)){bfToast('Monstros só na DOWN FASE — itens na fase ITENS');return;}
-    let slot=at&&at.kind==='slot'?at.idx:(card.commander?4:[0,1,2,3].find(n=>!G.playerField[n]));
-    if(slot==null){bfToast('Sem slot livre — solte numa casa vazia');return;}
-    if(slot===4&&!card.commander){bfToast('Só o Comandante ocupa o slot CMD');return;}
-    if(slot<4&&card.commander){bfToast('O Comandante vai no slot CMD');return;}
-    if(G.playerField[slot]){bfToast('Esse slot já está ocupado');return;}
-    confirmMain(i,slot);
-  } else if(G.phase==='lastminute'){
-    if(G.playerQuickUsed){bfToast('Você já usou 1 carta nesta fase');return;}
-    if(card.kind==='trap'){
-      let hs=at&&at.kind==='hidden'?at.idx:G.playerHidden.findIndex(h=>!h);
-      if(hs==null||hs<0||G.playerHidden[hs]){bfToast('Sem slot de armadilha livre');return;}
-      selectQuickCard(i,hs);
-    } else if(card.kind==='item'){ selectQuickCard(i); }
-    else bfToast('Aqui só itens e arapucas');
-  } else bfToast('Não dá pra baixar carta nesta fase');
+  if(G.phase!=='action'||G.actionDone){bfToast('Só dá pra agir na fase AÇÃO');return;}
+  if(G.playerInf<playCost(card)){bfToast('Influência insuficiente ('+playCost(card)+' ✦)');playSFX('ui_error');return;}
+  if(card.kind==='item'){ playCard(i); return; }
+  if(isMonster(card)||card.kind==='trap'){
+    let z=at&&at.kind==='slot'?at.idx:G.playerField.findIndex(s=>!s);
+    if(z==null||z<0){bfToast('Sem zona livre');return;}
+    playCard(i,z);
+  } else bfToast('Carta não jogável aqui');
 }
 function bfToggleFusion(i){
   const at=BF.fusion.indexOf(i);
   if(at>=0)BF.fusion.splice(at,1);
-  else{ if(BF.fusion.length>=5){bfToast('Máximo de 5 cartas na fusão');return;} BF.fusion.push(i); }
+  else{ if(BF.fusion.length>=2){bfToast('Fusão usa no máximo 2 cartas');return;} BF.fusion.push(i); }
   bfInspect(G.playerHand[i]); bfLayoutHand();
   const fb=document.getElementById('bf-fusionbar'); if(fb)fb.style.display=BF.fusion.length>=1?'flex':'none'; setText('bf-fusion-n',BF.fusion.length);
 }
@@ -2877,27 +3036,28 @@ async function bfFuseAnim(steps){
   await wait(480);
   ov.remove();
 }
+function shuffleDeck(side){const d=side==='player'?G.playerDeck:G.aiDeck;for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}}
 async function bfDoFusion(){
-  if(G.phase!=='main'||G.mainConfirmed){bfToast('Fusão só na DOWN FASE');return;}
-  if(BF.fusion.length<2){bfToast('Selecione ao menos 2 cartas');return;}
-  const cap=(Save.data?(licenseFor(Save.data.duels).fusion||5):5);
-  if(BF.fusion.length>cap){bfToast('Sua licença permite fundir até '+cap+' cartas');return;}
+  if(G.phase!=='action'||G.actionDone){bfToast('Fusão só na fase AÇÃO');return;}
+  if(G.playerFuses.used>=G.playerFuses.limit){bfToast('Sem fusões disponíveis neste turno 🌀');playSFX('ui_error');return;}
+  if(BF.fusion.length!==2){bfToast('Selecione exatamente 2 cartas');return;}
   const idxs=[...BF.fusion];
   const cards=idxs.map(i=>G.playerHand[i]);
   if(!cards.every(isMonster)){bfToast('Só dá pra fundir monstros');return;}
-  const out=fusionSteps(cards);
+  const result=fusePair(cards[0],cards[1])||fusePair(cards[1],cards[0]);
+  if(!result){bfToast('Essas duas não combinam (sem receita)');playSFX('ui_error');return;}
   // tira os materiais da mão e esconde a barra antes de animar
   idxs.sort((a,b)=>b-a).forEach(i=>G.playerHand.splice(i,1));
   BF.fusion=[]; const fb=document.getElementById('bf-fusionbar'); if(fb)fb.style.display='none';
-  renderHand();
-  playSFX('reward');
-  await bfFuseAnim(out.steps);
-  // materiais (e fusões intermediárias descartadas) vão pro cemitério
-  out.grave.forEach(c=>G.playerGrave.push(c));
-  // a carta resultante vai pra MÃO (jogador escolhe onde baixar depois) — NÃO consome a DOWN FASE
-  G.playerHand.push(out.summon);
-  bfToast('🌀 '+out.summon.name+' foi pra sua mão'); bfLog('Fusão → '+out.summon.name+' (foi pra mão)','green');
-  updateDeckUI(); renderHand();
+  renderHand(); playSFX('reward');
+  await bfFuseAnim([{a:cards[0],b:cards[1],result}]);
+  // §5: as 2 cartas-material VOLTAM PRO DECK (não pro descarte); o resultado vai pra MÃO
+  cards.forEach(c=>G.playerDeck.push(c)); shuffleDeck('player');
+  G.playerHand.push(result);
+  G.playerFuses.used++;
+  bfToast('🌀 '+result.name+' foi pra sua mão (materiais voltaram ao deck)');
+  bfLog('Fusão → '+result.name+' (materiais → deck)','green');
+  updateDeckUI(); updateBaseUI(); renderHand();
 }
 function bfClearFusion(){ BF.fusion=[]; bfLayoutHand(); const fb=document.getElementById('bf-fusionbar'); if(fb)fb.style.display='none'; setText('bf-fusion-n',0); }
 function bfToast(msg){ const t=document.getElementById('bf-toast'); if(!t)return; t.textContent=msg; t.style.display='block'; clearTimeout(BF._toastT); BF._toastT=setTimeout(()=>t.style.display='none',1700); }
@@ -2912,9 +3072,60 @@ function bfInspect(card){ if(!card)return; const box=document.getElementById('bf
   <div class="bf-insp-efflbl">Efeito</div><div class="bf-insp-eff">${card.ability||card.desc||(card.special?('Habilidade especial: '+card.special):(card.kind==='trap'?'Arapuca — dispara na resolução.':card.kind==='item'?'Item — jogado na fase ITENS.':'—'))}</div>`;
   bfSetTab('insp');
 }
-function bfSetTab(t){ const i=document.getElementById('bf-insp'),l=document.getElementById('bf-log'),ib=document.getElementById('bf-tab-insp'),lb=document.getElementById('bf-tab-log'); if(!i||!l)return;
-  if(t==='log'){i.style.display='none';l.style.display='block';lb.classList.add('on');ib.classList.remove('on');}
-  else{i.style.display='block';l.style.display='none';ib.classList.add('on');lb.classList.remove('on');} }
+function bfSetTab(t){
+  const tabs={insp:'bf-insp',log:'bf-log',arte:'bf-arte',shop:'bf-shop'};
+  if(!document.getElementById('bf-insp'))return;
+  Object.entries(tabs).forEach(([k,id])=>{const b=document.getElementById(id);if(b)b.style.display=(k===t)?'block':'none';const tb=document.getElementById('bf-tab-'+k);if(tb)tb.classList.toggle('on',k===t);});
+  if(t==='arte')bfRenderArte();
+  if(t==='shop')bfRenderShop();
+}
+// ── Aba ARTEFATOS (placeholder: slots + ícone simples; arte própria é futura) ──
+function bfRenderArte(){
+  const box=document.getElementById('bf-arte'); if(!box)return;
+  const arts=(APP&&APP.artifacts)||[]; const slots=Math.max(6,arts.length);
+  let html='<div style="font-size:11px;color:var(--bf-ink3);margin:4px 0 10px;text-align:center">Artefatos coletados nesta run</div><div class="bf-arte-grid">';
+  for(let i=0;i<slots;i++){const a=arts[i];html+=a?`<div class="bf-arte-slot filled" title="${a.title||a.name} — ${a.desc||''}">${a.icon||'✦'}</div>`:'<div class="bf-arte-slot">·</div>';}
+  html+='</div>';
+  if(!arts.length)html+='<div style="font-size:11px;color:var(--bf-ink3);margin-top:12px;text-align:center;line-height:1.5">Nenhum artefato ainda.<br>Ganhe nas recompensas entre os combates.</div>';
+  box.innerHTML=html;
+}
+// ── Aba LOJA (permanente): peão básico da própria vibe por custo fixo de Influência (§7) ──
+function bfRenderShop(){
+  const box=document.getElementById('bf-shop'); if(!box)return;
+  const v=vibeOf(G.playerCmd); const vibeId=G.playerCmd?G.playerCmd.vibe:null;
+  const pawnId=(PEON_LEVELS[vibeId]||[])[0]; const pawn=pawnId&&typeof BASE_CARDS!=='undefined'?BASE_CARDS.find(c=>c.id===pawnId):null;
+  const afford=G.playerInf>=SHOP_PAWN_COST&&G.phase==='action'&&!G.actionDone;
+  box.innerHTML=`<div style="font-size:11px;color:var(--bf-ink3);margin:4px 0 10px;text-align:center">Loja — peão básico da sua vibe (${v?v.name:'—'})</div>
+  <div class="bf-shop-item">
+    <div class="ic" style="color:${v?v.color:'#aaa'}">${pawn?(pawn.emoji||'🎴'):'🎴'}</div>
+    <div><div class="nm">${pawn?pawn.name:'Peão'}</div><div class="ds">Vai pra sua mão</div></div>
+    <button class="bf-shop-buy" ${afford?'':'disabled'} onclick="bfBuyPawn()">✦${SHOP_PAWN_COST}</button>
+  </div>
+  <div style="font-size:10px;color:var(--bf-ink3);line-height:1.5;margin-top:6px">Peões de outras vibes só via carta-efeito "geradora de peões" (abre fusão cruzada). Ver GAME_DESIGN §5.</div>`;
+}
+function bfBuyPawn(){
+  if(G.phase!=='action'||G.actionDone){bfToast('Compra só na fase AÇÃO');return;}
+  if(G.playerInf<SHOP_PAWN_COST){bfToast('Influência insuficiente');playSFX('ui_error');return;}
+  const vibeId=G.playerCmd?G.playerCmd.vibe:null; const pawnId=(PEON_LEVELS[vibeId]||[])[0];
+  const pawn=pawnId&&typeof BASE_CARDS!=='undefined'?BASE_CARDS.find(c=>c.id===pawnId):null;
+  if(!pawn){bfToast('Sem peão pra essa vibe');return;}
+  spendInf('player',SHOP_PAWN_COST); G.playerHand.push({...pawn});
+  playSFX('reward'); bfToast('🛒 '+pawn.name+' comprado!'); bfLog('Loja → '+pawn.name,'green');
+  renderHand(); updateBaseUI(); bfRenderShop();
+}
+// Inspeciona a carta do Comandante no painel.
+function bfInspectCmd(side){
+  const cmd=side==='player'?G.playerCmd:G.aiCmd; if(!cmd)return;
+  const base=side==='player'?G.playerBase:G.aiBase;
+  bfInspect({...cmd,kind:'hero',currentHp:Math.max(0,base.hp),hp:cmd.maxPv,star:0});
+}
+// Lixo central compartilhado (reusa o modal de cemitério).
+function bfOpenTrash(){
+  window.__bfGrave=G.trash||[]; setText('bf-grave-title','LIXO · compartilhado');
+  const grid=document.getElementById('bf-grave-grid');
+  if(grid)grid.innerHTML=(G.trash&&G.trash.length)?G.trash.map((c,idx)=>`<div class="bf-gravecard" onclick="bfInspect(window.__bfGrave[${idx}])">${bfCardArt(c)}</div>`).join(''):`<div style="grid-column:1/-1;text-align:center;color:var(--bf-ink3);padding:30px">Lixo vazio</div>`;
+  bfCloseModal(); const m=document.getElementById('bf-modal-grave'); if(m)m.classList.add('open');
+}
 function bfToggleRail(){ const sg=document.getElementById('screen-game'); if(!sg)return; sg.classList.toggle('rail-collapsed');
   requestAnimationFrame(()=>requestAnimationFrame(()=>{bfMeasure();bfLayoutHand();})); [0,60,140,280].forEach(t=>setTimeout(()=>{bfMeasure();bfLayoutHand();},t)); }
 // ── Log (alimentado pelo showMsg) ──
@@ -2939,12 +3150,12 @@ function bfRenderDeckList(){
 // ── Temas ──
 const BF_THEMES={
   nebula:{'--bf-bg':'#0e0b1a','--bf-bg2':'#171231','--bf-bg3':'#06040e','--bf-panel':'#161232','--bf-panel2':'#1f1a40','--bf-slot':'#120e26','--bf-field':'#161232','--bf-line':'rgba(200,190,255,.10)','--bf-line2':'rgba(200,190,255,.22)','--bf-ink':'#ece9fb','--bf-ink2':'#a89dd0','--bf-ink3':'#6b6296','--bf-red':'#e2533f','--bf-blue':'#5a8cf0','--bf-gold':'#f0b429','--bf-teal':'#5fc99a','--bf-purp':'#b487ff','--bf-scrim':'rgba(8,5,18,.74)'},
-  amber:{'--bf-bg':'#13100a','--bf-bg2':'#1d1810','--bf-bg3':'#080603','--bf-panel':'#1b150d','--bf-panel2':'#241d12','--bf-slot':'#16110a','--bf-field':'#1b150d','--bf-line':'rgba(255,238,205,.10)','--bf-line2':'rgba(255,238,205,.22)','--bf-ink':'#f3ead6','--bf-ink2':'#b6a585','--bf-ink3':'#7a6e54','--bf-red':'#e2533f','--bf-blue':'#4a93e0','--bf-gold':'#f0b429','--bf-teal':'#5fc99a','--bf-purp':'#b487ff','--bf-scrim':'rgba(10,7,3,.74)'},
+  charcoal:{'--bf-bg':'#0e0e10','--bf-bg2':'#17171b','--bf-bg3':'#060607','--bf-panel':'#161618','--bf-panel2':'#202024','--bf-slot':'#111113','--bf-field':'#161618','--bf-line':'rgba(230,230,235,.10)','--bf-line2':'rgba(230,230,235,.22)','--bf-ink':'#e9e9ee','--bf-ink2':'#a0a0aa','--bf-ink3':'#62626c','--bf-red':'#e2533f','--bf-blue':'#5a8cf0','--bf-gold':'#f0b429','--bf-teal':'#5fc99a','--bf-purp':'#b487ff','--bf-scrim':'rgba(6,6,8,.76)'},
   smoke:{'--bf-bg':'#0d0f13','--bf-bg2':'#171b22','--bf-bg3':'#050608','--bf-panel':'#161a20','--bf-panel2':'#1e232b','--bf-slot':'#0f1217','--bf-field':'#161a20','--bf-line':'rgba(220,230,245,.10)','--bf-line2':'rgba(220,230,245,.22)','--bf-ink':'#e9edf3','--bf-ink2':'#9aa4b2','--bf-ink3':'#5b6575','--bf-red':'#e54d4d','--bf-blue':'#4f97e6','--bf-gold':'#efc04a','--bf-teal':'#54c79a','--bf-purp':'#b18cf0','--bf-scrim':'rgba(4,6,10,.76)'},
   crimson:{'--bf-bg':'#160a0a','--bf-bg2':'#241010','--bf-bg3':'#0a0404','--bf-panel':'#1f0e0e','--bf-panel2':'#2a1414','--bf-slot':'#180a0a','--bf-field':'#1f0e0e','--bf-line':'rgba(255,210,205,.10)','--bf-line2':'rgba(255,210,205,.22)','--bf-ink':'#f5e6e2','--bf-ink2':'#cba097','--bf-ink3':'#8a625c','--bf-red':'#ef5a44','--bf-blue':'#5a8cf0','--bf-gold':'#f0b429','--bf-teal':'#5fc99a','--bf-purp':'#c08af0','--bf-scrim':'rgba(14,4,4,.74)'},
   emerald:{'--bf-bg':'#0a140e','--bf-bg2':'#0f2018','--bf-bg3':'#040a06','--bf-panel':'#0e1c14','--bf-panel2':'#15281c','--bf-slot':'#0a1610','--bf-field':'#0e1c14','--bf-line':'rgba(210,255,225,.10)','--bf-line2':'rgba(210,255,225,.20)','--bf-ink':'#e6f3ea','--bf-ink2':'#9bc3a8','--bf-ink3':'#5f8570','--bf-red':'#e2533f','--bf-blue':'#4f97e6','--bf-gold':'#f0c64a','--bf-teal':'#5fd0a0','--bf-purp':'#b487ff','--bf-scrim':'rgba(4,12,8,.74)'},
 };
-const BF_THEME_META=[{key:'nebula',label:'Nebulosa',dots:['#5a8cf0','#b487ff','#171231']},{key:'amber',label:'Boteco',dots:['#f0b429','#e2533f','#1d1810']},{key:'smoke',label:'Fumaça',dots:['#9aa4b2','#4f97e6','#171b22']},{key:'crimson',label:'Brasa',dots:['#ef5a44','#f0b429','#241010']},{key:'emerald',label:'Feltro',dots:['#5fd0a0','#f0c64a','#0f2018']}];
+const BF_THEME_META=[{key:'nebula',label:'Nebulosa',dots:['#5a8cf0','#b487ff','#171231']},{key:'smoke',label:'Fumaça',dots:['#9aa4b2','#4f97e6','#171b22']},{key:'crimson',label:'Brasa',dots:['#ef5a44','#f0b429','#241010']},{key:'emerald',label:'Feltro',dots:['#5fd0a0','#f0c64a','#0f2018']},{key:'charcoal',label:'Carvão',dots:['#a0a0aa','#5a8cf0','#17171b']}];
 function bfApplyTheme(name){ const sg=document.getElementById('screen-game'); if(!sg)return; const t=BF_THEMES[name]||BF_THEMES.nebula; Object.keys(t).forEach(k=>sg.style.setProperty(k,t[k])); BF.theme=name; try{localStorage.setItem('fortbc_theme',name);}catch(e){} bfRenderThemeGrid(); }
 function bfRenderThemeGrid(){ const g=document.getElementById('bf-theme-grid'); if(!g)return; g.innerHTML=BF_THEME_META.map(m=>`<div class="bf-swatch${BF.theme===m.key?' on':''}" onclick="bfApplyTheme('${m.key}')"><div class="dots">${m.dots.map(c=>`<i style="background:${c}"></i>`).join('')}</div><div class="lb">${m.label}</div></div>`).join(''); }
 function bfToggleMotion(){ const sg=document.getElementById('screen-game'); if(!sg)return; sg.classList.toggle('no-motion'); bfRenderToggles(); }

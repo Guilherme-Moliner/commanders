@@ -31,7 +31,23 @@
 - ✅ Conteúdo do `fortbc` copiado para esta pasta (sem `.git` do fortbc, sem `fortbc-main/`, sem `.codex_tmp/`).
 - ✅ Repositório git novo inicializado (história zerada).
 - ⏳ Repositório GitHub **privado** `commanders` + push inicial + GitHub Pages — ver seção "Infra / Deploy" abaixo conforme o progresso.
-- ❌ **Nenhuma mecânica nova de gameplay foi implementada ainda.** Próxima etapa é **decidir e documentar** o design (tabuleiro por comandante, fusão, recursos) ANTES de escrever código de gameplay novo.
+
+### Novo Campo de Batalha (re-pipe — 2026-06-22)
+Implementado em `index.html` a partir de `UI_CAMPO.md` + `GAME_DESIGN.md` (mockup do Claude Design). **Re-pipe do engine**, não só visual:
+- **6 zonas de unidade por lado** (`G.playerField`/`aiField` = arrays de `ZONES=6`). Constante `ZONES`.
+- **Comandante FORA do campo:** vira a carta da coluna esquerda (`G.playerCmd`/`aiCmd`, `pickCommander()`), com **PV = HP de base** (`G.playerBase.hp`, 2000), chips 🌀 Fusão (`G.playerFuses{used,limit}`) e ✦ Influência (`G.playerInf`). Inspecionável (`bfInspectCmd`).
+- **Fases unificadas:** `PHASES=['draw','standby','action','resolution']` (DOWN+ITENS → **AÇÃO**). `phaseAction`/`endAction`; IA monta plano secreto (`aiDecideAction`/`applyAiPlan`), revelado na resolução. Turno **simultâneo** (sem jogador ativo).
+- **Influência** (`regenInfluence`, placeholder TUNÁVEL — fórmula real por-Comandante EM ABERTO): gera no DRAW, gasta ao baixar carta (`playCost`/`spendInf`). Constantes `INF_*`, `DEFAULT_PLAY_COST`, `SHOP_PAWN_COST`, `FUSES_PER_TURN`.
+- **Cartas baixadas ficam face-down** (`faceDown=true`) até a RESOLUÇÃO (`flipFaceUp`); fusão entra face-up.
+- **Fusão = exatamente 2 cartas** (`bfDoFusion`, cap em `bfToggleFusion`): materiais **voltam ao DECK** (`shuffleDeck`), resultado vai à mão, respeita 🌀/turno. Usa `fusePair` (FUSIONS_CSV).
+- **Pilhas:** Deck+Descarte por lado no board; **Lixo central compartilhado** (`G.trash`, `bfOpenTrash`). Deck-out reembaralha o descarte (`reshuffleIfEmpty`).
+- **Zonas herdam a cor da vibe** do Comandante (`--bf-zone`). Mão do oponente = versos espiando (`renderFoeHand`).
+- **Frames** (§6): sem tag de tipo/ITEM; esfera de vibe (monstro) + ✦ custo no canto. **Trilho** com 4 abas: Inspetor·Log·**Artefatos**·**Loja** (`bfRenderArte`/`bfRenderShop`/`bfBuyPawn`). Temas: Nebulosa·Fumaça·Brasa·Feltro·Carvão (`charcoal`).
+- **Testado** no preview (sem erros de console; turno completo + resolução + nextTurn OK).
+
+**Pendências conhecidas (placeholder/STUB):** geração de Influência por-Comandante; tabuleiros/regras assimétricos por Comandante; quais 4 heroes são Comandantes (+arte); efeitos reais de Artefatos; carta-efeito "geradora de peões" (vibe cruzada); balanceamento. Código morto inerte do fluxo antigo (`phaseLastMinute`/`selectQuickCard`/`bfSlotGhost`) deixado no arquivo.
+
+> Antes desta etapa: **nenhuma** mecânica nova existia. O engine turn-based herdado do fortbc foi a base re-pipada (não estendida).
 
 ---
 
