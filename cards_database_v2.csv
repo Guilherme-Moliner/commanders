@@ -1,0 +1,107 @@
+# CARDS DATABASE v2 — Comandante do Caos
+# Colunas novas vs v1: tier (bronze/prata/gold), evolve_to (id da próxima versão), base_card (id da versão bronze)
+# MOTOR DE COMBATE NOVO: ATK cards somam pool de ataque; DEF cards somam pool de defesa (shield); BAL contribui para ambos.
+# hp nas cartas = valor de DEFESA que essa carta contribui ao pool de escudo do jogador
+# atk nas cartas = valor de ATAQUE que essa carta contribui ao pool de dano do jogador
+# Dano final = max(0, seu_atk_total - def_total_inimigo)
+id,name,kind,type,vibe,range,star,cost,hp,atk,speed,tribute,copies,special,effect,effectVal,effectDur,emoji,ability,img,tier,evolve_to,base_card,notes
+# === PEÕES SOCIALISTA (vermelho) ===
+peon_atk,Sem Terra,pawn,ATK,vermelho,melee,1,1,20,60,fast,0,3,,,,,,,,bronze,peon_atk_prata,,Peão ATK básico vermelho
+peon_atk_prata,Sem Terra Organizado,pawn,ATK,vermelho,melee,1,1,30,90,fast,0,3,,,,,,,,prata,peon_atk_gold,peon_atk,Evolução do Sem Terra
+peon_atk_gold,Sem Terra Lendário,pawn,ATK,vermelho,melee,1,1,40,130,fast,0,3,,,,,,,,gold,,peon_atk,Evolução máxima
+peon_atk2,Camarada,pawn,ATK,vermelho,melee,2,1,30,80,slow,0,3,,,,,,,,bronze,peon_atk2_prata,,
+peon_atk2_prata,Camarada Veterano,pawn,ATK,vermelho,melee,2,1,45,115,slow,0,3,,,,,,,,prata,peon_atk2_gold,peon_atk2,
+peon_atk2_gold,Camarada Élite,pawn,ATK,vermelho,melee,2,1,60,155,slow,0,3,,,,,,,,gold,,peon_atk2,
+peon_atk3,Comunista,pawn,ATK,vermelho,melee,4,1,40,100,slow,0,3,,,,,,,,bronze,,,
+peon_atk4,PTista,pawn,ATK,vermelho,melee,6,1,50,120,slow,0,3,,,,,,,,bronze,,,
+peon_atk5,Presidente,pawn,ATK,vermelho,melee,13,1,80,130,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES MAROMBEIRO (azul) ===
+peon_def,Malhadinho,pawn,DEF,azul,melee,1,1,200,30,slow,0,3,,,,,,,,bronze,peon_def_prata,,Peão DEF básico azul
+peon_def_prata,Malhadinho Rasgado,pawn,DEF,azul,melee,1,1,300,40,slow,0,3,,,,,,,,prata,peon_def_gold,peon_def,
+peon_def_gold,Malhadinho Gold,pawn,DEF,azul,melee,1,1,420,55,slow,0,3,,,,,,,,gold,,peon_def,
+peon_def2,Bombado,pawn,DEF,azul,melee,2,1,280,40,slow,0,3,,,,,,,,bronze,peon_def2_prata,,
+peon_def2_prata,Bombado Plus,pawn,DEF,azul,melee,2,1,400,55,slow,0,3,,,,,,,,prata,peon_def2_gold,peon_def2,
+peon_def2_gold,Bombado Supremo,pawn,DEF,azul,melee,2,1,550,75,slow,0,3,,,,,,,,gold,,peon_def2,
+peon_def3,Amante do Suco,pawn,DEF,azul,melee,5,1,360,60,slow,0,3,,,,,,,,bronze,,,
+peon_def4,Trembolono,pawn,DEF,azul,melee,6,1,500,80,slow,0,3,,,,,,,,bronze,,,
+peon_def5,Mr Olympia,pawn,DEF,azul,melee,9,1,800,140,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES DINHEIRISTA (verde) ===
+peon_bal,Economista,pawn,BAL,verde,mid,2,1,120,50,medium,0,3,,,,,,,,bronze,peon_bal_prata,,BAL: contribui para ATK e DEF
+peon_bal_prata,Economista Sênior,pawn,BAL,verde,mid,2,1,175,75,medium,0,3,,,,,,,,prata,peon_bal_gold,peon_bal,
+peon_bal_gold,Economista Chefe,pawn,BAL,verde,mid,2,1,240,105,medium,0,3,,,,,,,,gold,,peon_bal,
+peon_bal2,Investidor,pawn,BAL,verde,mid,4,1,180,75,slow,0,3,,,,,,,,bronze,,,
+peon_bal3,Rico Top 1%,pawn,BAL,verde,mid,5,1,220,100,slow,0,3,,,,,,,,bronze,,,
+peon_bal4,Banqueiro,pawn,BAL,verde,mid,8,1,350,120,slow,0,3,,,,,,,,bronze,,,
+peon_bal5,Schead Musk,pawn,BAL,verde,mid,10,1,700,200,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES NERDOLA (amarelo) ===
+peon_nerd,Streamer,pawn,DEF,amarelo,melee,1,1,200,30,slow,0,3,,,,,,,,bronze,peon_nerd_prata,,
+peon_nerd_prata,Streamer Prata,pawn,DEF,amarelo,melee,1,1,290,42,slow,0,3,,,,,,,,prata,peon_nerd_gold,peon_nerd,
+peon_nerd_gold,Streamer Gold,pawn,DEF,amarelo,melee,1,1,400,58,slow,0,3,,,,,,,,gold,,peon_nerd,
+peon_nerd2,Minezeiro,pawn,DEF,amarelo,melee,2,1,280,40,slow,0,3,,,,,,,,bronze,,,
+peon_nerd3,BoardGaymer,pawn,DEF,amarelo,melee,3,1,360,60,slow,0,3,,,,,,,,bronze,,,
+peon_nerd4,Suequeiro,pawn,DEF,amarelo,melee,5,1,500,80,slow,0,3,,,,,,,,bronze,,,
+peon_nerd5,Elden Lord,pawn,DEF,amarelo,melee,6,1,900,140,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES ROLEZEIRO (roxo) ===
+peon_role,Muleque Piranha,pawn,ATK,roxo,melee,1,1,30,60,slow,0,3,,,,,,,,bronze,peon_role_prata,,
+peon_role_prata,Muleque Piranha+,pawn,ATK,roxo,melee,1,1,45,88,slow,0,3,,,,,,,,prata,peon_role_gold,peon_role,
+peon_role_gold,Muleque Piranha Gold,pawn,ATK,roxo,melee,1,1,60,120,slow,0,3,,,,,,,,gold,,peon_role,
+peon_role2,Pegador,pawn,ATK,roxo,melee,2,1,40,80,slow,0,3,,,,,,,,bronze,,,
+peon_role3,Boleiro,pawn,ATK,roxo,melee,4,1,50,100,slow,0,3,,,,,,,,bronze,,,
+peon_role4,PIMP,pawn,ATK,roxo,melee,5,1,60,120,slow,0,3,,,,,,,,bronze,,,
+peon_role5,Rei do Camarote,pawn,ATK,roxo,melee,8,1,80,130,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === HERÓIS (10) ===
+arthur,Arthur,hero,ATK,azul,long,3,3,180,110,fast,0,1,,,,,,,,bronze,,,Comandante Marombeiro
+fanta,Fanta,hero,BAL,amarelo,mid,3,3,160,70,medium,0,1,recycler,,,,,,bronze,,,Comandante Nerdola
+nathan,Nathan,hero,DEF,amarelo,melee,3,3,300,45,slow,0,1,,,,,,,,bronze,,,
+garopaba,Garopaba,hero,ATK,vermelho,melee,4,4,200,130,medium,0,1,deathbuff,,,,,,bronze,,,BOSS
+bala,Bala,hero,DEF,verde,melee,4,4,380,50,slow,0,1,provoker,,,,,,bronze,,,Comandante Dinheirista
+leo,Léo,hero,ATK,roxo,melee,4,4,200,130,medium,0,1,,,,,,,,bronze,,,
+zaga,Zaga,hero,BAL,roxo,mid,4,4,260,95,medium,0,1,,,,,,,,bronze,,,
+vitao,Vitão,hero,BAL,azul,mid,5,5,280,80,medium,1,1,healer,,,,,,bronze,,,
+borba,Borba,hero,DEF,vermelho,melee,5,5,500,70,slow,1,1,,,,,,,,bronze,,,
+letti,Letti,hero,ATK,verde,melee,6,6,220,160,veryfast,1,1,rusher,,,,,,bronze,,,
+# === HERÓIS EVOLUÍDOS (para boss deck do Garopaba) ===
+arthur_gold,Arthur Elite,hero,ATK,azul,long,3,3,280,180,fast,0,1,,,,,,,,gold,,arthur,Versão boss-tier
+garopaba_boss,Garopaba Revoltado,hero,ATK,vermelho,melee,4,4,350,210,medium,0,1,deathbuff,,,,,,gold,,garopaba,Deck exclusivo boss
+# === ITENS / MAGIAS ===
+churrasco,Churrasco,item,ITEM,azul,-,0,2,,,-,0,3,,heal_all,80,,🥩,Cura +80 de DEF pool neste turno,,,,
+energetico,Energético,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.3,,⚡,+30% ao ATK pool nesta resolução,,,,
+rodada,Rodada,item,ITEM,amarelo,-,0,1,,,-,0,3,,draw2,2,,🍺,Compra 2 cartas,,,,
+turboboost,Turbo Boost,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.2,,💨,+20% ao ATK pool neste turno,,,,
+ressurreicao,Tadalinha,item,ITEM,verde,-,0,4,,,-,0,3,,resurrect,0.5,,🔄,Traz carta do descarte pra mão (50% das cartas no descarte),,,,
+reforco,Reforço,item,ITEM,verde,-,0,3,,,-,0,3,,next_hp_buff,0.5,,🛡,+50% ao DEF pool nesta resolução,,,,
+ressaca,Ressaca,item,ITEM,amarelo,-,0,2,,,-,0,2,,debuff_enemy_atk,40,,🥴,Reduz ATK pool inimigo em 40 nesta resolução,,,,
+dedinho,Dedinho Mindinho,item,ITEM,roxo,-,0,2,,,-,0,2,,debuff_enemy_atk_pct,0.3,,🤏,Reduz ATK pool inimigo em 30% nesta resolução,,,,
+calunia,Calúnia,item,ITEM,roxo,-,0,3,,,-,0,2,,debuff_silence,1,,🗣,Anula ATK pool inimigo completamente nesta resolução,,,,
+jogaareia,Joga Areia,item,ITEM,vermelho,-,0,1,,,-,0,2,,debuff_flat,50,,🏖,Reduz ATK pool inimigo em 50,,,,
+barraco,Barraco,item,ITEM,roxo,-,0,4,,,-,0,1,,debuff_enemy_atk,30,,💢,Reduz ATK pool inimigo em 30,,,,
+# === ITENS DE UPGRADE (geram evolução de cartas) ===
+upgrade_bronze,Upgrade!,item,UPGRADE,qualquer,-,0,3,,,-,0,2,,evolve_card,bronze_to_prata,,⬆️,"Funda com qualquer carta Bronze → ela e todas as cópias viram Prata. Material vai ao Lixo (não retorna ao deck)",,,,
+upgrade_prata,Upgrade Gold!,item,UPGRADE,qualquer,-,0,5,,,-,0,1,,evolve_card,prata_to_gold,,⬆️⬆️,"Funda com qualquer carta Prata → ela e todas as cópias viram Gold. Material vai ao Lixo",,,,
+# === GERADORES DE PEÕES (vibe cruzada) ===
+recruta,Recruta,item,ITEM,qualquer,-,0,2,,,-,0,3,,buy_pawn_any,1,,📋,Escolha uma vibe — adiciona 1 peão básico daquela vibe à mão,,,,
+mercado_negro,Mercado Negro,item,ITEM,qualquer,-,0,3,,,-,0,3,,buy_pawn_random,2,,🕶,Adiciona 2 peões de vibes aleatórias à mão,,,,
+headhunter,Headhunter,item,ITEM,qualquer,-,0,4,,,-,0,2,,buy_pawn_pick,1,,🎯,Escolha qualquer peão da base e adicione à mão,,,,
+# === ARAPUCAS ===
+trap_buraco,Buraco na Pista,trap,TRAP,amarelo,-,0,2,,,-,0,2,,trap_atk_zero,1,,🕳,Zera ATK pool inimigo nesta resolução,,,,
+trap_emboscada,Emboscada,trap,TRAP,vermelho,-,0,3,,,-,0,1,,trap_atk_double,2,,💥,Dobra seu ATK pool nesta resolução,,,,
+trap_rede,Rede,trap,TRAP,azul,-,0,2,,,-,0,2,,trap_def_boost,100,,🕸,+100 ao seu DEF pool + reduz ATK inimigo em 40,,,,
+trap_praga,Praga,trap,TRAP,verde,-,0,3,,,-,0,2,,trap_drain_atk,50,,🦟,Drena 50 do ATK pool inimigo para o seu DEF,,,,
+trap_fumaca,Bomba de Fumaça,trap,TRAP,roxo,-,0,3,,,-,0,1,,trap_atk_reduce,30,,🌫,Reduz ATK pool inimigo em 30,,,,
+# === FUSÕES ===
+fus_resenha,A Resenha,fusion,ATK,amarelo,melee,5,0,80,200,medium,0,0,,,,,🎊,Fusão Festa+Festa,,,,
+fus_camarote,Rei do Camarote,fusion,BAL,amarelo,mid,5,0,180,170,medium,0,0,,,,,👑,Fusão Festa+Controle,,,,
+fus_climao,O Climão,fusion,ATK,vermelho,melee,5,0,60,220,medium,0,0,,,,,😤,Fusão Força+Caos,,,,
+fus_brotheragem,Brotheragem Eterna,fusion,DEF,verde,melee,5,0,600,80,slow,0,0,,,,,🤝,Fusão Sustain+Sustain,,,,
+fus_lenda,Lenda do Rolê,fusion,ATK,vermelho,melee,6,0,80,240,fast,0,0,,,,,🌟,Fusão específica Arthur+Letti,,,,
+fus_brigarole,Brigou no Rolê,fusion,ATK,vermelho,melee,5,0,60,225,medium,0,0,,,,,🥊,Fusão Festa+Força,,,,
+fus_apagao,Apagão Total,fusion,BAL,roxo,mid,5,0,120,215,medium,0,0,,,,,🥴,Fusão Festa+Caos,,,,
+fus_resistencia,Resistência Etílica,fusion,DEF,verde,melee,5,0,520,90,slow,0,0,,,,,🍺,Fusão Festa+Sustain,,,,
+fus_marombeiro,Marombeiro Supremo,fusion,ATK,vermelho,melee,6,0,80,250,medium,0,0,,,,,💪,Fusão Força+Força,,,,
+fus_leaochacara,Leão de Chácara,fusion,DEF,azul,melee,5,0,480,100,slow,0,0,,,,,🛡,Fusão Força+Controle,,,,
+fus_tanque,Tanque Humano,fusion,DEF,verde,melee,6,0,600,100,slow,0,0,,,,,🦾,Fusão Força+Sustain,,,,
+fus_mestrecerimonia,Mestre de Cerimônia,fusion,BAL,azul,mid,5,0,300,195,medium,0,0,,,,,🎤,Fusão Controle+Controle,,,,
+fus_mentemestra,Mente Mestra,fusion,BAL,roxo,mid,5,0,260,210,medium,0,0,,,,,🧠,Fusão Controle+Caos,,,,
+fus_zen,Zen Master,fusion,DEF,azul,mid,5,0,500,90,medium,0,0,,,,,🧘,Fusão Controle+Sustain,,,,
+fus_surto,Surto Coletivo,fusion,ATK,roxo,melee,5,0,60,220,medium,0,0,,,,,🤯,Fusão Caos+Caos,,,,
+fus_mauelemento,Mau Elemento,fusion,BAL,verde,mid,5,0,200,195,medium,0,0,,,,,🚬,Fusão Caos+Sustain,,,,
