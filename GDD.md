@@ -4,7 +4,7 @@
 >
 > **Legenda de status:** ✅ decidido · 🟡 implementado como placeholder (funciona, mas números/regra ainda não são finais) · ❓ em aberto (precisa de decisão do criador) · 🚫 fora de escopo.
 >
-> Última atualização: **2026-06-22** · Mantido junto de `GAME_DESIGN.md` (regras), `UI_CAMPO.md` (tela de duelo) e `CLAUDE.md` (contexto de sessão).
+> Última atualização: **2026-07-16** (sprint v4) · Mantido junto de `GAME_DESIGN.md` (regras), `UI_CAMPO.md` (tela de duelo) e `CLAUDE.md` (contexto de sessão). Dados: `cards_database_v2.csv` + `commanders_database.csv` (sincronizar c/ `node tools/sync_cards.js`).
 
 ---
 
@@ -65,7 +65,7 @@ Cada Comandante é **assimétrico de verdade** (não é skin):
 ## 4. Recursos — Influência ✅ (conceito) / 🟡 (geração)
 
 - ✅ **Influência** = recurso de ação do turno. Baixar carta custa Influência.
-- 🟡 **Geração:** hoje é um placeholder tunável — no DRAW ganha `INF_PER_TURN (3) + INF_PER_ZONE (1) × zonas ocupadas`, teto `INF_CAP (12)`, início `INF_START (4)`. **A fórmula real é por-Comandante e está ❓ em aberto** (gatilhos a explorar: campo vazio, campo cheio, mono-vibe, multi-vibe…).
+- ✅ **Geração base por-Comandante** (CSV): no DRAW ganha `inf_per_turn` do Comandante + `INF_PER_ZONE (1)` × zonas ocupadas, teto `inf_cap`, início `inf_start` — ex.: Letti começa com 6✦/+4/teto 16; Bala começa com 5✦. Artefatos incrementam via `APP.commanderMods`. ❓ A camada **condicional** única de cada um (pass_trigger: campo vazio/cheio, mono/multi-vibe…) ainda não está plugada.
 - ✅ Peões funcionam como **motores de Influência**: campo desenvolvido importa tanto quanto ter a carta mais forte.
 
 ---
@@ -101,24 +101,27 @@ Cada Comandante é **assimétrico de verdade** (não é skin):
 
 ---
 
-## 7. Cartas ✅
+## 7. Cartas ✅ (+ evolução por tiers)
 
-- ✅ Tipos: **DEFENSE / ATTACK / BALANCE** — são **tipos**, não stats. Cada carta tem só **ATK e PV**.
+- ✅ Tipos: **DEFENSE / ATTACK / BALANCE** — são **tipos**, não stats. No motor v4: `atk` = contribuição ao pool de ataque; `hp` = contribuição ao pool de defesa (BAL = metade de cada).
 - ✅ Campos de range/ATB existem na estrutura por herança, mas estão **inertes** (não implementar).
-- ✅ **Frames** (UI_CAMPO §6): monstro = borda branca + **esfera de vibe**; item = fundo preto; Comandante = cor cheia. Canto sup. dir. = **✦ custo** (sem tag de tipo/ITEM).
-- 🟡 **Rank em campo** (herdado): Bronze ×1.0 / Prata ×1.10 (2 turnos) / Ouro ×1.25 (4 turnos). *Revisar se fica.*
+- ✅ **Frames v2**: monstro = borda branca + **dot de vibe** + rodapé ⚔|🛡; item/arapuca/upgrade = fundo preto sem borda; Comandante = cor cheia. Canto sup. dir. = **✦ custo**.
+- ✅ **EVOLUÇÃO POR TIERS** (substitui o rank por tempo, que foi **abolido**): cartas têm `tier` (bronze/prata/gold), `evolve_to` e `base_card` no CSV — a mesma carta em níveis distintos. Evoluir via **item UPGRADE** (funde com um monstro; o upgrade vai pro **Lixo** — única exceção à regra "materiais voltam ao deck") ou via **artefato** com `evolve_family`. **Todos os exemplares da família evoluem juntos** (deck+mão+descarte+campo), com flash dourado.
+- ✅ **Deck do Boss (Garopaba):** `is_boss=TRUE` no CSV carrega também as versões gold de cada carta do deck.
 
 ---
 
-## 8. Combate, tabuleiro e fases 🟡
+## 8. Combate, tabuleiro e fases ✅ (motor v4 — pool vs pool)
 
 - ✅ **1×1**, turno **simultâneo** (sem jogador ativo).
 - ✅ **6 zonas de unidade por lado** (`ZONES = 6`), Comandante **fora** do campo (é a carta da coluna esquerda).
 - ✅ **Fases:** DRAW → STANDBY → **AÇÃO** → RESOLUÇÃO. (AÇÃO fundiu as antigas "Guerreiros" + "Itens".)
 - ✅ **Cartas baixadas ficam viradas (face-down)** até a RESOLUÇÃO; fusão entra face-up.
-- ✅ Na AÇÃO o jogador age livremente gastando Influência (baixa monstros/arapucas nas zonas, usa itens, funde). A IA monta plano secreto, revelado na resolução.
-- 🟡 **Resolução:** soma ATK por lado (rank × vibe × mods), dano slot-a-slot; overflow vai pro **PV do Comandante** adversário. `BASE_HP = 2000`.
-- ❓ **Regras assimétricas por Comandante** (o "de verdade" de cada tabuleiro).
+- ✅ Na AÇÃO o jogador age livremente gastando Influência (baixa monstros/arapucas nas zonas, usa itens, funde, compra na Loja). A IA monta plano secreto, revelado na resolução. HUD ⚔/🛡 em tempo real + preview no hover.
+- ✅ **MOTOR v4 (pool vs pool):** cartas ATK somam `.atk` ao pool de ataque; DEF somam `.hp` ao pool de defesa; BAL soma metade de cada (arred. p/ cima). Itens/arapucas modificam os pools. **Dano = max(0, seu ATK − DEF inimiga)**, aplicado direto no PV do Comandante. Após a resolução, **todo o campo (ambos os lados) vai pro descarte** — cada turno é um board novo. Cartas não têm HP em campo, não morrem. Ambos ≤0 → **jogador perde** (empate técnico punitivo). **Rank por tempo de campo: ABOLIDO.**
+- ✅ **Stats por-Comandante** vêm do `commanders_database.csv` (PV, Influência inicial/por turno/teto, mão, fusões/turno), com fallback nas constantes globais e incrementos de artefato (`APP.commanderMods`).
+- ❓ **Passivas/ativas dos Comandantes** (descritas no CSV, exibidas na UI) — efeitos mecânicos ainda não implementados.
+- ❓ **Regras assimétricas de tabuleiro** por Comandante (além dos stats).
 
 ### Constantes atuais (tunáveis, em `index.html`)
 `ZONES=6` · `BASE_HP=2000` · `HAND_LIMIT=9` · `INITIAL_HAND=5` · `INF_START=4` · `INF_PER_TURN=3` · `INF_PER_ZONE=1` · `INF_CAP=12` · `DEFAULT_PLAY_COST=2` · `FUSES_PER_TURN=1` · `SHOP_PAWN_COST=3`
@@ -137,21 +140,23 @@ Detalhe completo em `UI_CAMPO.md`. Resumo:
 
 ---
 
-## 10. Estado de implementação (o que já roda) 🟡
+## 10. Estado de implementação (o que já roda) ✅ (sprint v4 — 2026-07-16)
 
-Implementado e testado no preview (turno completo → resolução → próximo turno, sem erro de console):
-- Layout completo da tela de duelo conforme UI_CAMPO.
-- Engine re-pipado: 6 zonas, Comandante off-field, fases unificadas, Influência, fusão de 2 (materiais → deck), face-down até resolução, Lixo compartilhado, deck-out reembaralha.
-- Abas Artefatos (placeholder) e Loja (compra peão da própria vibe).
-- Temas + settings.
+Testado no preview: **run completa de ponta a ponta** (seleção de Comandante → 4 fights c/ recompensas → tela final com score), sem erros de console.
+- **Motor v4 pool-vs-pool** (§8) — combate, varredura pro descarte, dano no Comandante.
+- **Evolução por tiers** (§7) — UPGRADE via fusão/arraste, artefato `evolve_family`, deck gold do boss.
+- **Data-driven:** `CARDS_CSV`+`COMMANDERS_CSV` embutidos, sincronizados por `tools/sync_cards.js`; stats/deck/ordem-do-rogue por Comandante vêm do CSV.
+- **Tela de Seleção de Comandante** (grid 3×4, deck preview, passiva/ativa, P1, Entrar na Run).
+- **Fluxo demo:** Rogue via seleção (sem dificuldade), 4 inimigos fixos, Duelo Livre contra qualquer Comandante, modos não-demo desativados c/ tooltip, seleção de vibe removida, ⚙ global, toggles BGM/SFX, Loja em jogo c/ quantidade 1–5, **passwords de debug** (SKIP_TO_BOSS · GOD_MODE · MAX_FUSIONS · KILL_BOSS · FULL_HAND · EVOLVE_ALL).
+- **Animações YGOFM** (ref. YouTube `5v-hEPv5icA`): draw 0:22–0:24 (cartas voam do deck em arco, ~120ms/carta, ~60ms de stagger, pipeline paralela) e fusão 1:15–1:18 (espiral ~720° em ~1.5s → flash 50ms → resultado 0→1.3→1.0 + glow ~1s). Banner de fase deslizante, flash de evolução, contadores progressivos na resolução.
+- **Score** (§ fórmula na Parte 7 do sprint): fights×1000 + PV×2 + fusões×150 + artefatos×200 − turnos×5; boss ×1.5. Submissão Google Forms preparada (constantes vazias, falha silenciosa).
 
 ### Placeholders/STUB conhecidos
-- Geração de Influência por-Comandante (fórmula genérica).
-- `pickCommander()` deriva Comandante pela vibe dominante (sem arte de retrato).
-- Efeitos reais de Artefatos.
-- Carta geradora de peões (vibe cruzada).
-- Balanceamento.
-- Código morto inerte do fluxo antigo (`phaseLastMinute`, `selectQuickCard`, `bfSlotGhost`) — remoção opcional.
+- Passivas/ativas dos Comandantes: **exibidas** (seleção + inspetor), efeitos não plugados.
+- Artefatos: estrutura funcional, pool de conteúdo raso (buffs de deck herdados).
+- Balanceamento dos CSVs (decks defensivos empatam — ver §12.3).
+- Arte real (monogramas/emojis por enquanto).
+- Código morto inerte do fluxo antigo (real-time + `phaseLastMinute`) — remoção opcional.
 
 ---
 
@@ -167,15 +172,27 @@ Implementado e testado no preview (turno completo → resolução → próximo t
 
 ## 12. Decisões em aberto (checklist pra destravar) ❓
 
-Em ordem de impacto:
-1. **Quais 4 heroes** são os Comandantes.
-2. Pra cada Comandante: vibe · **fórmula de geração de Influência** (gatilho único) · **regra de tabuleiro assimétrica**.
-3. **Ordem fixa** de enfrentamento dos 3.
-4. **Estrutura da run**: recompensas entre combates, condição de vitória final, variação da monta inicial.
-5. **Receitas de fusão** novas (pares de vibe + específicas).
-6. **Efeitos dos Artefatos** + carta geradora de peões.
-7. **Balanceamento** (números de Influência, custos, ATK/PV, rank).
-8. **Ajustes visuais** do campo (retratos dos Comandantes, layout fino, frames, ícones de artefato).
+Resolvidas no sprint v4: ~~quais Comandantes~~ (todos os 10 jogáveis; inimigos fixos **Fanta→Arthur→Bala→Garopaba/BOSS** via `rogue_order` no CSV) · ~~geração base de Influência~~ (stats por-Comandante no CSV) · ~~fluxo da run~~ (seleção → 4 fights → recompensas entre eles → score final).
+
+Ainda em aberto, em ordem de impacto:
+1. **Efeitos mecânicos das passivas/ativas** dos Comandantes (descritas no CSV, exibidas na UI — falta plugar no engine).
+2. **Regras assimétricas de tabuleiro** por Comandante (além dos stats).
+3. **Balanceamento** dos números do CSV (pools ATK/DEF estagnam em decks defensivos — testar e ajustar).
+4. **Receitas de fusão** novas (pares de vibe + específicas).
+5. **Artefatos**: pool real de artefatos c/ efeitos (estrutura pronta: `addArtifact`, `evolve_family`, `commanderMods`).
+6. **Arte**: retratos dos 10 Comandantes (profile + seleção), 100% das cartas demo, ícones de artefato.
+7. **Google Forms/Sheets do score**: criar o form e preencher `SCORE_SUBMIT_URL`/`LEADERBOARD_URL`.
+
+## 15. Projeto Sonho 🚫 (salvar, não fazer agora)
+
+- Multiplayer / Battle Royale (arquitetura simultânea já ajuda; falta rede)
+- Save com conta Google (OAuth + Sheets como backend)
+- Boss Mode separado
+- Decks desbloqueáveis
+- ART_BIBLE completo por vibe (estilo artístico próprio por vibe)
+- Duelo assíncrono (joga seu turno, manda o estado pro amigo)
+- Carta de Campo/Terreno com efeito (descartada, pode voltar numa v2)
+- Modo campanha leve (3-4 fights com narrativa mínima)
 
 ---
 

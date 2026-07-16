@@ -49,6 +49,9 @@ Implementado em `index.html` a partir de `UI_CAMPO.md` + `GAME_DESIGN.md` (mocku
 
 > Antes desta etapa: **nenhuma** mecânica nova existia. O engine turn-based herdado do fortbc foi a base re-pipada (não estendida).
 
+### Sprint v4 (2026-07-16) — ver GDD.md §10 (fonte da verdade)
+Motor de combate REESCRITO para **pool-vs-pool** (rank por tempo abolido), **evolução por tiers** bronze/prata/gold (item UPGRADE → Lixo; artefato `evolve_family`), **data-driven** (`CARDS_CSV`+`COMMANDERS_CSV` embutidos, `tools/sync_cards.js` sincroniza dos CSVs da raiz), **tela de Seleção de Comandante**, fluxo demo (Rogue = seleção → Fanta→Arthur→Bala→Garopaba; modos extras trancados; passwords de debug), **animações YGOFM** (draw em arco + fusão espiral), **score** com Google Forms preparado (URLs vazias). Run completa testada de ponta a ponta no preview. Pendências: efeitos de passiva/ativa dos Comandantes, tabuleiros assimétricos, balanceamento, arte real.
+
 ---
 
 ## 🗂️ Onde está o contexto herdado do `fortbc`
