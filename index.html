@@ -613,11 +613,31 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-cardface.facedown .art{background:repeating-linear-gradient(45deg,#2a2440 0 8px,#1c1733 8px 16px)!important}
 .bf-cardface.facedown .ov,.bf-cardface.facedown .ty,.bf-cardface.facedown .cost,.bf-cardface.facedown .tier,.bf-cardface.facedown .vibe-sph{display:none!important}
 .bf-cardface.facedown::after{content:'VIRADA';position:absolute;inset:0;display:grid;place-items:center;font-family:'Oswald';font-size:9px;letter-spacing:2px;color:var(--bf-ink3)}
-/* frame: esfera de vibe (monstro) + custo ✦ no canto sup. dir. (sem tag de tipo/ITEM) */
-.bf-cardface .vibe-sph{position:absolute;top:5px;left:5px;width:13px;height:13px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),0 0 6px rgba(0,0,0,.5);z-index:2}
-.bf-cardface .cost{position:absolute;top:4px;right:4px;display:flex;gap:3px;align-items:center;font-family:'JetBrains Mono';font-size:10px;font-weight:700;color:var(--bf-gold);background:rgba(8,5,18,.72);border-radius:7px;padding:1px 5px;z-index:2}
-.bf-cardface .cost .gen{color:var(--bf-teal)}
-.bf-cardface.itemcard .art{filter:brightness(.5)}
+/* ═══ FRAME v2 (mockup v2) ═══ */
+.bf-cardface .cost{position:absolute;top:4px;right:4px;display:flex;gap:3px;align-items:center;font-family:'JetBrains Mono';font-size:10px;font-weight:700;color:var(--bf-gold);background:rgba(8,5,18,.8);border-radius:7px;padding:1px 5px;z-index:3}
+.bf-cardface.mon{border:3px solid #f4f2ec;border-radius:9px;background:#141020}
+.bf-cardface.mon .art{position:absolute;inset:0;background:linear-gradient(165deg,#1c1730,#0d0a18)}
+.bf-cardface .bigemo{position:absolute;inset:0 0 22% 0;display:grid;place-items:center;font-size:44px;opacity:.95;z-index:1}
+.bf-cardface .vdot{position:absolute;top:5px;left:5px;width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),0 0 7px rgba(0,0,0,.6);z-index:3}
+.bf-cardface .tier{position:absolute;top:22px;right:4px;min-width:16px;height:16px;padding:0 3px;border-radius:8px;display:grid;place-items:center;font-family:'Oswald';font-size:10px;font-weight:700;z-index:3}
+.bf-cardface.mon .ov{position:absolute;left:0;right:0;bottom:17px;padding:10px 6px 2px;background:linear-gradient(transparent,rgba(0,0,0,.85));z-index:2}
+.bf-cardface.mon .ft{position:absolute;left:0;right:0;bottom:0;height:17px;display:flex;z-index:2;font-family:'JetBrains Mono';font-size:9px;font-weight:700;background:#0a0814;border-top:1px solid rgba(255,255,255,.14)}
+.bf-cardface.mon .ft span{flex:1;display:grid;place-items:center}
+.bf-cardface.mon .ft .fa{color:#f4a597;border-right:1px solid rgba(255,255,255,.1)}
+.bf-cardface.mon .ft .fd{color:#9fc4e8}
+.bf-cardface.itm{background:#000;border-radius:9px}
+.bf-cardface.itm .bigemo{inset:0 0 30% 0;font-size:40px}
+.bf-cardface.itm .klb{position:absolute;top:5px;left:5px;font-family:'Oswald';font-size:7px;letter-spacing:1.4px;color:#8f8fa8;z-index:3}
+.bf-cardface.itm .ft.itmft{position:absolute;left:0;right:0;bottom:0;padding:4px 6px 5px;background:linear-gradient(transparent,#000 40%);z-index:2}
+.bf-cardface.itm .itmft .nm{font-family:'Oswald';font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bf-cardface.itm .itmft .fx{font-size:7.5px;line-height:1.25;color:#9d9db4;max-height:19px;overflow:hidden}
+/* HUD de pools em tempo real (fase AÇÃO) */
+.bf-poolhud{position:absolute;left:0;top:50%;transform:translateY(-50%);display:flex;gap:8px;align-items:center;background:#0e0b1d;border:1px solid var(--bf-line2);border-radius:9px;padding:3px 10px;font-family:'JetBrains Mono';font-size:11px;color:var(--bf-ink2);z-index:4}
+.bf-poolhud b{color:var(--bf-ink)}
+.bf-poolhud .ph{color:var(--bf-teal);font-weight:700}
+/* flash de evolução (upgrade de tier) */
+@keyframes evolveFlash{0%{filter:brightness(1);transform:scale(1)}35%{filter:brightness(2.4) saturate(.4) drop-shadow(0 0 14px #f0b429);transform:scale(1.2)}100%{filter:brightness(1);transform:scale(1)}}
+.juice-evolve{animation:evolveFlash .3s ease-out;z-index:150!important}
 /* abas extras do trilho */
 .bf-arte-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .bf-arte-slot{aspect-ratio:1;border-radius:10px;border:1px dashed var(--bf-line2);display:grid;place-items:center;font-size:22px;background:#0e0b1d;color:var(--bf-ink2);cursor:default}
@@ -930,8 +950,9 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
         </div>
         <div class="bf-piles ghost"></div>
       </div>
-      <!-- linha de frente + Lixo central compartilhado -->
+      <!-- linha de frente + HUD de pools + Lixo central compartilhado -->
       <div class="bf-frontline"><span>LINHA DE FRENTE</span>
+        <div class="bf-poolhud" id="bf-poolhud" title="Seus pools de ATAQUE e DEFESA neste turno">⚔ <b>0</b> · 🛡 <b>0</b></div>
         <div class="bf-trash clickable" id="bf-trash" onclick="bfOpenTrash()" title="Lixo — compartilhado pelos dois lados"><span class="ic">🗑</span><b id="trash-count">0</b></div>
       </div>
       <!-- linha do jogador: pilhas + 6 zonas -->
@@ -1145,79 +1166,113 @@ const HERO_IMAGES_B64 = {
 //  ▸ Template de carta nova: copie uma linha do mesmo kind e troque os campos.
 // ══════════════════════════════════════════════════════════════════
 const CARDS_CSV = `
-id,name,kind,type,vibe,range,star,cost,hp,atk,speed,tribute,copies,special,effect,effectVal,effectDur,emoji,ability,img
-peon_atk,Sem Terra,pawn,ATK,vermelho,melee,1,1,100,60,fast,0,3,,,,,,,
-peon_def,Malhadinho,pawn,DEF,azul,melee,1,1,200,30,slow,0,3,,,,,,,
-peon_bal,Economista,pawn,BAL,verde,mid,2,1,150,50,medium,0,3,,,,,,,
-peon_def2,Bombado,pawn,DEF,azul,melee,2,1,280,40,slow,0,3,,,,,,,
-peon_atk2,Camarada,pawn,ATK,vermelho,melee,2,1,150,80,slow,0,3,,,,,,,
-peon_atk3,Comunista,pawn,ATK,vermelho,melee,4,1,200,100,slow,0,3,,,,,,,
-peon_atk4,PTista,pawn,ATK,vermelho,melee,6,1,240,120,slow,0,3,,,,,,,
-peon_atk5,Presidente,pawn,ATK,vermelho,melee,13,1,1313,130,slow,0,3,,,,,,,
-peon_def3,Amante do Suco,pawn,DEF,azul,melee,5,1,360,60,slow,0,3,,,,,,,
-peon_def4,Trembolono,pawn,DEF,azul,melee,6,1,500,80,slow,0,3,,,,,,,
-peon_def5,Mr Olympia,pawn,DEF,azul,melee,9,1,1500,140,slow,0,3,,,,,,,
-peon_bal2,Investidor,pawn,DEF,azul,melee,4,1,200,75,slow,0,3,,,,,,,
-peon_bal3,Rico Top 1%,pawn,BAL,verde,mid,5,1,250,100,slow,0,3,,,,,,,
-peon_bal4,Banqueiro,pawn,BAL,verde,mid,8,1,400,120,slow,0,3,,,,,,,
-peon_bal5,Schead Musk,pawn,BAL,verde,mid,10,1,900,200,slow,0,3,,,,,,,
-peon_nerd,Streamer,pawn,DEF,amarelo,melee,1,1,200,30,slow,0,3,,,,,,,
-peon_nerd2,Minezeiro,pawn,DEF,amarelo,melee,2,1,280,40,slow,0,3,,,,,,,
-peon_nerd3,BoardGaymer,pawn,DEF,amarelo,melee,3,1,360,60,slow,0,3,,,,,,,
-peon_nerd4,Suequeiro,pawn,DEF,amarelo,melee,5,1,500,80,slow,0,3,,,,,,,
-peon_nerd5,Elden Lord,pawn,DEF,amarelo,melee,6,1,1500,140,slow,0,3,,,,,,,
-peon_role,Muleque Piranha,pawn,ATK,roxo,melee,1,1,100,60,slow,0,3,,,,,,,
-peon_role2,Pegador,pawn,ATK,roxo,melee,2,1,150,80,slow,0,3,,,,,,,
-peon_role3,Boleiro,pawn,ATK,roxo,melee,4,1,200,100,slow,0,3,,,,,,,
-peon_role4,PIMP,pawn,ATK,roxo,melee,5,1,240,120,slow,0,3,,,,,,,
-peon_role5,Rei do Camarote,pawn,ATK,roxo,melee,8,1,1313,130,slow,0,3,,,,,,,
-arthur,Arthur,hero,ATK,azul,long,3,3,220,110,fast,0,1,,,,,,Long range (legado — redesenhar),
-fanta,Fanta,hero,BAL,amarelo,mid,3,3,200,70,medium,0,1,recycler,,,,,Recycler (legado),
-nathan,Nathan,hero,DEF,amarelo,melee,3,3,320,45,slow,0,1,,,,,,,
-garopaba,Garopaba,hero,ATK,vermelho,melee,4,4,250,130,medium,0,1,deathbuff,,,,,Morte heroica (legado),
-bala,Bala,hero,DEF,verde,melee,4,4,420,50,slow,0,1,provoker,,,,,Provoker (legado),
-leo,Léo,hero,ATK,roxo,melee,4,4,260,130,medium,0,1,,,,,,,
-zaga,Zaga,hero,BAL,roxo,mid,4,4,320,95,medium,0,1,,,,,,,
-vitao,Vitão,hero,BAL,azul,mid,5,5,350,80,medium,1,1,healer,,,,,Healer (legado),
-borba,Borba,hero,DEF,vermelho,melee,5,5,600,70,slow,1,1,,,,,,,
-letti,Letti,hero,ATK,verde,melee,6,6,280,160,veryfast,1,1,rusher,,,,,Rusher (legado — ignora unidades),
-churrasco,Churrasco,item,ITEM,azul,-,0,2,,,-,0,3,,heal_all,80,,🥩,Cura suas unidades +80 HP,
-energetico,Energético,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.3,,⚡,+30% ATK no seu campo nesta resolução,
-rodada,Rodada,item,ITEM,amarelo,-,0,1,,,-,0,3,,draw2,2,,🍺,Compra 2 cartas,
-turboboost,Turbo Boost,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.2,,💨,Turbo: +20% ATK neste turno (TODO redesenhar),
-ressurreicao,Tadalinha,item,ITEM,verde,-,0,4,,,-,0,3,,resurrect,0.5,,🔄,Revive última unidade do cemitério (50% HP),
-reforco,Reforço,item,ITEM,verde,-,0,3,,,-,0,3,,next_hp_buff,0.5,,🛡,Próxima unidade que baixar +50% HP,
-ressaca,Ressaca,item,ITEM,amarelo,-,0,2,,,-,0,2,,debuff_all_atk,40,,🥴,Todos inimigos −40 ATK nesta resolução,
-dedinho,Dedinho Mindinho,item,ITEM,roxo,-,0,2,,,-,0,2,,debuff_strongest,0.3,,🤏,Inimigo mais forte −30% ATK,
-calunia,Calúnia,item,ITEM,roxo,-,0,3,,,-,0,2,,debuff_silence,1,,🗣,Inimigo mais forte não ataca neste turno,
-jogaareia,Joga Areia,item,ITEM,vermelho,-,0,1,,,-,0,2,,debuff_flat,50,,🏖,Inimigo mais forte −50 ATK nesta resolução,
-barraco,Barraco,item,ITEM,roxo,-,0,4,,,-,0,1,,debuff_all_atk,30,,💢,Todos inimigos −30 ATK nesta resolução,
-vp_amarelo,Festeiro,pawn,ATK,amarelo,melee,2,2,140,55,fast,0,2,vibe_party,,,,🎉,Vibe Festa (passiva TODO),
-vp_vermelho,Brutamonte,pawn,ATK,vermelho,melee,2,2,130,70,medium,0,2,vibe_charge,,,,⚔️,Vibe Força (passiva TODO),
-vp_azul,Maestrinho,pawn,DEF,azul,mid,2,2,200,35,medium,0,2,vibe_heal,,,,🌊,Vibe Controle (passiva TODO),
-vp_roxo,Caótico,pawn,BAL,roxo,mid,2,2,150,55,medium,0,2,vibe_chaos,,,,💀,Vibe Caos (passiva TODO),
-vp_verde,Brotinho,pawn,DEF,verde,melee,2,2,180,40,slow,0,2,vibe_grow,,,,🌿,Vibe Sustain (passiva TODO),
-trap_buraco,Buraco na Pista,trap,TRAP,amarelo,-,0,2,,,-,0,2,,trap_skip,1,,🕳,Arapuca: inimigo não ataca neste turno,
-trap_emboscada,Emboscada,trap,TRAP,vermelho,-,0,3,,,-,0,1,,trap_double,2,,💥,Arapuca: seu dano dobra nesta resolução,
-trap_rede,Rede,trap,TRAP,azul,-,0,2,,,-,0,2,,trap_net,40,,🕸,Arapuca: inimigo −40 ATK + cura um aliado,
-trap_praga,Praga,trap,TRAP,verde,-,0,3,,,-,0,2,,trap_drain,50,,🦟,Arapuca: drena 50 ATK do inimigo,
-trap_fumaca,Bomba de Fumaça,trap,TRAP,roxo,-,0,3,,,-,0,1,,trap_smoke,30,,🌫,Arapuca: inimigo −30 ATK (placeholder),
-fus_resenha,A Resenha,fusion,ATK,amarelo,melee,5,0,380,200,medium,0,0,,,,,🎊,Fusão Festa+Festa (placeholder),baladinha.jpg
-fus_camarote,Rei do Camarote,fusion,BAL,amarelo,mid,5,0,420,170,medium,0,0,,,,,👑,Fusão Festa+Controle (placeholder),reidocamarote.jpeg
-fus_climao,O Climão,fusion,ATK,vermelho,melee,5,0,300,220,medium,0,0,,,,,😤,Fusão Força+Caos (placeholder),bolado.jpg
-fus_brotheragem,Brotheragem Eterna,fusion,DEF,verde,melee,5,0,600,120,slow,0,0,,,,,🤝,Fusão Sustain+Sustain (placeholder),apoio.jpeg
-fus_lenda,Lenda do Rolê,fusion,ATK,vermelho,melee,6,0,360,240,fast,0,0,,,,,🌟,Fusão específica Arthur+Letti (placeholder),nobrilho.jpg
-fus_brigarole,Brigou no Rolê,fusion,ATK,vermelho,melee,5,0,320,225,medium,0,0,,,,,🥊,Fusão Festa+Força (placeholder),armlock.jpg
-fus_apagao,Apagão Total,fusion,BAL,roxo,mid,5,0,300,215,medium,0,0,,,,,🥴,Fusão Festa+Caos (placeholder),deitei.jpg
-fus_resistencia,Resistência Etílica,fusion,DEF,verde,melee,5,0,520,190,slow,0,0,,,,,🍺,Fusão Festa+Sustain (placeholder),torredechopp.jpg
-fus_marombeiro,Marombeiro Supremo,fusion,ATK,vermelho,melee,6,0,380,250,medium,0,0,,,,,💪,Fusão Força+Força (placeholder),posefitness.jpg
-fus_leaochacara,Leão de Chácara,fusion,DEF,azul,melee,5,0,480,205,slow,0,0,,,,,🛡,Fusão Força+Controle (placeholder),pewpew.jpg
-fus_tanque,Tanque Humano,fusion,DEF,verde,melee,6,0,600,200,slow,0,0,,,,,🦾,Fusão Força+Sustain (placeholder),to no shape pai.jpeg
-fus_mestrecerimonia,Mestre de Cerimônia,fusion,BAL,azul,mid,5,0,360,195,medium,0,0,,,,,🎤,Fusão Controle+Controle (placeholder),newalbum.jpg
-fus_mentemestra,Mente Mestra,fusion,BAL,roxo,mid,5,0,330,210,medium,0,0,,,,,🧠,Fusão Controle+Caos (placeholder),mindfuck.jpeg
-fus_zen,Zen Master,fusion,DEF,azul,mid,5,0,500,185,medium,0,0,,,,,🧘,Fusão Controle+Sustain (placeholder),sónaboa.jpg
-fus_surto,Surto Coletivo,fusion,ATK,roxo,melee,5,0,320,220,medium,0,0,,,,,🤯,Fusão Caos+Caos (placeholder),oloco.jpeg
-fus_mauelemento,Mau Elemento,fusion,BAL,verde,mid,5,0,420,195,medium,0,0,,,,,🚬,Fusão Caos+Sustain (placeholder),cigarrinho.jpg
+# CARDS DATABASE v2 — Comandante do Caos
+# Colunas novas vs v1: tier (bronze/prata/gold), evolve_to (id da próxima versão), base_card (id da versão bronze)
+# MOTOR DE COMBATE NOVO: ATK cards somam pool de ataque; DEF cards somam pool de defesa (shield); BAL contribui para ambos.
+# hp nas cartas = valor de DEFESA que essa carta contribui ao pool de escudo do jogador
+# atk nas cartas = valor de ATAQUE que essa carta contribui ao pool de dano do jogador
+# Dano final = max(0, seu_atk_total - def_total_inimigo)
+id,name,kind,type,vibe,range,star,cost,hp,atk,speed,tribute,copies,special,effect,effectVal,effectDur,emoji,ability,img,tier,evolve_to,base_card,notes
+# === PEÕES SOCIALISTA (vermelho) ===
+peon_atk,Sem Terra,pawn,ATK,vermelho,melee,1,1,20,60,fast,0,3,,,,,,,,bronze,peon_atk_prata,,Peão ATK básico vermelho
+peon_atk_prata,Sem Terra Organizado,pawn,ATK,vermelho,melee,1,1,30,90,fast,0,3,,,,,,,,prata,peon_atk_gold,peon_atk,Evolução do Sem Terra
+peon_atk_gold,Sem Terra Lendário,pawn,ATK,vermelho,melee,1,1,40,130,fast,0,3,,,,,,,,gold,,peon_atk,Evolução máxima
+peon_atk2,Camarada,pawn,ATK,vermelho,melee,2,1,30,80,slow,0,3,,,,,,,,bronze,peon_atk2_prata,,
+peon_atk2_prata,Camarada Veterano,pawn,ATK,vermelho,melee,2,1,45,115,slow,0,3,,,,,,,,prata,peon_atk2_gold,peon_atk2,
+peon_atk2_gold,Camarada Élite,pawn,ATK,vermelho,melee,2,1,60,155,slow,0,3,,,,,,,,gold,,peon_atk2,
+peon_atk3,Comunista,pawn,ATK,vermelho,melee,4,1,40,100,slow,0,3,,,,,,,,bronze,,,
+peon_atk4,PTista,pawn,ATK,vermelho,melee,6,1,50,120,slow,0,3,,,,,,,,bronze,,,
+peon_atk5,Presidente,pawn,ATK,vermelho,melee,13,1,80,130,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES MAROMBEIRO (azul) ===
+peon_def,Malhadinho,pawn,DEF,azul,melee,1,1,200,30,slow,0,3,,,,,,,,bronze,peon_def_prata,,Peão DEF básico azul
+peon_def_prata,Malhadinho Rasgado,pawn,DEF,azul,melee,1,1,300,40,slow,0,3,,,,,,,,prata,peon_def_gold,peon_def,
+peon_def_gold,Malhadinho Gold,pawn,DEF,azul,melee,1,1,420,55,slow,0,3,,,,,,,,gold,,peon_def,
+peon_def2,Bombado,pawn,DEF,azul,melee,2,1,280,40,slow,0,3,,,,,,,,bronze,peon_def2_prata,,
+peon_def2_prata,Bombado Plus,pawn,DEF,azul,melee,2,1,400,55,slow,0,3,,,,,,,,prata,peon_def2_gold,peon_def2,
+peon_def2_gold,Bombado Supremo,pawn,DEF,azul,melee,2,1,550,75,slow,0,3,,,,,,,,gold,,peon_def2,
+peon_def3,Amante do Suco,pawn,DEF,azul,melee,5,1,360,60,slow,0,3,,,,,,,,bronze,,,
+peon_def4,Trembolono,pawn,DEF,azul,melee,6,1,500,80,slow,0,3,,,,,,,,bronze,,,
+peon_def5,Mr Olympia,pawn,DEF,azul,melee,9,1,800,140,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES DINHEIRISTA (verde) ===
+peon_bal,Economista,pawn,BAL,verde,mid,2,1,120,50,medium,0,3,,,,,,,,bronze,peon_bal_prata,,BAL: contribui para ATK e DEF
+peon_bal_prata,Economista Sênior,pawn,BAL,verde,mid,2,1,175,75,medium,0,3,,,,,,,,prata,peon_bal_gold,peon_bal,
+peon_bal_gold,Economista Chefe,pawn,BAL,verde,mid,2,1,240,105,medium,0,3,,,,,,,,gold,,peon_bal,
+peon_bal2,Investidor,pawn,BAL,verde,mid,4,1,180,75,slow,0,3,,,,,,,,bronze,,,
+peon_bal3,Rico Top 1%,pawn,BAL,verde,mid,5,1,220,100,slow,0,3,,,,,,,,bronze,,,
+peon_bal4,Banqueiro,pawn,BAL,verde,mid,8,1,350,120,slow,0,3,,,,,,,,bronze,,,
+peon_bal5,Schead Musk,pawn,BAL,verde,mid,10,1,700,200,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES NERDOLA (amarelo) ===
+peon_nerd,Streamer,pawn,DEF,amarelo,melee,1,1,200,30,slow,0,3,,,,,,,,bronze,peon_nerd_prata,,
+peon_nerd_prata,Streamer Prata,pawn,DEF,amarelo,melee,1,1,290,42,slow,0,3,,,,,,,,prata,peon_nerd_gold,peon_nerd,
+peon_nerd_gold,Streamer Gold,pawn,DEF,amarelo,melee,1,1,400,58,slow,0,3,,,,,,,,gold,,peon_nerd,
+peon_nerd2,Minezeiro,pawn,DEF,amarelo,melee,2,1,280,40,slow,0,3,,,,,,,,bronze,,,
+peon_nerd3,BoardGaymer,pawn,DEF,amarelo,melee,3,1,360,60,slow,0,3,,,,,,,,bronze,,,
+peon_nerd4,Suequeiro,pawn,DEF,amarelo,melee,5,1,500,80,slow,0,3,,,,,,,,bronze,,,
+peon_nerd5,Elden Lord,pawn,DEF,amarelo,melee,6,1,900,140,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === PEÕES ROLEZEIRO (roxo) ===
+peon_role,Muleque Piranha,pawn,ATK,roxo,melee,1,1,30,60,slow,0,3,,,,,,,,bronze,peon_role_prata,,
+peon_role_prata,Muleque Piranha+,pawn,ATK,roxo,melee,1,1,45,88,slow,0,3,,,,,,,,prata,peon_role_gold,peon_role,
+peon_role_gold,Muleque Piranha Gold,pawn,ATK,roxo,melee,1,1,60,120,slow,0,3,,,,,,,,gold,,peon_role,
+peon_role2,Pegador,pawn,ATK,roxo,melee,2,1,40,80,slow,0,3,,,,,,,,bronze,,,
+peon_role3,Boleiro,pawn,ATK,roxo,melee,4,1,50,100,slow,0,3,,,,,,,,bronze,,,
+peon_role4,PIMP,pawn,ATK,roxo,melee,5,1,60,120,slow,0,3,,,,,,,,bronze,,,
+peon_role5,Rei do Camarote,pawn,ATK,roxo,melee,8,1,80,130,slow,0,3,,,,,,,,bronze,,,Boss-tier
+# === HERÓIS (10) ===
+arthur,Arthur,hero,ATK,azul,long,3,3,180,110,fast,0,1,,,,,,,,bronze,,,Comandante Marombeiro
+fanta,Fanta,hero,BAL,amarelo,mid,3,3,160,70,medium,0,1,recycler,,,,,,bronze,,,Comandante Nerdola
+nathan,Nathan,hero,DEF,amarelo,melee,3,3,300,45,slow,0,1,,,,,,,,bronze,,,
+garopaba,Garopaba,hero,ATK,vermelho,melee,4,4,200,130,medium,0,1,deathbuff,,,,,,bronze,,,BOSS
+bala,Bala,hero,DEF,verde,melee,4,4,380,50,slow,0,1,provoker,,,,,,bronze,,,Comandante Dinheirista
+leo,Léo,hero,ATK,roxo,melee,4,4,200,130,medium,0,1,,,,,,,,bronze,,,
+zaga,Zaga,hero,BAL,roxo,mid,4,4,260,95,medium,0,1,,,,,,,,bronze,,,
+vitao,Vitão,hero,BAL,azul,mid,5,5,280,80,medium,1,1,healer,,,,,,bronze,,,
+borba,Borba,hero,DEF,vermelho,melee,5,5,500,70,slow,1,1,,,,,,,,bronze,,,
+letti,Letti,hero,ATK,verde,melee,6,6,220,160,veryfast,1,1,rusher,,,,,,bronze,,,
+# === HERÓIS EVOLUÍDOS (para boss deck do Garopaba) ===
+arthur_gold,Arthur Elite,hero,ATK,azul,long,3,3,280,180,fast,0,1,,,,,,,,gold,,arthur,Versão boss-tier
+garopaba_boss,Garopaba Revoltado,hero,ATK,vermelho,melee,4,4,350,210,medium,0,1,deathbuff,,,,,,gold,,garopaba,Deck exclusivo boss
+# === ITENS / MAGIAS ===
+churrasco,Churrasco,item,ITEM,azul,-,0,2,,,-,0,3,,heal_all,80,,🥩,Cura +80 de DEF pool neste turno,,,,
+energetico,Energético,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.3,,⚡,+30% ao ATK pool nesta resolução,,,,
+rodada,Rodada,item,ITEM,amarelo,-,0,1,,,-,0,3,,draw2,2,,🍺,Compra 2 cartas,,,,
+turboboost,Turbo Boost,item,ITEM,amarelo,-,0,2,,,-,0,3,,atk_buff,0.2,,💨,+20% ao ATK pool neste turno,,,,
+ressurreicao,Tadalinha,item,ITEM,verde,-,0,4,,,-,0,3,,resurrect,0.5,,🔄,Traz carta do descarte pra mão (50% das cartas no descarte),,,,
+reforco,Reforço,item,ITEM,verde,-,0,3,,,-,0,3,,next_hp_buff,0.5,,🛡,+50% ao DEF pool nesta resolução,,,,
+ressaca,Ressaca,item,ITEM,amarelo,-,0,2,,,-,0,2,,debuff_enemy_atk,40,,🥴,Reduz ATK pool inimigo em 40 nesta resolução,,,,
+dedinho,Dedinho Mindinho,item,ITEM,roxo,-,0,2,,,-,0,2,,debuff_enemy_atk_pct,0.3,,🤏,Reduz ATK pool inimigo em 30% nesta resolução,,,,
+calunia,Calúnia,item,ITEM,roxo,-,0,3,,,-,0,2,,debuff_silence,1,,🗣,Anula ATK pool inimigo completamente nesta resolução,,,,
+jogaareia,Joga Areia,item,ITEM,vermelho,-,0,1,,,-,0,2,,debuff_flat,50,,🏖,Reduz ATK pool inimigo em 50,,,,
+barraco,Barraco,item,ITEM,roxo,-,0,4,,,-,0,1,,debuff_enemy_atk,30,,💢,Reduz ATK pool inimigo em 30,,,,
+# === ITENS DE UPGRADE (geram evolução de cartas) ===
+upgrade_bronze,Upgrade!,item,UPGRADE,qualquer,-,0,3,,,-,0,2,,evolve_card,bronze_to_prata,,⬆️,"Funda com qualquer carta Bronze → ela e todas as cópias viram Prata. Material vai ao Lixo (não retorna ao deck)",,,,
+upgrade_prata,Upgrade Gold!,item,UPGRADE,qualquer,-,0,5,,,-,0,1,,evolve_card,prata_to_gold,,⬆️⬆️,"Funda com qualquer carta Prata → ela e todas as cópias viram Gold. Material vai ao Lixo",,,,
+# === GERADORES DE PEÕES (vibe cruzada) ===
+recruta,Recruta,item,ITEM,qualquer,-,0,2,,,-,0,3,,buy_pawn_any,1,,📋,Escolha uma vibe — adiciona 1 peão básico daquela vibe à mão,,,,
+mercado_negro,Mercado Negro,item,ITEM,qualquer,-,0,3,,,-,0,3,,buy_pawn_random,2,,🕶,Adiciona 2 peões de vibes aleatórias à mão,,,,
+headhunter,Headhunter,item,ITEM,qualquer,-,0,4,,,-,0,2,,buy_pawn_pick,1,,🎯,Escolha qualquer peão da base e adicione à mão,,,,
+# === ARAPUCAS ===
+trap_buraco,Buraco na Pista,trap,TRAP,amarelo,-,0,2,,,-,0,2,,trap_atk_zero,1,,🕳,Zera ATK pool inimigo nesta resolução,,,,
+trap_emboscada,Emboscada,trap,TRAP,vermelho,-,0,3,,,-,0,1,,trap_atk_double,2,,💥,Dobra seu ATK pool nesta resolução,,,,
+trap_rede,Rede,trap,TRAP,azul,-,0,2,,,-,0,2,,trap_def_boost,100,,🕸,+100 ao seu DEF pool + reduz ATK inimigo em 40,,,,
+trap_praga,Praga,trap,TRAP,verde,-,0,3,,,-,0,2,,trap_drain_atk,50,,🦟,Drena 50 do ATK pool inimigo para o seu DEF,,,,
+trap_fumaca,Bomba de Fumaça,trap,TRAP,roxo,-,0,3,,,-,0,1,,trap_atk_reduce,30,,🌫,Reduz ATK pool inimigo em 30,,,,
+# === FUSÕES ===
+fus_resenha,A Resenha,fusion,ATK,amarelo,melee,5,0,80,200,medium,0,0,,,,,🎊,Fusão Festa+Festa,,,,
+fus_camarote,Rei do Camarote,fusion,BAL,amarelo,mid,5,0,180,170,medium,0,0,,,,,👑,Fusão Festa+Controle,,,,
+fus_climao,O Climão,fusion,ATK,vermelho,melee,5,0,60,220,medium,0,0,,,,,😤,Fusão Força+Caos,,,,
+fus_brotheragem,Brotheragem Eterna,fusion,DEF,verde,melee,5,0,600,80,slow,0,0,,,,,🤝,Fusão Sustain+Sustain,,,,
+fus_lenda,Lenda do Rolê,fusion,ATK,vermelho,melee,6,0,80,240,fast,0,0,,,,,🌟,Fusão específica Arthur+Letti,,,,
+fus_brigarole,Brigou no Rolê,fusion,ATK,vermelho,melee,5,0,60,225,medium,0,0,,,,,🥊,Fusão Festa+Força,,,,
+fus_apagao,Apagão Total,fusion,BAL,roxo,mid,5,0,120,215,medium,0,0,,,,,🥴,Fusão Festa+Caos,,,,
+fus_resistencia,Resistência Etílica,fusion,DEF,verde,melee,5,0,520,90,slow,0,0,,,,,🍺,Fusão Festa+Sustain,,,,
+fus_marombeiro,Marombeiro Supremo,fusion,ATK,vermelho,melee,6,0,80,250,medium,0,0,,,,,💪,Fusão Força+Força,,,,
+fus_leaochacara,Leão de Chácara,fusion,DEF,azul,melee,5,0,480,100,slow,0,0,,,,,🛡,Fusão Força+Controle,,,,
+fus_tanque,Tanque Humano,fusion,DEF,verde,melee,6,0,600,100,slow,0,0,,,,,🦾,Fusão Força+Sustain,,,,
+fus_mestrecerimonia,Mestre de Cerimônia,fusion,BAL,azul,mid,5,0,300,195,medium,0,0,,,,,🎤,Fusão Controle+Controle,,,,
+fus_mentemestra,Mente Mestra,fusion,BAL,roxo,mid,5,0,260,210,medium,0,0,,,,,🧠,Fusão Controle+Caos,,,,
+fus_zen,Zen Master,fusion,DEF,azul,mid,5,0,500,90,medium,0,0,,,,,🧘,Fusão Controle+Sustain,,,,
+fus_surto,Surto Coletivo,fusion,ATK,roxo,melee,5,0,60,220,medium,0,0,,,,,🤯,Fusão Caos+Caos,,,,
+fus_mauelemento,Mau Elemento,fusion,BAL,verde,mid,5,0,200,195,medium,0,0,,,,,🚬,Fusão Caos+Sustain,,,,
 `;
 
 function parseCSVLine(line){
@@ -1245,19 +1300,90 @@ function parseCardsCSV(csv){
       special:r.special||null,
       emoji:r.emoji||undefined, ability:r.ability||undefined,
       img:r.img||undefined,   // arquivo em assets/cards/ (ex.: zemane.png); sem ele, usa emoji
+      // v2: sistema de tiers (bronze→prata→gold) — cartas distintas ligadas por família
+      tier:r.tier||'bronze',
+      evolveTo:r.evolve_to||null,
+      baseCard:r.base_card||r.id,   // família = id da versão bronze (a própria, se for a base)
     };
     if(r.effect)c.effect=r.effect;
-    if(r.effectVal!=='')c.effectVal=Number(r.effectVal);
-    if(r.effectDur!=='')c.effectDur=Number(r.effectDur);
+    if(r.effectVal!==''&&r.effectVal!=null){const n=Number(r.effectVal);c.effectVal=isNaN(n)?r.effectVal:n;}
+    if(r.effectDur!==''&&!isNaN(Number(r.effectDur)))c.effectDur=Number(r.effectDur);
     if(c.kind==='pawn')c.pawn=true;
     if(c.kind==='hero')c.hero=true;
     if(c.kind==='fusion')c.fusion=true;   // resultado de fusão; é monstro mas não entra em deck/loja
-    if(c.kind==='item')c.type='ITEM';
+    if(c.kind==='item'&&c.type!=='UPGRADE')c.type='ITEM';
     if(c.kind==='trap')c.type='TRAP';
     return c;
   });
 }
+function isUpgrade(c){return c&&(c.type==='UPGRADE'||c.effect==='evolve_card');}
+function cardById(id){return BASE_CARDS.find(c=>c.id===id)||null;}
 const BASE_CARDS = parseCardsCSV(CARDS_CSV);
+
+// ══ COMANDANTES — fonte única: commanders_database.csv (rode `node tools/sync_cards.js` p/ sincronizar) ══
+const COMMANDERS_CSV = `
+id,name,vibe,vibe_color,diff,tagline,base_hp,inf_start,inf_per_turn,inf_cap,hand_size,hand_start,zones,play_cost_default,fuses_per_turn,pass_name,pass_desc,pass_trigger,act_name,act_desc,act_trigger,act_uses,field_bonus,field_bonus_desc,rogue_order,is_boss,deck_ids_base,artifact_notes
+fanta,Fanta,nerdola,#f5c542,★★★,Fusões em cadeia. Cada jogada abre a próxima.,2000,4,3,12,9,5,6,2,1,Reação em Cadeia,Toda fusão bem-sucedida reduz em 1✦ o custo da próxima fusão neste turno.,ao realizar fusão,Overclock,Compra 2 cartas e libera uma fusão extra imediata.,3+ fusões no mesmo turno,1x por turno,vibe_fusion_boost,Cartas de fusão Nerdola no campo geram +1✦ extra na STANDBY,enemy_1,FALSE,"peon_nerd,peon_nerd2,peon_nerd3,fanta,rodada,energetico",Artefatos de draw e fusão se combinam bem
+nathan,Nathan,nerdola,#f5c542,★★☆,Cada peão no campo vale ouro. Literalmente.,2000,4,3,12,9,5,6,2,1,Folha de Pagamento,Cada peão seu em campo gera +1✦ de Influência adicional por turno.,passiva contínua,Bônus,Converte metade da Influência guardada em cura para o Comandante.,4+ peões em campo,1x por turno,vibe_pawn_boost,Peões Nerdola têm +30 HP enquanto este Comandante estiver em campo,player,FALSE,"peon_nerd,peon_nerd2,peon_nerd3,peon_nerd4,nathan,rodada,reforco",Artefatos de peão e influência se combinam bem
+garopaba,Garopaba,socialista,#e63946,BOSS,Quanto mais apanha mais perigoso fica. Cuidado.,2500,3,3,14,9,5,6,2,2,Revolta,A cada 200 de PV perdido suas unidades de ATAQUE ganham +50 de ATK permanente no fight.,ao receber dano,Levante,Todas as unidades atacam com +30% de ATK imediatamente.,PV abaixo de 50%,1x por fight,vibe_atk_overflow,Dano excedente (overflow) +20% ao acertar o Comandante inimigo,enemy_4,TRUE,"peon_atk,peon_atk2,peon_atk3,peon_atk4,peon_atk5,garopaba,trap_emboscada,barraco",Deck boss — mais agressivo com cartas exclusivas de boss
+borba,Borba,socialista,#e63946,★★☆,Cada morte aliada machuca o inimigo. Quem disse que perder é ruim?,2000,4,3,12,9,5,6,2,1,Mártir,Toda unidade sua destruída causa 120 de dano direto à base inimiga.,ao unidade aliada morrer,Comício,Ressuscita o último peão caído e dobra o dano de Mártir neste turno.,3 aliados no cemitério,1x por fight,vibe_death_bonus,Unidades Socialistas causam 80 de dano bônus ao morrer,player,FALSE,"peon_atk,peon_atk2,peon_atk3,borba,trap_emboscada,jogaareia,barraco",Artefatos de dano direto amplificam bem
+arthur,Arthur,marombeiro,#2196f3,★☆☆,Defesa inabalável. Quanto mais no campo mais forte.,2000,4,3,12,9,5,6,2,1,Muralha,Cada unidade de DEFESA em campo dá +8% de redução de dano à sua base.,passiva contínua,Formação,Todas as defesas recuperam 100 de PV e bloqueiam o próximo overflow.,3+ unidades de DEFESA,1x por fight,vibe_def_boost,Unidades Marombeiro com tipo DEFESA têm custo -1✦ para baixar,enemy_2,FALSE,"peon_def,peon_def2,peon_def3,peon_def4,arthur,churrasco,reforco",Artefatos de redução de dano e cura se combinam bem
+vitao,Vitão,marombeiro,#2196f3,★★☆,Ataque bruto. Sem finesse só pancada.,2000,4,3,12,9,5,6,2,1,Marra,Suas unidades ignoram 20% da defesa inimiga na resolução.,passiva contínua,Supino,A unidade de maior ATK ataca duas vezes neste turno.,a qualquer momento,1x por run,vibe_atk_pierce,Unidades Marombeiro com tipo ATAQUE ganham +15 ATK por turno que ficam em campo,player,FALSE,"peon_def,peon_def2,peon_atk,peon_atk2,vitao,energetico,turboboost",Artefatos de ATK bônus são os melhores aqui
+leo,Léo,rolezeiro,#9c27b0,★★★,Sorte e caos. Você nunca sabe o que vai sair.,2000,4,3,12,9,5,6,2,1,Zoeira,Ao baixar uma carta 25% de chance de copiar seu efeito num aliado aleatório.,ao baixar carta,Roleta,Embaralha a mão e compra o mesmo número de cartas de volta.,a qualquer momento,1x por turno,vibe_random_bonus,30% de chance de gerar +1✦ extra no DRAW,player,FALSE,"peon_role,peon_role2,peon_role3,leo,rodada,barraco,calunia",Artefatos com % de proc são amplificados pela passiva do Léo
+zaga,Zaga,rolezeiro,#9c27b0,★★★,Embaralha tudo. Seu e o do inimigo.,2000,4,3,12,9,5,6,2,1,Caos,No início do turno troca de posição uma unidade sua e uma inimiga aleatórias.,início do turno,Reset,Devolve todas as unidades não-Comandante para as mãos dos donos.,a qualquer momento,1x por fight,vibe_swap_bonus,Ao trocar posição de unidade ganhe 1✦ extra,player,FALSE,"peon_role,peon_role2,vp_roxo,zaga,dedinho,calunia,trap_fumaca",Artefatos de controle e disrução funcionam bem
+bala,Bala,dinheirista,#4caf50,★★☆,Grana gera grana. Campo cheio Influência infinita.,2000,5,3,14,9,5,6,2,1,Juros,Ganha +1✦ para cada 2 zonas suas ocupadas ao fim do turno.,fim do turno,Investir,Gasta metade da Influência para comprar cartas igual ao valor gasto.,10+ ✦ acumulados,1x por turno,vibe_inf_boost,Loja custa -1✦ para este Comandante,enemy_3,FALSE,"peon_bal,peon_bal2,peon_bal3,peon_bal4,bala,ressurreicao,reforco",Deck mais econômico — usa a Loja para escalar
+letti,Letti,dinheirista,#4caf50,★☆☆,Mais Influência que todos. Mais cartas que todos. Simples assim.,2000,6,4,16,9,6,6,2,1,Fartura,Começa cada duelo com +2✦ e +1 carta na mão inicial.,início do duelo,Ostentação,Baixa até 2 cartas sem pagar custo de Influência.,mão cheia (9 cartas),1x por turno,vibe_cap_bonus,Teto de Influência +4 acima do padrão (total 16),player,FALSE,"peon_bal,peon_bal2,peon_bal3,peon_bal4,letti,ressurreicao,reforco,rodada",Artefatos de cap e geração de influência são os melhores
+`;
+function parseCommandersCSV(csv){
+  const lines=csv.split(/\r?\n/).filter(l=>l.trim()&&!l.trim().startsWith('#'));
+  if(lines.length<2)return [];
+  const header=parseCSVLine(lines[0]).map(h=>h.trim());
+  const NUM=['base_hp','inf_start','inf_per_turn','inf_cap','hand_size','hand_start','zones','play_cost_default','fuses_per_turn'];
+  return lines.slice(1).map(line=>{
+    const cells=parseCSVLine(line); const r={}; header.forEach((h,i)=>r[h]=(cells[i]==null?'':cells[i]).trim());
+    NUM.forEach(k=>{r[k]=r[k]===''?undefined:Number(r[k]);});
+    r.is_boss=String(r.is_boss).toUpperCase()==='TRUE';
+    r.deck_ids=(r.deck_ids_base||'').split(',').map(s=>s.trim()).filter(Boolean);
+    return r;
+  });
+}
+const COMMANDERS = parseCommandersCSV(COMMANDERS_CSV);
+function commanderById(id){return COMMANDERS.find(c=>c.id===id)||null;}
+// Ordem fixa do Rogue (5F): lida do campo rogue_order (enemy_1..enemy_4).
+function rogueEnemyOrder(){
+  return COMMANDERS.filter(c=>/^enemy_\d+$/.test(c.rogue_order||'')).sort((a,b)=>a.rogue_order.localeCompare(b.rogue_order)).map(c=>c.id);
+}
+// Stats efetivos de um Comandante: CSV → fallback nas constantes globais → + artefatos da run (só player).
+function commanderStats(cmdId,isPlayer){
+  const c=commanderById(cmdId)||{};
+  const mods=(isPlayer&&APP.commanderMods)||{};
+  const pick=(v,g)=>(v==null||isNaN(v))?g:v;
+  return {
+    base_hp:pick(c.base_hp,BASE_HP)+(mods.base_hp||0),
+    inf_start:pick(c.inf_start,INF_START),
+    inf_per_turn:pick(c.inf_per_turn,INF_PER_TURN)+(mods.inf_per_turn||0),
+    inf_cap:pick(c.inf_cap,INF_CAP)+(mods.inf_cap||0),
+    hand_size:pick(c.hand_size,HAND_LIMIT)+(mods.hand_size||0),
+    hand_start:pick(c.hand_start,INITIAL_HAND),
+    zones:pick(c.zones,ZONES),
+    play_cost_default:pick(c.play_cost_default,DEFAULT_PLAY_COST),
+    fuses_per_turn:pick(c.fuses_per_turn,FUSES_PER_TURN)+(mods.fuses_per_turn||0),
+  };
+}
+// Deck de um Comandante: deck_ids_base × copies da carta. Boss (is_boss) carrega TAMBÉM as versões gold.
+function commanderDeckIds(cmdId){
+  const c=commanderById(cmdId); if(!c)return null;
+  const ids=[];
+  c.deck_ids.forEach(id=>{
+    const card=cardById(id); if(!card)return;
+    for(let i=0;i<Math.max(1,card.copies||1);i++)ids.push(id);
+    if(c.is_boss){ // 2.4: boss usa também as versões _gold de cada carta da lista
+      const gold=BASE_CARDS.find(x=>x.baseCard===card.baseCard&&x.tier==='gold'&&x.id!==id);
+      if(gold)for(let i=0;i<Math.max(1,gold.copies||1);i++)ids.push(gold.id);
+    }
+  });
+  return ids;
+}
 
 // ══ FUSÕES (estilo YGO Forbidden Memories — ver CONTEXT_FUSION.md) ══
 // Fonte única: bloco FUSIONS_CSV abaixo (espelhado em FUSIONS.csv). Linhas # = comentário.
@@ -1507,12 +1633,17 @@ function currentDeckIds(){ const saved=Save.getDeck&&Save.getDeck(); if(saved&&s
 // Auto-monta até DECK_SIZE: respeita a quantidade da coleção (ou usa todas as cartas se não há save).
 function autoDeckIds(){ const ids=[]; if(Save.data){ Save.collectionIds().forEach(id=>{ const q=Save.ownedQty(id); for(let i=0;i<q;i++)ids.push(id); }); } else { BASE_CARDS.forEach(c=>{ for(let i=0;i<c.copies;i++)ids.push(c.id); }); } shuffle(ids); return ids.slice(0,DECK_SIZE); }
 function buildAIDeck(diff,fightNum=1){
-  const cfg=AI_DECKS[diff];
+  // v4 data-driven: se há Comandante inimigo definido, o deck vem do commanders_database.csv
+  // (deck_ids_base × copies; boss carrega também as versões gold — ver commanderDeckIds).
+  if(APP.enemyCommanderId){
+    const ids=commanderDeckIds(APP.enemyCommanderId);
+    if(ids&&ids.length)return shuffle(ids.map(id=>{const c=cardById(id);return c?{...c,uid:uid()}:null;}).filter(Boolean));
+  }
+  // fallback legado (sem Comandante): deck genérico por dificuldade
+  const cfg=AI_DECKS[diff]||AI_DECKS.medium;
   const fc=FIGHT_CURVE[fightNum]||{atkMult:1,lvDelta:0};
-  const lv=Math.max(1,Math.min(6,cfg.lvOverride+(fc.lvDelta||0)));
   const atkMult=cfg.atkMult*(fc.atkMult||1);
-  const fl={};BASE_CARDS.forEach(c=>fl[c.id]=lv);
-  let deck=[];BASE_CARDS.forEach(c=>{const card=applyCardLevel(c,fl);card.atk=card.atk?Math.round(card.atk*atkMult):card.atk;for(let i=0;i<c.copies;i++)deck.push({...card,uid:uid()});});
+  let deck=[];BASE_CARDS.forEach(c=>{if(c.kind==='fusion'||c.tier!=='bronze')return;const card={...c};card.atk=card.atk?Math.round(card.atk*atkMult):card.atk;for(let i=0;i<c.copies;i++)deck.push({...card,uid:uid()});});
   return shuffle(deck);
 }
 
@@ -1835,57 +1966,74 @@ function applyItem(card,owner){const my=G.units.filter(u=>u.owner===owner&&!u.dy
 
 function initFight(fightNum,difficulty,playerDeck,extraHandSize=0){
   const handBonus=(APP.mode!=='free'&&PLAYER_HAND_BONUS[fightNum])||0;
+  // Stats por-Comandante (CSV) c/ fallback nas constantes globais + artefatos da run (player)
+  const pStats=commanderStats(APP.playerCommanderId,true);
+  const eStats=commanderStats(APP.enemyCommanderId,false);
   const aiDeck=buildAIDeck(difficulty,fightNum);
   const emptyField=()=>Array(ZONES).fill(null);
   G={
     fightNum,difficulty,turn:1,phase:'draw',gameOver:false,winner:null,score:0,
+    stats:{player:pStats,ai:eStats},
     playerDeck:[...playerDeck],playerHand:[],playerGrave:[],
     playerField:emptyField(),
-    playerBase:{hp:BASE_HP,maxHp:BASE_HP},          // PV = PV do Comandante do jogador
+    playerBase:{hp:pStats.base_hp,maxHp:pStats.base_hp},   // PV = PV do Comandante do jogador
     playerCmd:pickCommander('player',playerDeck),
-    playerInf:INF_START, playerFuses:{used:0,limit:FUSES_PER_TURN},
-    playerHandLimit:HAND_LIMIT,
+    playerInf:pStats.inf_start, playerFuses:{used:0,limit:pStats.fuses_per_turn},
+    playerHandLimit:pStats.hand_size,
     aiDeck,aiHand:[],aiGrave:[],
     aiField:emptyField(),
-    aiBase:{hp:BASE_HP,maxHp:BASE_HP},              // PV = PV do Comandante inimigo
+    aiBase:{hp:eStats.base_hp,maxHp:eStats.base_hp},       // PV = PV do Comandante inimigo
     aiCmd:pickCommander('ai',aiDeck),
-    aiInf:INF_START, aiFuses:{used:0,limit:FUSES_PER_TURN},
+    aiInf:eStats.inf_start, aiFuses:{used:0,limit:eStats.fuses_per_turn},
     trash:[],                                        // Lixo central compartilhado
     selectedHandIdx:null,selectedHandCard:null,
     actionDone:false, aiPlan:null,                  // AÇÃO: plano da IA revelado na RESOLUÇÃO
     mods:newMods(), playerQuickUsed:false, aiQuickUsed:false,
-    nextHpBuff:{player:0,ai:0},
   };
-  G.playerBase.hp=G.playerCmd.pv; G.aiBase.hp=G.aiCmd.pv;
-  const initPlayer=Math.min(HAND_LIMIT,INITIAL_HAND+extraHandSize+handBonus);
+  const initPlayer=Math.min(pStats.hand_size,pStats.hand_start+extraHandSize+handBonus);
   for(let i=0;i<initPlayer;i++)drawOne('player');
-  for(let i=0;i<INITIAL_HAND;i++)drawOne('ai');
+  for(let i=0;i<eStats.hand_start;i++)drawOne('ai');
 }
-// Deriva o Comandante de um lado. Qual herói vira Comandante ainda está EM ABERTO (GAME_DESIGN §3):
-// pega uma carta marcada .commander no deck; senão, sintetiza pela vibe dominante.
+function statsOf(side){return (G.stats&&G.stats[side])||commanderStats(null,side==='player');}
+function handLimitOf(side){return statsOf(side).hand_size;}
+// Monta o objeto do Comandante de um lado, a partir do commanders_database.csv
+// (+ carta de herói homônima p/ arte/ATK). Fallback legado: vibe dominante do deck.
 function pickCommander(side,deck){
-  const flagged=(deck||[]).find(c=>c&&c.commander);
+  const cmdId=side==='player'?APP.playerCommanderId:APP.enemyCommanderId;
+  const meta=commanderById(cmdId);
+  if(meta){
+    const hero=cardById(meta.id)||{};
+    const st=commanderStats(meta.id,side==='player');
+    return {
+      id:meta.id, name:meta.name, vibe:vibeIdOf(meta),   // CSV usa o NOME da vibe; cartas usam a cor
+      atk:hero.atk||0, emoji:hero.emoji||'👑', img:hero.img||null,
+      type:hero.type||'BAL', kind:'commander', commander:true,
+      tagline:meta.tagline||'', diff:meta.diff||'',
+      passName:meta.pass_name,passDesc:meta.pass_desc,passTrigger:meta.pass_trigger,
+      actName:meta.act_name,actDesc:meta.act_desc,actTrigger:meta.act_trigger,actUses:meta.act_uses,
+      fieldBonusDesc:meta.field_bonus_desc||'', isBoss:meta.is_boss,
+      ability:`${meta.pass_name}: ${meta.pass_desc}`,
+      pv:st.base_hp, maxPv:st.base_hp,
+    };
+  }
+  // fallback legado (sem Comandante selecionado — ex.: modo password antigo)
   const vibeCount={}; (deck||[]).forEach(c=>{if(c&&c.vibe)vibeCount[c.vibe]=(vibeCount[c.vibe]||0)+1;});
   let domV=null,mx=0; for(const k in vibeCount)if(vibeCount[k]>mx){mx=vibeCount[k];domV=k;}
-  const base=flagged||{};
-  const name=side==='player'
-    ? ((Save&&Save.data&&Save.data.name)||(APP&&APP.playerName)||base.name||'COMANDANTE')
-    : ((APP&&APP.opponentName)||base.name||'FLORIPA');
-  return {
-    id:base.id||('cmd_'+side), name, vibe:base.vibe||domV||'roxo',
-    atk:base.atk||0, emoji:base.emoji||'👑', img:base.img||null,
-    type:base.type||'BAL', kind:'commander',
-    ability:base.ability||base.desc||'Comandante do Caos — seu PV é a vida deste lado.',
-    pv:BASE_HP, maxPv:BASE_HP, commander:true,
-  };
+  const name=side==='player'?((Save&&Save.data&&Save.data.name)||'COMANDANTE'):((APP&&APP.opponentName)||'FLORIPA');
+  return {id:'cmd_'+side,name,vibe:domV||'roxo',atk:0,emoji:'👑',img:null,type:'BAL',kind:'commander',commander:true,
+    ability:'Comandante do Caos — seu PV é a vida deste lado.',pv:BASE_HP,maxPv:BASE_HP};
 }
-// Modificadores temporários de ATK/efeito por lado (valem só na resolução do turno).
-function newMods(){return{player:{atkMult:1,atkFlat:0,skip:false},ai:{atkMult:1,atkFlat:0,skip:false}};}
+// CSV de comandantes usa o NOME da vibe (nerdola/socialista/...); as cartas usam a COR (amarelo/vermelho/...).
+const VIBE_NAME2ID={nerdola:'amarelo',socialista:'vermelho',marombeiro:'azul',rolezeiro:'roxo',dinheirista:'verde'};
+function vibeIdOf(meta){return VIBE_NAME2ID[meta.vibe]||meta.vibe;}
+// Modificadores temporários dos POOLS por lado (valem só na resolução do turno).
+function newSideMods(){return{atkMult:1,atkFlat:0,defMult:1,defFlat:0,silence:false};}
+function newMods(){return{player:newSideMods(),ai:newSideMods()};}
 
+// Cria a instância de campo. MOTOR v4: cartas não têm HP em campo — atk/hp são
+// contribuições aos pools de ATAQUE/DEFESA do lado; o campo se esvazia toda resolução.
 function makeFC(card,side){
-  let hp=card.hp||0;
-  if(side&&G.nextHpBuff&&G.nextHpBuff[side]>0){hp=Math.round(hp*(1+G.nextHpBuff[side]));G.nextHpBuff[side]=0;}
-  return{...card,currentHp:hp,maxHp:hp,fieldRank:0,turnsOnField:0,faceDown:false};
+  return{...card,faceDown:false};
 }
 
 function drawOne(side){
@@ -1899,30 +2047,32 @@ function startPhase(phase){
   const h={draw:phaseDraw,standby:phaseStandby,action:phaseAction,resolution:phaseResolution};
   if(h[phase])setTimeout(h[phase],delay);
 }
-// Geração de Influência (PLACEHOLDER tunável — fórmula real é por-Comandante, EM ABERTO).
+// Geração de Influência: base por-Comandante (CSV) + bônus por zona ocupada (global tunável).
+// A fórmula CONDICIONAL própria de cada Comandante (pass_trigger) ainda é EM ABERTO no GDD.
 function regenInfluence(side){
+  const st=statsOf(side);
   const field=side==='player'?G.playerField:G.aiField;
   const occ=field.filter(Boolean).length;
-  const gain=INF_PER_TURN+occ*INF_PER_ZONE;
-  if(side==='player')G.playerInf=Math.min(INF_CAP,G.playerInf+gain);
-  else G.aiInf=Math.min(INF_CAP,G.aiInf+gain);
+  const gain=st.inf_per_turn+occ*INF_PER_ZONE;
+  if(side==='player')G.playerInf=Math.min(st.inf_cap,G.playerInf+gain);
+  else G.aiInf=Math.min(st.inf_cap,G.aiInf+gain);
 }
 function infOf(side){return side==='player'?G.playerInf:G.aiInf;}
 function spendInf(side,n){ if(side==='player')G.playerInf=Math.max(0,G.playerInf-n); else G.aiInf=Math.max(0,G.aiInf-n); }
-function playCost(card){return card&&card.cost!=null?card.cost:DEFAULT_PLAY_COST;}
+function playCost(card,side){ if(card&&card.cost!=null)return card.cost; const st=(G.stats&&G.stats[side||'player']); return st?st.play_cost_default:DEFAULT_PLAY_COST; }
 
 function phaseDraw(){
   // novo turno: zera buffs/debuffs temporários, fusões e o "1 carta rápida por turno"
   G.mods=newMods(); G.playerQuickUsed=false; G.aiQuickUsed=false;
-  G.playerFuses={used:0,limit:FUSES_PER_TURN}; G.aiFuses={used:0,limit:FUSES_PER_TURN};
-  // Influência do turno (placeholder — ver regenInfluence)
+  G.playerFuses={used:0,limit:statsOf('player').fuses_per_turn}; G.aiFuses={used:0,limit:statsOf('ai').fuses_per_turn};
+  // Influência do turno (regen por-Comandante via CSV; fórmula condicional real EM ABERTO)
   regenInfluence('player'); regenInfluence('ai');
   // Deck vazio: reembaralha o Descarte automaticamente (UI_CAMPO §4)
   reshuffleIfEmpty('player'); reshuffleIfEmpty('ai');
   // turno 1 já recebeu a mão inicial no initFight; a partir do turno 2, +1/turno (acumula até o teto)
   if(G.turn>1){
-    if(G.playerHand.length<HAND_LIMIT&&G.playerDeck.length)G.playerHand.push(G.playerDeck.shift());
-    if(G.aiHand.length<HAND_LIMIT&&G.aiDeck.length)G.aiHand.push(G.aiDeck.shift());
+    if(G.playerHand.length<handLimitOf('player')&&G.playerDeck.length)G.playerHand.push(G.playerDeck.shift());
+    if(G.aiHand.length<handLimitOf('ai')&&G.aiDeck.length)G.aiHand.push(G.aiDeck.shift());
   }
   if(!G.playerDeck.length&&!G.playerHand.length){showMsg('💀 Deck Out! Derrota!','red');setTimeout(()=>endFight('ai'),1000);return;}
   playSFX('ui_card_draw');
@@ -1938,15 +2088,9 @@ function reshuffleIfEmpty(side){
   if(side==='player'){showMsg('♻ Descarte reembaralhado no Deck!','green');bfLog('Descarte → Deck (reembaralho)','green');}
 }
 
+// STANDBY: fase de manutenção. MOTOR v4: sem rank por tempo (abolido) — o campo
+// esvazia toda resolução. Reservada p/ gatilhos futuros de passiva de Comandante.
 function phaseStandby(){
-  ['player','ai'].forEach(side=>{
-    const field=side==='player'?G.playerField:G.aiField;
-    field.forEach(card=>{
-      if(!card)return;card.turnsOnField++;
-      const nr=card.turnsOnField>=4?2:card.turnsOnField>=2?1:0;
-      if(nr>card.fieldRank){card.fieldRank=nr;if(side==='player'){showMsg(`★ ${card.name} virou ${['','Prata','Ouro'][nr]}!`,'orange');playSFX('ui_atb_full');}}
-    });
-  });
   updateFieldUI();startPhase('action');
 }
 
@@ -1991,6 +2135,7 @@ function playCard(cardIdx,zoneIdx){
   if(G.phase!=='action'||G.actionDone)return;
   const card=G.playerHand[cardIdx]; if(!card)return;
   const cost=playCost(card);
+  if(isUpgrade(card)){bfToast('⬆️ Funda o Upgrade com um monstro: clique nos dois, ou arraste-o pra cima de um monstro no campo');return;}
   if(card.kind==='item'){
     if(G.playerInf<cost){bfToast('Influência insuficiente ('+cost+' ✦)');playSFX('ui_error');return;}
     G.playerHand.splice(cardIdx,1); spendInf('player',cost);
@@ -2019,11 +2164,11 @@ function aiDecideAction(){
   let inf=G.aiInf; const hand=[...G.aiHand];
   const free=[]; G.aiField.forEach((s,i)=>{if(!s)free.push(i);});
   const mons=hand.filter(isMonster).sort((a,b)=>(b.atk||0)-(a.atk||0));
-  for(const c of mons){ if(!free.length)break; const cost=playCost(c); if(inf<cost)continue; inf-=cost; G.aiPlan.plays.push({card:c,zone:free.shift()}); }
+  for(const c of mons){ if(!free.length)break; const cost=playCost(c,'ai'); if(inf<cost)continue; inf-=cost; G.aiPlan.plays.push({card:c,zone:free.shift()}); }
   if(AI_DECKS[G.difficulty].usesItems){
-    const items=hand.filter(c=>c.kind==='item');
+    const items=hand.filter(c=>c.kind==='item'&&!isUpgrade(c));
     const it=items.find(c=>c.effect==='atk_buff')||items.find(c=>c.effect&&c.effect.indexOf('debuff')===0)||items[0];
-    if(it&&inf>=playCost(it)){ inf-=playCost(it); G.aiPlan.items.push(it); }
+    if(it&&inf>=playCost(it,'ai')){ inf-=playCost(it,'ai'); G.aiPlan.items.push(it); }
   }
 }
 function applyAiPlan(){
@@ -2031,9 +2176,9 @@ function applyAiPlan(){
   G.aiPlan.plays.forEach(p=>{
     const i=G.aiHand.indexOf(p.card); if(i>=0)G.aiHand.splice(i,1);
     if(G.aiField[p.zone])return;
-    const fc=makeFC(p.card,'ai'); fc.faceDown=true; G.aiField[p.zone]=fc; spendInf('ai',playCost(p.card));
+    const fc=makeFC(p.card,'ai'); fc.faceDown=true; G.aiField[p.zone]=fc; spendInf('ai',playCost(p.card,'ai'));
   });
-  G.aiPlan.items.forEach(it=>{ const i=G.aiHand.indexOf(it); if(i>=0)G.aiHand.splice(i,1); applyTurnItem(it,'ai'); G.aiGrave.push(it); spendInf('ai',playCost(it)); });
+  G.aiPlan.items.forEach(it=>{ const i=G.aiHand.indexOf(it); if(i>=0)G.aiHand.splice(i,1); applyTurnItem(it,'ai'); G.aiGrave.push(it); spendInf('ai',playCost(it,'ai')); });
 }
 
 function phaseLastMinute(){
@@ -2084,181 +2229,189 @@ function aiDecideLastMinute(){
   showMsg(`🤖 Floripa usou ${pick.name}!`,'orange');
 }
 
+// ═══ RESOLUÇÃO v4 — POOL vs POOL ═══
+// 1) vira cartas · 2) arapucas · 3) pools (c/ mods de item) · 4) dano = atk − def inimiga
+// 5) TODO o campo (ambos os lados) vai pro DESCARTE dos donos · 6) vitória/derrota.
 function phaseResolution(){
-  setActionBar(`<span class="action-hint">⚔️ RESOLUÇÃO — virando cartas e somando ataques...</span>`);
+  setActionBar(`<span class="action-hint">⚔️ RESOLUÇÃO — virando cartas e somando os pools...</span>`);
   flipFaceUp('player');flipFaceUp('ai');         // cartas baixadas viram p/ cima (UI_CAMPO §3)
-  resolveTraps('player');resolveTraps('ai');     // arapucas disparam antes do cálculo
+  resolveTraps('player');resolveTraps('ai');     // arapucas revelam ANTES do cálculo de dano
   updateFieldUI();
-  const pAtk=computeFieldAtk('player'),aAtk=computeFieldAtk('ai');
-  if(!JUICE.on){ setTimeout(()=>resolveApply(pAtk,aAtk),800); return; }
-  resolveSequence(pAtk,aAtk).then(()=>resolveApply(pAtk,aAtk));
+  const pp=computePools('player'), ap=computePools('ai');
+  const dmgToEnemy=Math.max(0,pp.atk-ap.def);
+  const dmgToPlayer=Math.max(0,ap.atk-pp.def);
+  if(!JUICE.on){ setTimeout(()=>resolveApply(dmgToEnemy,dmgToPlayer),800); return; }
+  resolveSequence(pp,ap,dmgToEnemy,dmgToPlayer).then(()=>resolveApply(dmgToEnemy,dmgToPlayer));
 }
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-// Sequência visual estilo Balatro: soma cada carta, total subindo + pitch subindo,
-// depois mostra VOCÊ ⚔ × ⚔ FLORIPA antes do impacto. Não muda estado — só visual.
-async function resolveSequence(pAtk,aAtk){
+// Overlay: soma carta a carta os pools ⚔/🛡 de cada lado (contador progressivo, pitch subindo),
+// depois mostra o dano que cada Comandante vai levar. Não muda estado — só visual.
+async function resolveSequence(pp,ap,dmgToEnemy,dmgToPlayer){
   const host=document.getElementById('screen-game'); if(!host)return;
+  const foeName=(G.aiCmd&&G.aiCmd.name)||'INIMIGO';
   const ov=document.createElement('div'); ov.id='resolve-overlay'; ov.className='show';
   ov.innerHTML=`<div class="ro-row">
-    <div class="ro-side"><div class="ro-lbl">VOCÊ</div><div class="ro-val you" id="ro-you">0</div></div>
+    <div class="ro-side"><div class="ro-lbl">VOCÊ</div><div class="ro-val you"><span id="ro-you-atk">0</span><span class="ro-sub">⚔</span></div><div class="ro-val you" style="font-size:.6em"><span id="ro-you-def">0</span><span class="ro-sub">🛡</span></div></div>
     <div class="ro-vs">⚔ VS ⚔</div>
-    <div class="ro-side"><div class="ro-lbl">FLORIPA</div><div class="ro-val foe" id="ro-foe">0</div></div>
+    <div class="ro-side"><div class="ro-lbl">${foeName.toUpperCase()}</div><div class="ro-val foe"><span id="ro-foe-atk">0</span><span class="ro-sub">⚔</span></div><div class="ro-val foe" style="font-size:.6em"><span id="ro-foe-def">0</span><span class="ro-sub">🛡</span></div></div>
   </div><div class="ro-note" id="ro-note"></div>`;
   host.appendChild(ov);
-  await tallySide('player',pAtk,document.getElementById('ro-you'));
-  await tallySide('ai',aAtk,document.getElementById('ro-foe'));
+  await tallySide('player',pp,document.getElementById('ro-you-atk'),document.getElementById('ro-you-def'));
+  await tallySide('ai',ap,document.getElementById('ro-foe-atk'),document.getElementById('ro-foe-def'));
   const note=document.getElementById('ro-note');
-  if(note)note.textContent = pAtk>aAtk?'💥 Você bate mais forte!' : aAtk>pAtk?'🛡️ Floripa bate mais forte!' : '⚖️ Choque equilibrado!';
+  if(note)note.textContent=`💥 Você causa ${dmgToEnemy} · sofre ${dmgToPlayer}`;
   await sleep(JUICE.comparePauseMs);
   ov.style.transition='opacity .25s'; ov.style.opacity='0'; await sleep(250); ov.remove();
 }
-// Soma o ataque de um lado carta por carta (acelerando, pitch subindo).
-async function tallySide(side,totalReal,valEl){
-  if(!valEl)return;
+// Soma as contribuições de um lado carta por carta (carta se projeta + contadores sobem).
+async function tallySide(side,poolsFinal,atkEl,defEl){
+  if(!atkEl||!defEl)return;
   const field=side==='player'?G.playerField:G.aiField;
   const pre=side==='player'?'player-slot-':'ai-slot-';
-  let base=0, step=JUICE.resolveStepMs, pitch=JUICE.sfxPitchBase;
+  let atk=0,def=0, step=JUICE.resolveStepMs, pitch=JUICE.sfxPitchBase;
   for(let i=0;i<ZONES;i++){
     const c=field[i]; if(!c)continue;
     const slot=document.getElementById(pre+i);
     if(slot){slot.classList.add('attacking');setTimeout(()=>slot&&slot.classList.remove('attacking'),Math.max(180,step));}
-    base+=getEffAtk(c);
-    valEl.textContent=base; valEl.classList.remove('num-pop'); void valEl.offsetWidth; valEl.classList.add('num-pop');
+    atk+=cardAtkContrib(c); def+=cardDefContrib(c);
+    atkEl.textContent=atk; defEl.textContent=def;
+    [atkEl,defEl].forEach(el=>{el.classList.remove('num-pop'); void el.offsetWidth; el.classList.add('num-pop');});
     playSFXPitch('ui_card_select',pitch);
     pitch=Math.min(JUICE.sfxPitchMax,pitch+JUICE.sfxPitchStep);
     await sleep(step);
     step=Math.max(JUICE.resolveStepMin,step*JUICE.resolveAccel);
   }
-  if(totalReal!==base){
+  if(poolsFinal.atk!==atk||poolsFinal.def!==def){   // diferença = itens/arapucas do turno
     const note=document.getElementById('ro-note');
-    if(note)note.textContent = totalReal>base?('✨ +'+(totalReal-base)+' sinergia/efeitos'):('🔻 '+(totalReal-base)+' debuff');
-    animateNumber(valEl,totalReal,{from:base,dur:320}); playSFXPitch('ui_atb_full',1.0);
-    await sleep(380);
-  } else { valEl.textContent=totalReal; }
-}
-// Aplica o dano carta a carta (na ordem dos slots, HP caindo) + impacto/morte.
-async function resolveApply(pAtk,aAtk){
-  // 1) animação visual do dano slot a slot, ANTES de mutar o estado
-  if(JUICE.on){
-    await animateFieldDamage('ai',pAtk);      // VOCÊ ataca o campo da Floripa (slot 1→…→CMD)
-    await animateFieldDamage('player',aAtk);  // Floripa ataca o seu campo
+    if(note)note.textContent='✨ efeitos de itens/arapucas aplicados';
+    animateNumber(atkEl,poolsFinal.atk,{from:atk,dur:320}); animateNumber(defEl,poolsFinal.def,{from:def,dur:320});
+    playSFXPitch('ui_atb_full',1.0); await sleep(380);
   }
-  const aliveBefore=G.aiField.filter(Boolean).length+G.playerField.filter(Boolean).length;
-  const pBefore=G.aiField.map(Boolean), aBefore=G.playerField.map(Boolean);
-  const pOver=applyDamageToField(pAtk,G.aiField,G.aiGrave);
-  const aOver=applyDamageToField(aAtk,G.playerField,G.playerGrave);
-  const aliveAfter=G.aiField.filter(Boolean).length+G.playerField.filter(Boolean).length;
-  if(aliveAfter<aliveBefore)playSFX('unit_die');
-  if(!JUICE.on){ juiceDie('ai',pBefore); juiceDie('player',aBefore); }  // c/ juice, dissolução já marcada na animação
-  juiceImpact(pOver,aOver);                                     // tremor/flash nas bases atingidas
-  if(pOver>0){G.aiBase.hp=Math.max(0,G.aiBase.hp-pOver);showDmgFloat(pOver,'ai');}
-  if(aOver>0){G.playerBase.hp=Math.max(0,G.playerBase.hp-aOver);showDmgFloat(aOver,'player');}
-  if(pOver>0||aOver>0)playSFX('base_hit');
-  // impacto primeiro; barra de vida/números drenam logo depois (não instantâneo)
+}
+// Aplica o dano nos COMANDANTES e varre TODO o campo pro descarte (ambos os lados).
+async function resolveApply(dmgToEnemy,dmgToPlayer){
+  juiceImpact(dmgToEnemy,dmgToPlayer);
+  if(dmgToEnemy>0){G.aiBase.hp=Math.max(0,G.aiBase.hp-dmgToEnemy);showDmgFloat(dmgToEnemy,'ai');}
+  if(dmgToPlayer>0){G.playerBase.hp=Math.max(0,G.playerBase.hp-dmgToPlayer);showDmgFloat(dmgToPlayer,'player');}
+  if(dmgToEnemy>0||dmgToPlayer>0)playSFX('base_hit');
+  // varredura: cartas de campo NÃO morrem — contribuíram e vão pro DESCARTE dos donos
+  if(JUICE.on)await sweepField();
+  ['player','ai'].forEach(side=>{
+    const field=side==='player'?G.playerField:G.aiField;
+    const grave=side==='player'?G.playerGrave:G.aiGrave;
+    for(let i=0;i<ZONES;i++){ if(field[i]){grave.push(field[i]);field[i]=null;} }
+  });
   setTimeout(()=>{updateBaseUI();updateDeckUI();}, JUICE.on?JUICE.hpDrainDelayMs:0);
-  setTimeout(()=>updateFieldUI(), JUICE.on?460:0);              // espera a dissolução terminar
+  updateFieldUI();
   const pDead=G.playerBase.hp<=0,aDead=G.aiBase.hp<=0;
   setTimeout(()=>{
-    if(pDead&&aDead){const pa=computeFieldAtk('player'),aa=computeFieldAtk('ai');if(pa>aa)endFight('player');else if(aa>pa)endFight('ai');else{showMsg('🤝 Empate! Continua com 1 LP!','orange');G.playerBase.hp=G.aiBase.hp=1;updateBaseUI();nextTurn();}}
+    if(pDead)endFight('ai');            // empate técnico (ambos ≤0) → jogador perde
     else if(aDead)endFight('player');
-    else if(pDead)endFight('ai');
     else nextTurn();
   },1200);
 }
-function juiceDie(side,before){
-  const pre=side==='player'?'player-slot-':'ai-slot-';
-  const field=side==='player'?G.playerField:G.aiField;
-  for(let i=0;i<ZONES;i++){ if(before[i]&&!field[i]){ const s=document.getElementById(pre+i); if(s){s.classList.add('juice-die'); setTimeout(()=>s&&s.classList.remove('juice-die'),440);} } }
+// Animação da varredura: todas as cartas ocupadas dissolvem juntas rumo ao descarte.
+async function sweepField(){
+  let any=false;
+  ['player','ai'].forEach(side=>{
+    const field=side==='player'?G.playerField:G.aiField;
+    const pre=side==='player'?'player-slot-':'ai-slot-';
+    for(let i=0;i<ZONES;i++){ if(field[i]){ any=true; const s=document.getElementById(pre+i); if(s)s.classList.add('juice-die'); } }
+  });
+  if(any){ playSFX('unit_die'); await sleep(440); }
+  document.querySelectorAll('.juice-die').forEach(s=>s.classList.remove('juice-die'));
 }
 function juiceImpact(pOver,aOver){
-  if(pOver>0){const b=document.querySelector('.bf-id.enemy');juiceShake(b);juiceFlash(b);}
-  if(aOver>0){const b=document.querySelector('.bf-id.you');juiceShake(b);juiceFlash(b);}
+  if(pOver>0){const b=document.querySelector('.bf-cmd.enemy');juiceShake(b);juiceFlash(b);}
+  if(aOver>0){const b=document.querySelector('.bf-cmd.you');juiceShake(b);juiceFlash(b);}
 }
 function juiceLand(side,slot){ if(!JUICE.on||slot==null||slot<0||slot>=ZONES)return; const s=document.getElementById((side==='player'?'player-slot-':'ai-slot-')+slot); if(s&&s.classList.contains('has-card')){s.classList.add('juice-land');setTimeout(()=>s&&s.classList.remove('juice-land'),380);} }
-// Dano carta a carta na ordem dos slots: destaca a carta, mostra -X e dreca o HP.
-// Visual apenas (o estado real é mutado depois por applyDamageToField).
-async function animateFieldDamage(defSide,totalAtk){
-  if(totalAtk<=0)return 0;
-  const field=defSide==='player'?G.playerField:G.aiField;
-  const pre=defSide==='player'?'player-slot-':'ai-slot-';
-  let rem=totalAtk;
-  for(let i=0;i<ZONES;i++){
-    const c=field[i]; if(!c)continue; if(rem<=0)break;
-    const dealt=Math.min(rem,c.currentHp), newHp=c.currentHp-dealt; rem-=dealt;
-    const slot=document.getElementById(pre+i);
-    if(slot){
-      slot.classList.add('being-hit'); juiceShake(slot); floatCardDmg(slot,dealt);
-      const hpEl=slot.querySelector('.fc-hp'); if(hpEl)animateNumber(hpEl,Math.max(0,newHp),{prefix:'❤',dur:Math.min(380,JUICE.dmgStepMs-60)});
-      const barEl=slot.querySelector('.fc-hpfill'); if(barEl)barEl.style.width=Math.max(0,newHp/c.maxHp*100)+'%';
-    }
-    playSFXPitch('hit_melee',1.0);
-    await sleep(JUICE.dmgStepMs);
-    if(slot){ slot.classList.remove('being-hit'); if(newHp<=0)slot.classList.add('juice-die'); }
-  }
-  return rem;
-}
 function floatCardDmg(slot,dmg){ if(!slot)return; const r=slot.getBoundingClientRect(); const d=document.createElement('div'); d.className='dmg-float'; d.textContent='-'+dmg; d.style.left=(r.left+r.width/2)+'px'; d.style.top=(r.top+r.height/2-10)+'px'; d.style.color='#ff5252'; document.body.appendChild(d); setTimeout(()=>d.remove(),900); }
 
-function sumAtk(field){return field.reduce((s,c)=>s+(c?getEffAtk(c):0),0);}
-function getEffAtk(card){return Math.round((card.atk||0)*([1.0,1.10,1.25][card.fieldRank]||1.0));}
-function strongestAtk(field){return field.reduce((mx,c)=>c?Math.max(mx,getEffAtk(c)):mx,0);}
-
-// ── SINERGIA DE VIBE (passiva leve: só +ATK no campo por enquanto) ──
-function vibeSynergyMult(field){
-  if(!VIBE_SYNERGY_ON)return 1;
-  const counts={};
-  field.forEach(c=>{if(c&&c.vibe)counts[c.vibe]=(counts[c.vibe]||0)+1;});
-  const max=Object.values(counts).reduce((a,b)=>Math.max(a,b),0);
-  if(max>=3)return 1+VIBE_SYN_3;
-  if(max>=2)return 1+VIBE_SYN_2;
-  return 1;
+// ═══ MOTOR v4 — POOL vs POOL ═══
+// ATK cards somam .atk ao pool de ataque; DEF cards somam .hp ao pool de defesa;
+// BAL contribui metade de cada (arredondado p/ cima). Dano = max(0, atk − def inimiga).
+function cardAtkContrib(c){ if(!c||!isMonster(c))return 0; if(c.type==='ATK')return c.atk||0; if(c.type==='BAL')return Math.ceil((c.atk||0)*0.5); return 0; }
+function cardDefContrib(c){ if(!c||!isMonster(c))return 0; if(c.type==='DEF')return c.hp||0; if(c.type==='BAL')return Math.ceil((c.hp||0)*0.5); return 0; }
+// Pools crus (sem mods) — usado no HUD em tempo real da fase AÇÃO (só cartas visíveis p/ quem olha).
+function rawPools(field){
+  let atk=0,def=0;
+  field.forEach(c=>{ if(!c)return; atk+=cardAtkContrib(c); def+=cardDefContrib(c); });
+  return {atk,def};
 }
-// ── CÍRCULO DE VANTAGEM (por vibe). Cada um vence o da direita:
-//    Nerdola(amarelo) > Dinheirista(verde) > Socialista(vermelho) > Rolezeiro(roxo) > Marombeiro(azul) > Nerdola ──
-const VIBE_BEATS={amarelo:'verde', verde:'vermelho', vermelho:'roxo', roxo:'azul', azul:'amarelo'};
-const VIBE_ADV=1.5, VIBE_DIS=0.67;
-function vibeAdvMult(att,def){
-  if(!att||!def||att===def)return 1;
-  if(VIBE_BEATS[att]===def)return VIBE_ADV;   // ataca quem perde → +50%
-  if(VIBE_BEATS[def]===att)return VIBE_DIS;    // ataca quem vence → −33%
-  return 1;
-}
-// ATK efetivo de um lado, já com rank + vibe + vantagem por slot + buffs/debuffs do turno.
-function computeFieldAtk(side){
+// Pools finais da resolução: crus × mods de item/arapuca do turno.
+function computePools(side){
   const field=side==='player'?G.playerField:G.aiField;
-  const oppField=side==='player'?G.aiField:G.playerField;   // choque carta vs carta no mesmo slot
-  const m=(G.mods&&G.mods[side])||{atkMult:1,atkFlat:0,skip:false};
-  if(m.skip)return 0;
-  let base=0;
-  field.forEach((c,i)=>{ if(!c)return; const d=oppField[i]; base+=getEffAtk(c)*vibeAdvMult(c.vibe,d&&d.vibe); });
-  base*=vibeSynergyMult(field);
-  base*=(m.atkMult||1);
-  base+=(m.atkFlat||0);
-  return Math.max(0,Math.round(base));
+  const m=(G.mods&&G.mods[side])||newSideMods();
+  let {atk,def}=rawPools(field);
+  atk=Math.max(0,Math.round(atk*(m.atkMult||1)+(m.atkFlat||0)));
+  def=Math.max(0,Math.round(def*(m.defMult||1)+(m.defFlat||0)));
+  if(m.silence)atk=0;
+  return {atk,def};
 }
+// compat: usado por resolveTraps/aiDecide p/ saber se um lado ameaça atacar
+function sumAtk(field){return rawPools(field).atk;}
+function getEffAtk(card){return card.atk||0;}   // sem rank por tempo (abolido no v4)
 
-// ── EFEITOS DE ITEM (turn-based; valem só na resolução deste turno) ──
+// ── EFEITOS DE ITEM (MOTOR v4: modificam os POOLS da resolução deste turno) ──
 function applyTurnItem(card,side){
   const opp=side==='player'?'ai':'player';
   const m=G.mods[side], om=G.mods[opp];
-  const myField=side==='player'?G.playerField:G.aiField;
-  const oppField=side==='player'?G.aiField:G.playerField;
   const myGrave=side==='player'?G.playerGrave:G.aiGrave;
+  const myHand=side==='player'?G.playerHand:G.aiHand;
   const me=side==='player';
   const v=card.effectVal;
   switch(card.effect){
-    case 'heal_all':{myField.forEach(c=>{if(c)c.currentHp=Math.min(c.maxHp,c.currentHp+(v||80));});if(me)showMsg(`🥩 +${v||80} HP no seu campo!`,'green');playSFX('item_heal');break;}
-    case 'atk_buff':{m.atkMult*=(1+(v||0.3));if(me)showMsg(`⚡ +${Math.round((v||0.3)*100)}% ATK neste turno!`,'orange');playSFX('item_buff');break;}
+    case 'heal_all':{m.defFlat+=(v||80);if(me)showMsg(`🥩 +${v||80} no seu pool de DEFESA!`,'green');playSFX('item_heal');break;}
+    case 'atk_buff':{m.atkMult*=(1+(v||0.3));if(me)showMsg(`⚡ +${Math.round((v||0.3)*100)}% no pool de ATAQUE!`,'orange');playSFX('item_buff');break;}
     case 'draw2':{const n=v||2;for(let i=0;i<n;i++)drawOne(side);if(me){showMsg(`🍺 +${n} cartas!`,'green');renderHand();}playSFX('ui_card_draw');break;}
-    case 'resurrect':{const ri=[...myGrave].reverse().findIndex(isMonster);if(ri>=0){const real=myGrave.length-1-ri;const dead=myGrave.splice(real,1)[0];const slot=myField.findIndex(s=>!s);if(slot>=0){const fc=makeFC(dead,side);fc.currentHp=Math.max(1,Math.round(fc.maxHp*(v||0.5)));myField[slot]=fc;if(me)showMsg(`🔄 ${dead.name} reviveu!`,'green');}else myGrave.push(dead);}playSFX('special_healer');break;}
-    case 'next_hp_buff':{G.nextHpBuff[side]=(v||0.5);if(me)showMsg(`🛡 Próxima unidade +${Math.round((v||0.5)*100)}% HP!`,'green');playSFX('item_buff');break;}
-    // ── debuffs (atingem o oponente) ──
-    case 'debuff_all_atk':{om.atkFlat-=(v||40);if(me)showMsg(`🥴 Inimigos −${v||40} ATK!`,'orange');playSFX('item_debuff');break;}
-    case 'debuff_flat':{om.atkFlat-=(v||50);if(me)showMsg(`🏖 Inimigo −${v||50} ATK!`,'orange');playSFX('item_debuff');break;}
-    case 'debuff_strongest':{om.atkFlat-=Math.round(strongestAtk(oppField)*(v||0.3));if(me)showMsg(`🤏 −${Math.round((v||0.3)*100)}% no inimigo mais forte!`,'orange');playSFX('item_debuff');break;}
-    case 'debuff_silence':{om.atkFlat-=strongestAtk(oppField);if(me)showMsg(`🗣 Inimigo mais forte calado!`,'orange');playSFX('item_debuff');break;}
+    case 'resurrect':{ // traz 50% (effectVal) das cartas do descarte de volta pra mão, até o teto
+      const n=Math.max(1,Math.floor(myGrave.length*(v||0.5)));let got=0;
+      for(let i=0;i<n&&myGrave.length&&myHand.length<handLimitOf(side);i++){myHand.push(myGrave.pop());got++;}
+      if(me){showMsg(`🔄 +${got} carta(s) do descarte!`,'green');renderHand();}playSFX('special_healer');break;}
+    case 'next_hp_buff':{m.defMult*=(1+(v||0.5));if(me)showMsg(`🛡 +${Math.round((v||0.5)*100)}% no pool de DEFESA!`,'green');playSFX('item_buff');break;}
+    // ── geradores de peões (vibe cruzada — abre linhas de fusão) ──
+    case 'buy_pawn_any':{ if(me){bfPickVibePawn(1);}else{aiGainPawn(side,null,1);} playSFX('reward');break;}
+    case 'buy_pawn_random':{const n=v||2;if(me){for(let i=0;i<n;i++)aiGainPawn('player',null,1);showMsg(`🕶 +${n} peões aleatórios!`,'green');renderHand();}else aiGainPawn(side,null,n);playSFX('reward');break;}
+    case 'buy_pawn_pick':{ if(me){bfPickAnyPawn();}else{aiGainPawn(side,null,1);} playSFX('reward');break;}
+    // ── debuffs (atingem o pool de ATAQUE do oponente) ──
+    case 'debuff_enemy_atk': case 'debuff_all_atk':{om.atkFlat-=(v||40);if(me)showMsg(`🥴 Pool inimigo −${v||40} ATK!`,'orange');playSFX('item_debuff');break;}
+    case 'debuff_flat':{om.atkFlat-=(v||50);if(me)showMsg(`🏖 Pool inimigo −${v||50} ATK!`,'orange');playSFX('item_debuff');break;}
+    case 'debuff_enemy_atk_pct': case 'debuff_strongest':{om.atkMult*=(1-(v||0.3));if(me)showMsg(`🤏 Pool inimigo −${Math.round((v||0.3)*100)}%!`,'orange');playSFX('item_debuff');break;}
+    case 'debuff_silence':{om.silence=true;if(me)showMsg(`🗣 ATAQUE inimigo ANULADO neste turno!`,'orange');playSFX('item_debuff');break;}
     default:break;
   }
+  bfUpdatePoolHUD();
+}
+// Ganha peão básico (bronze, menor estrela) de uma vibe (null = aleatória). Usado por itens geradores e pela IA.
+function basicPawnOf(vibeId){
+  const pool=BASE_CARDS.filter(c=>c.kind==='pawn'&&c.tier==='bronze'&&(!vibeId||c.vibe===vibeId)).sort((a,b)=>(a.star||0)-(b.star||0));
+  return pool[0]||null;
+}
+function aiGainPawn(side,vibeId,n){
+  const hand=side==='player'?G.playerHand:G.aiHand;
+  for(let i=0;i<(n||1);i++){
+    const v=vibeId||VIBES[Math.floor(Math.random()*VIBES.length)].id;
+    const p=basicPawnOf(v); if(p&&hand.length<handLimitOf(side))hand.push({...p});
+  }
+}
+// Chooser do "Recruta": escolha 1 vibe → peão básico daquela vibe na mão.
+function bfPickVibePawn(n){
+  bfChooser('Escolha uma vibe',VIBES.map(v=>({label:`${v.emoji} ${v.name}`,fn:()=>{aiGainPawn('player',v.id,n||1);renderHand();bfToast('📋 Peão '+v.name+' na mão');}})));
+}
+// Chooser do "Headhunter": qualquer peão bronze da base.
+function bfPickAnyPawn(){
+  const pawns=BASE_CARDS.filter(c=>c.kind==='pawn'&&c.tier==='bronze');
+  bfChooser('Escolha um peão',pawns.map(p=>({label:`${vibeOf(p)?vibeOf(p).emoji:'🎴'} ${p.name} (⚔${p.atk||0}/🛡${p.hp||0})`,fn:()=>{if(G.playerHand.length<handLimitOf('player')){G.playerHand.push({...p});renderHand();bfToast('🎯 '+p.name+' na mão');}else bfToast('Mão cheia');}})));
+}
+// Modal genérico de escolha (lista de botões).
+function bfChooser(title,opts){
+  let m=document.getElementById('bf-modal-chooser');
+  if(!m){m=document.createElement('div');m.id='bf-modal-chooser';m.className='bf-modal';m.onclick=e=>{if(e.target===m)bfCloseModal();};document.getElementById('screen-game').appendChild(m);}
+  m.innerHTML=`<div class="bf-modal-box" style="width:420px;max-height:520px"><div class="bf-modal-head">${title}<span class="bf-modal-x" onclick="bfCloseModal()">✕</span></div><div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;overflow-y:auto" id="bf-chooser-list"></div></div>`;
+  const list=m.querySelector('#bf-chooser-list');
+  opts.forEach(o=>{const b=document.createElement('button');b.className='bf-danger';b.style.cssText='color:var(--bf-ink);border-color:var(--bf-line2);background:var(--bf-panel2);justify-content:flex-start;padding:11px 14px';b.textContent=o.label;b.onclick=()=>{bfCloseModal();o.fn();};list.appendChild(b);});
+  bfCloseModal(); m.classList.add('open');
 }
 
 // Vira p/ cima todas as cartas face-down de um lado (na abertura da RESOLUÇÃO).
@@ -2266,40 +2419,31 @@ function flipFaceUp(side){
   const field=side==='player'?G.playerField:G.aiField;
   field.forEach(c=>{ if(c&&c.faceDown)c.faceDown=false; });
 }
-// ── ARAPUCAS (ficam face-down numa zona; auto-disparam na resolução se o inimigo atacar) ──
+// ── ARAPUCAS (face-down numa zona; REVELAM na RESOLUÇÃO antes do cálculo de dano) ──
 function resolveTraps(side){
   const field=side==='player'?G.playerField:G.aiField;
   const grave=side==='player'?G.playerGrave:G.aiGrave;
-  const opp=side==='player'?'ai':'player';
-  const oppField=opp==='player'?G.playerField:G.aiField;
-  if(sumAtk(oppField)<=0)return;                 // só dispara se o inimigo está atacando
   field.forEach((t,i)=>{
     if(!t||t.kind!=='trap')return;
     applyTrap(t,side);grave.push(t);field[i]=null;
     playSFX('trap_trigger');
-    if(side==='player')showMsg(`🪤 ${t.name} disparou!`,'orange');
+    showMsg(`🪤 ${t.name} disparou!`,side==='player'?'green':'orange');
   });
 }
 function applyTrap(t,side){
   const opp=side==='player'?'ai':'player';
   const m=G.mods[side], om=G.mods[opp];
-  const myField=side==='player'?G.playerField:G.aiField;
   const v=t.effectVal;
   switch(t.effect){
-    case 'trap_skip':om.skip=true;break;                     // inimigo não ataca
-    case 'trap_double':m.atkMult*=(v||2);break;              // seu dano dobra
-    case 'trap_net':{om.atkFlat-=(v||40);const w=myField.find(c=>c&&c.currentHp<c.maxHp);if(w)w.currentHp=Math.min(w.maxHp,w.currentHp+(v||40));break;}
-    case 'trap_drain':om.atkFlat-=(v||50);break;
-    case 'trap_smoke':om.atkFlat-=(v||30);break;             // placeholder
+    case 'trap_atk_zero': case 'trap_skip':om.silence=true;break;          // zera ATK inimigo
+    case 'trap_atk_double': case 'trap_double':m.atkMult*=(typeof v==='number'?v:2);break;
+    case 'trap_def_boost': case 'trap_net':{m.defFlat+=(v||100);om.atkFlat-=40;break;}
+    case 'trap_drain_atk': case 'trap_drain':{om.atkFlat-=(v||50);m.defFlat+=(v||50);break;}
+    case 'trap_atk_reduce': case 'trap_smoke':om.atkFlat-=(v||30);break;
     default:break;
   }
 }
-function applyDamageToField(totalAtk,field,grave){
-  let rem=totalAtk;
-  for(let i=0;i<ZONES&&rem>0;i++){if(!field[i])continue;const card=field[i];if(rem>=card.currentHp){rem-=card.currentHp;addScore(card.atk||0);grave.push({...card});field[i]=null;}else{card.currentHp-=rem;rem=0;}}
-  return rem;
-}
-function nextTurn(){G.turn++;setActionBar(`<span class="action-hint">Turno ${G.turn} iniciando...</span>`);startPhase('draw');}
+function nextTurn(){G.turn++;if(APP.runStats)APP.runStats.turns++;setActionBar(`<span class="action-hint">Turno ${G.turn} iniciando...</span>`);startPhase('draw');}
 
 // ── FLOW ──
 function endFight(winner){
@@ -2311,7 +2455,17 @@ function endFight(winner){
 }
 function addScore(p){G.score+=p;const el=document.getElementById('score-display');if(el){animateNumber(el,G.score);el.style.transform='scale(1.2)';el.style.color=p>0?'#81c784':'#e63946';setTimeout(()=>{el.style.transform='scale(1)';el.style.color='var(--gold)';},300);}}
 
-let APP={playerName:'',difficulty:'easy',mode:'menu',fightNum:1,totalScore:0,fightScore:[0,0,0],playerDeck:[],extraHandSize:0};
+let APP={playerName:'',difficulty:'easy',mode:'menu',fightNum:1,totalScore:0,fightScore:[0,0,0],playerDeck:[],extraHandSize:0,
+  playerCommanderId:null, enemyCommanderId:null,        // Comandantes do fight atual (ids do commanders_database.csv)
+  artifacts:[],                                          // artefatos coletados na run
+  commanderMods:{inf_per_turn:0,inf_cap:0,hand_size:0,fuses_per_turn:0,base_hp:0}, // incrementos de artefato (3.2)
+  runStats:{fusions:0,artifacts:0,turns:0,fightsWon:0},  // contadores p/ o score (Parte 7)
+};
+function resetRunState(){
+  APP.artifacts=[];
+  APP.commanderMods={inf_per_turn:0,inf_cap:0,hand_size:0,fuses_per_turn:0,base_hp:0};
+  APP.runStats={fusions:0,artifacts:0,turns:0,fightsWon:0};
+}
 function startFight(){showScreen('game');initFight(APP.fightNum,APP.difficulty,APP.playerDeck,APP.extraHandSize);bfInit();updateBaseUI();updateFieldUI();updateDeckUI();const lbl=APP.mode==='free'?'Duelo Livre':'Fight '+APP.fightNum+'/3';const fi=document.getElementById('fight-info');if(fi)fi.textContent=`${lbl} · ${AI_DECKS[APP.difficulty].label}`;startMusic();showMsg(`⚔ ${lbl} — ${AI_DECKS[APP.difficulty].label}!`,'green');startPhase('draw');}
 function showRewardScreen(){showScreen('reward');playSFX('reward');const opts=generateRewards(3);const cont=document.getElementById('reward-options');cont.innerHTML='';opts.forEach(opt=>{const d=document.createElement('div');d.className='reward-card';const cat=opt.cat==='unit'?'<span class="reward-cat cat-unit">UNIDADE</span>':opt.cat==='artifact'?'<span class="reward-cat cat-artifact">ARTEFATO</span>':'';d.innerHTML=`${cat}<div class="reward-icon">${opt.icon}</div><div class="reward-title">${opt.title}</div><div class="reward-desc">${opt.desc}</div>`;d.onclick=()=>pickReward(opt);cont.appendChild(d);});document.getElementById('reward-fight-score').textContent=G.score;document.getElementById('reward-total-score').textContent=APP.totalScore;}
 // IDs únicos de unidades que o player REALMENTE tem no baralho desta run.
@@ -2831,6 +2985,22 @@ function updateFieldUI(){
   });
   setText('grave-count',G.playerGrave.length);
   setText('trash-count',(G.trash||[]).length);
+  bfUpdatePoolHUD();
+}
+// HUD em tempo real (fase AÇÃO): pools ⚔/🛡 do jogador; hover numa carta da mão = preview +X.
+function bfUpdatePoolHUD(previewCard){
+  const el=document.getElementById('bf-poolhud'); if(!el||!G.playerField)return;
+  const m=(G.mods&&G.mods.player)||newSideMods();
+  let {atk,def}=rawPools(G.playerField);
+  atk=Math.max(0,Math.round(atk*(m.atkMult||1)+(m.atkFlat||0)));
+  def=Math.max(0,Math.round(def*(m.defMult||1)+(m.defFlat||0)));
+  let extra='';
+  if(previewCard&&isMonster(previewCard)){
+    const pa=cardAtkContrib(previewCard),pd=cardDefContrib(previewCard);
+    if(pa)extra+=` <span class="ph">+${pa}⚔</span>`;
+    if(pd)extra+=` <span class="ph">+${pd}🛡</span>`;
+  }
+  el.innerHTML=`⚔ <b>${atk}</b> · 🛡 <b>${def}</b>${extra}`;
 }
 function renderFC(card,side){
   const div=document.createElement('div');div.className='field-card';
@@ -2841,16 +3011,8 @@ function renderFC(card,side){
     div.onclick=(e)=>{e.stopPropagation();if(side==='player')showCardDetail(card);};
     return div;
   }
-  const tb=document.createElement('div');tb.className=`type-badge badge-${card.type}`;tb.textContent=TYPE_EMOJI[card.type]||'';tb.style.background=bfVibeColor(card);tb.style.color='#fff';div.appendChild(tb);
-  const rb=document.createElement('div');rb.className=`rank-badge rank-${card.fieldRank}`;rb.textContent=['🥉','🥈','🥇'][card.fieldRank];div.appendChild(rb);
-  const fcSrc=cardImgSrc(card),fcEmo=card.emoji||TYPE_EMOJI[card.type]||'?';
-  if(fcSrc){const img=document.createElement('img');img.className='fc-img';img.src=fcSrc;if(side==='ai')img.style.transform='scaleY(-1)';img.onerror=()=>imgFallback(img,fcEmo,'fc-ph');div.appendChild(img);}
-  else{const ph=document.createElement('div');ph.className='fc-ph';ph.style.background=bfGrad(card);ph.textContent=fcEmo;div.appendChild(ph);}
-  const info=document.createElement('div');info.className='fc-info';
-  const nm=document.createElement('div');nm.className='fc-name';nm.textContent=card.name;info.appendChild(nm);
-  const hb=document.createElement('div');hb.className='fc-hpbar';const hf=document.createElement('div');hf.className='fc-hpfill';const pct=Math.max(0,card.currentHp/card.maxHp*100);hf.style.width=pct+'%';hf.style.background=pct>60?'#4caf50':pct>25?'#ff9800':'#f44336';hb.appendChild(hf);info.appendChild(hb);
-  const st=document.createElement('div');st.className='fc-stats';st.innerHTML=`<span class="fc-hp">❤${card.currentHp}</span><span class="fc-atk">⚔${getEffAtk(card)}</span>`;info.appendChild(st);
-  div.appendChild(info);
+  div.innerHTML=bfCardArt(card);   // frame v2 unificado (mão e campo)
+  if(side==='ai'){const im=div.querySelector('img');if(im)im.style.transform='scaleY(-1)';}
   div.onclick=(e)=>{e.stopPropagation();bfInspect(card);};          // inspeciona no painel (inclui cartas visíveis do oponente)
   div.onmouseenter=()=>bfInspect(card);
   div.oncontextmenu=(e)=>{e.preventDefault();showCardDetail(card);};
@@ -2877,20 +3039,24 @@ function bfTypeChip(t){return {ATK:['ATK','var(--bf-red)','#fff'],DEF:['DEF','va
 function vibeOf(card){ return card&&card.vibe?VIBES.find(v=>v.id===card.vibe):null; }
 function bfVibeColor(card){ const v=vibeOf(card); return v?v.color:'#7a7a92'; }
 function bfGrad(card){ const c=(typeof card==='string')?(VIBES.find(v=>v.id===card)||{}).color:bfVibeColor(card); return `linear-gradient(160deg, ${(c||'#5a4a6a')}cc, #15111e)`; }
+// ═══ FRAME v2 (mockup v2): monstro = borda branca + dot de vibe + rodapé ATK|DEF (contribuições
+// aos pools); item/arapuca/upgrade = fundo preto sólido, sem borda, emoji grande + efeito curto. ═══
+const TIER_BADGE={prata:{lb:'P',bg:'#c0c8d4',fg:'#20242c'},gold:{lb:'G',bg:'#f0b429',fg:'#3a2a05'}};
 function bfCardArt(card){
   const src=cardImgSrc(card),emo=card.emoji||TYPE_EMOJI[card.type]||'?';
-  const tc=bfTypeChip(card.type); const lv=card._lv||1; const tier=((LV_NAMES[lv]||'')[0])||'';
-  const tcol=LV_COLOR[lv]||'#caa23a'; const isMon=isMonster(card); const vcol=bfVibeColor(card);
-  const fall=`<div style="position:absolute;inset:0;display:grid;place-items:center;font-size:38px;opacity:.9">${emo}</div>`;
-  const imgTag=src?`<img src="${src}" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:'';
-  const hp=card.currentHp!=null?card.currentHp:card.hp;
-  const stats=isMon?`<span>⚔ ${typeof getEffAtk==='function'?getEffAtk(card):card.atk}</span><span class="pv">♥ ${hp}</span>`:`<span style="color:var(--bf-gold)">${card.kind==='trap'?'Arapuca':'Item'}</span>`;
-  // §6: sem tag de tipo/ITEM. Monstro = esfera de vibe (sup. esq). Canto sup. dir. = ✦ custo (+ geração).
+  const isMon=isMonster(card); const vcol=bfVibeColor(card);
   const cost=(typeof playCost==='function')?playCost(card):(card.cost!=null?card.cost:2);
-  const sph=isMon?`<span class="vibe-sph" style="background:${vcol}"></span>`:'';
-  const gen=card.infGen?`<span class="gen">+${card.infGen}</span>`:'';
-  const itemCls=(card.kind==='item'||card.kind==='trap')?' itemcard':'';
-  return `<div class="bf-cardface${itemCls}"><div class="art" style="background:${bfGrad(card)}"></div>${fall}${imgTag}${sph}<span class="cost">✦${cost}${gen}</span>${tier?`<span class="tier" style="background:${tcol}">${tier}</span>`:''}<div class="ov"><div class="nm">${card.name}</div><div class="st">${stats}</div></div></div>`;
+  const tb=TIER_BADGE[card.tier]; const tier=tb?`<span class="tier" style="background:${tb.bg};color:${tb.fg}">${tb.lb}</span>`:'';
+  const imgTag=src?`<img src="${src}" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:'';
+  if(isMon){
+    const a=cardAtkContrib(card),d=cardDefContrib(card);
+    const fall=`<div class="bigemo" style="font-size:34px">${emo}</div>`;
+    return `<div class="bf-cardface mon"><div class="art"></div>${fall}${imgTag}<span class="vdot" style="background:${vcol}"></span><span class="cost">✦${cost}</span>${tier}<div class="ov"><div class="nm">${card.name}</div></div><div class="ft"><span class="fa">⚔ ${a}</span><span class="fd">🛡 ${d}</span></div></div>`;
+  }
+  // item / arapuca / upgrade — fundo preto, sem borda branca
+  const eff=(card.ability||'').split(/[.—]/)[0]||'';
+  const kindLb=card.kind==='trap'?'ARAPUCA':(isUpgrade(card)?'UPGRADE':'ITEM');
+  return `<div class="bf-cardface itm"><div class="bigemo">${emo}</div>${imgTag}<span class="cost">✦${cost}</span>${tier}<div class="ft itmft"><div class="nm">${card.name}</div><div class="fx">${eff}</div></div><span class="klb">${kindLb}</span></div>`;
 }
 function bfMeasure(){ const el=document.getElementById('bf-handwrap'); if(!el)return; const w=el.clientWidth; if(w&&Math.abs(w-BF.wrapW)>1)BF.wrapW=w; }
 function renderHand(){
@@ -2903,8 +3069,8 @@ function renderHand(){
     const el=document.createElement('div'); el.className='bf-hcard'; el.dataset.i=i;
     el.innerHTML=bfCardArt(card)+`<div class="fbadge"></div>`;
     el.onpointerdown=(e)=>bfCardDown(i,e);
-    el.onmouseenter=()=>{ if(!BF.drag||!BF.drag.moved){BF.hover=i;bfLayoutHand();} bfInspect(card); };
-    el.onmouseleave=()=>{ if(BF.hover===i){BF.hover=-1;bfLayoutHand();} };
+    el.onmouseenter=()=>{ if(!BF.drag||!BF.drag.moved){BF.hover=i;bfLayoutHand();} bfInspect(card); bfUpdatePoolHUD(card); };
+    el.onmouseleave=()=>{ if(BF.hover===i){BF.hover=-1;bfLayoutHand();} bfUpdatePoolHUD(); };
     el.oncontextmenu=(e)=>{e.preventDefault();showCardDetail(card);};
     wrap.appendChild(el);
   });
@@ -2963,6 +3129,7 @@ function bfDropValid(card,at){
   if(!card)return false;
   if(G.phase!=='action'||G.actionDone)return false;
   if(G.playerInf<playCost(card))return false;
+  if(isUpgrade(card))return !!(at&&at.kind==='slot'&&G.playerField[at.idx]&&isMonster(G.playerField[at.idx])); // upgrade: solta EM CIMA de um monstro seu
   if(card.kind==='item')return true;                                   // item: solta em qualquer ponto do board
   if(isMonster(card)||card.kind==='trap')return !!(at&&at.kind==='slot'&&!G.playerField[at.idx]);
   return false;
@@ -2971,6 +3138,20 @@ function bfPlay(i,at){
   const card=G.playerHand[i]; if(!card)return;
   if(G.phase!=='action'||G.actionDone){bfToast('Só dá pra agir na fase AÇÃO');return;}
   if(G.playerInf<playCost(card)){bfToast('Influência insuficiente ('+playCost(card)+' ✦)');playSFX('ui_error');return;}
+  if(isUpgrade(card)){ // arrastou o Upgrade em cima de um monstro no campo → evolui a família
+    const tgt=at&&at.kind==='slot'?G.playerField[at.idx]:null;
+    if(!tgt||!isMonster(tgt)){bfToast('Solte o Upgrade em cima de um monstro seu');return;}
+    if(G.playerFuses.used>=G.playerFuses.limit){bfToast('Sem fusões disponíveis neste turno 🌀');playSFX('ui_error');return;}
+    const fromTier=(String(card.effectVal).split('_to_')[0])||'bronze';
+    if((tgt.tier||'bronze')!==fromTier){bfToast(`Esse upgrade só funciona em cartas ${fromTier.toUpperCase()}`);playSFX('ui_error');return;}
+    if(!tgt.evolveTo){bfToast(tgt.name+' não tem evolução');playSFX('ui_error');return;}
+    G.playerHand.splice(i,1); G.trash.push(card);           // upgrade vai pro LIXO (não volta ao deck)
+    spendInf('player',playCost(card));
+    const n=evolveCard(tgt.id);
+    G.playerFuses.used++; if(APP.runStats)APP.runStats.fusions++;
+    playSFX('reward'); bfToast(`⬆️ ${tgt.name} evoluiu! (${n} cópia(s))`); bfLog(`Upgrade → família de ${tgt.name} evoluiu`,'green');
+    renderHand(); updateBaseUI(); updateDeckUI(); return;
+  }
   if(card.kind==='item'){ playCard(i); return; }
   if(isMonster(card)||card.kind==='trap'){
     let z=at&&at.kind==='slot'?at.idx:G.playerField.findIndex(s=>!s);
@@ -3037,12 +3218,67 @@ async function bfFuseAnim(steps){
   ov.remove();
 }
 function shuffleDeck(side){const d=side==='player'?G.playerDeck:G.aiDeck;for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}}
+// ═══ EVOLUÇÃO DE CARTAS (tiers bronze→prata→gold) ═══
+// Evolui TODA a família (deck + mão + descarte + campo) pro próximo tier, imediatamente.
+const TIER_ORDER={bronze:0,prata:1,gold:2};
+function evolveCard(anyId){
+  const src=cardById(anyId); if(!src)return 0;
+  const family=src.baseCard||src.id;
+  let touched=0;
+  const upgradeOne=(c)=>{
+    if(!c||(c.baseCard||c.id)!==family||!c.evolveTo)return c;
+    const next=cardById(c.evolveTo); if(!next)return c;
+    touched++; return {...next};
+  };
+  G.playerDeck=G.playerDeck.map(upgradeOne);
+  G.playerHand=G.playerHand.map(upgradeOne);
+  G.playerGrave=G.playerGrave.map(upgradeOne);
+  for(let i=0;i<ZONES;i++){ if(G.playerField[i]){const fd=G.playerField[i].faceDown;const up=upgradeOne(G.playerField[i]);up.faceDown=fd;G.playerField[i]=up;} }
+  // espelha no deck da RUN (persiste entre fights)
+  if(APP.playerDeck)APP.playerDeck=APP.playerDeck.map(upgradeOne);
+  if(touched){ juiceEvolve(family); renderHand(); updateFieldUI(); updateDeckUI(); }
+  return touched;
+}
+// Coleta um artefato na run. Se ele tiver evolve_family, evolui a família automaticamente.
+// Se tiver mods de Comandante (inf_per_turn etc.), soma em APP.commanderMods.
+function addArtifact(art){
+  if(!art)return;
+  APP.artifacts=APP.artifacts||[]; APP.artifacts.push(art);
+  if(APP.runStats)APP.runStats.artifacts++;
+  if(art.evolve_family)evolveCard(art.evolve_family);
+  if(art.mods&&APP.commanderMods)Object.keys(art.mods).forEach(k=>{if(k in APP.commanderMods)APP.commanderMods[k]+=art.mods[k];});
+  bfLog&&bfLog('Artefato coletado: '+(art.title||art.name||'?'),'green');
+}
+// Flash dourado + scale nas cartas evoluídas visíveis (mão e campo), em sequência rápida.
+function juiceEvolve(family){
+  const els=[];
+  document.querySelectorAll('#bf-handwrap .bf-hcard').forEach((el,i)=>{const c=G.playerHand[i];if(c&&(c.baseCard||c.id)&&cardById(c.id)&&(c.baseCard===family||c.id===family))els.push(el);});
+  for(let i=0;i<ZONES;i++){const c=G.playerField[i];if(c&&(c.baseCard===family||c.id===family)){const s=document.getElementById('player-slot-'+i);if(s)els.push(s);}}
+  els.forEach((el,i)=>setTimeout(()=>{el.classList.add('juice-evolve');setTimeout(()=>el.classList.remove('juice-evolve'),340);playSFXPitch('ui_atb_full',1+i*0.08);},i*80));
+}
 async function bfDoFusion(){
   if(G.phase!=='action'||G.actionDone){bfToast('Fusão só na fase AÇÃO');return;}
   if(G.playerFuses.used>=G.playerFuses.limit){bfToast('Sem fusões disponíveis neste turno 🌀');playSFX('ui_error');return;}
   if(BF.fusion.length!==2){bfToast('Selecione exatamente 2 cartas');return;}
   const idxs=[...BF.fusion];
   const cards=idxs.map(i=>G.playerHand[i]);
+  // ── fusão especial de UPGRADE: item ⬆ + monstro → evolui a família inteira ──
+  const upIdx=cards.findIndex(isUpgrade);
+  if(upIdx>=0){
+    const upg=cards[upIdx], target=cards[1-upIdx];
+    if(!isMonster(target)){bfToast('Funda o Upgrade com um monstro');return;}
+    const fromTier=(String(upg.effectVal).split('_to_')[0])||'bronze';
+    if((target.tier||'bronze')!==fromTier){bfToast(`Esse upgrade só funciona em cartas ${fromTier.toUpperCase()}`);playSFX('ui_error');return;}
+    if(!target.evolveTo){bfToast(target.name+' não tem evolução');playSFX('ui_error');return;}
+    idxs.sort((a,b)=>b-a).forEach(i=>{const c=G.playerHand.splice(i,1)[0];if(isUpgrade(c))G.trash.push(c);else G.playerHand.push(c);}); // upgrade → LIXO (única exceção); alvo volta pra mão
+    BF.fusion=[]; const fb0=document.getElementById('bf-fusionbar'); if(fb0)fb0.style.display='none';
+    const n=evolveCard(target.id);
+    G.playerFuses.used++;
+    if(APP.runStats)APP.runStats.fusions++;
+    playSFX('reward');
+    bfToast(`⬆️ ${target.name} evoluiu! (${n} cópia(s) da família)`); bfLog(`Upgrade → família de ${target.name} evoluiu (${n})`,'green');
+    updateDeckUI(); updateBaseUI(); renderHand(); return;
+  }
   if(!cards.every(isMonster)){bfToast('Só dá pra fundir monstros');return;}
   const result=fusePair(cards[0],cards[1])||fusePair(cards[1],cards[0]);
   if(!result){bfToast('Essas duas não combinam (sem receita)');playSFX('ui_error');return;}
@@ -3054,7 +3290,7 @@ async function bfDoFusion(){
   // §5: as 2 cartas-material VOLTAM PRO DECK (não pro descarte); o resultado vai pra MÃO
   cards.forEach(c=>G.playerDeck.push(c)); shuffleDeck('player');
   G.playerHand.push(result);
-  G.playerFuses.used++;
+  G.playerFuses.used++; if(APP.runStats)APP.runStats.fusions++;
   bfToast('🌀 '+result.name+' foi pra sua mão (materiais voltaram ao deck)');
   bfLog('Fusão → '+result.name+' (materiais → deck)','green');
   updateDeckUI(); updateBaseUI(); renderHand();

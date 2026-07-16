@@ -1,16 +1,28 @@
-# ⚔️ Batalha dos Amigos · fortbc
+# 👑 Comandante do Caos · commanders
 
-Um jogo de cartas de batalha **por turnos** (estilo **Yu-Gi-Oh! Forbidden Memories**), com cartas-herói feitas a partir de fotos de amigos reais. Single-file HTML, sem build, sem servidor.
-
-> **v5 (2026-06-12):** o jogo foi reescrito de tempo-real (lanes/Fort Condor) para **turn-based**. O design legado está preservado em `gamedesignfort.md`.
+Roguelike de cartas **single-player** com fusão estilo **Yu-Gi-Oh! Forbidden Memories** e Comandantes assimétricos, feito com a cara dos amigos. Single-file HTML, sem build, sem servidor. Fonte da verdade de design: **`GDD.md`**.
 
 ---
 
 ## 🎮 Como rodar
 
-**Opção 1 — Direto do arquivo:** abra `index.html` no navegador (Chrome, Firefox, Edge). Funciona offline; se não achar as imagens no GitHub, usa as embutidas em base64.
+**Opção 1 — Direto do arquivo:** abra `index.html` no navegador (Chrome, Firefox, Edge).
 
-**Opção 2 — GitHub Pages:** acesse `https://guilherme-moliner.github.io/fortbc/` (deploy automático a cada push para `main`).
+**Opção 2 — GitHub Pages:** acesse `https://guilherme-moliner.github.io/commanders/` (deploy automático a cada push para `main`).
+
+---
+
+## 🔁 Editar cartas/Comandantes (data-driven)
+
+Os dados vivem em **`cards_database_v2.csv`** (cartas, com tiers bronze/prata/gold) e **`commanders_database.csv`** (stats, passiva/ativa e deck de cada Comandante). O `index.html` embute uma cópia desses CSVs nos blocos `CARDS_CSV` e `COMMANDERS_CSV`.
+
+Depois de editar qualquer CSV, sincronize com:
+
+```bash
+node tools/sync_cards.js
+```
+
+O script substitui os blocos embutidos no `index.html` pelo conteúdo atual dos CSVs. Commite os CSVs **e** o `index.html` juntos.
 
 ---
 
