@@ -170,12 +170,25 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 /* overlay central da resolução (VOCÊ ATK × ATK FLORIPA) */
 #resolve-overlay{position:absolute;top:38%;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:120;pointer-events:none;text-shadow:0 2px 10px #000;}
 #resolve-overlay .ro-row{display:flex;align-items:center;gap:18px;font-family:'Cinzel Decorative',cursive;}
-#resolve-overlay .ro-side{display:flex;flex-direction:column;align-items:center;line-height:1;}
-#resolve-overlay .ro-lbl{font-size:.6rem;letter-spacing:2px;color:var(--dim);margin-bottom:3px;}
-#resolve-overlay .ro-val{font-size:2.2rem;font-weight:900;}
+/* v4.2 hotfix: fundo escuro translúcido p/ legibilidade + ⚔ e 🛡 no MESMO tamanho */
+#resolve-overlay .ro-side{display:flex;flex-direction:column;align-items:center;line-height:1;background:rgba(5,3,12,.72);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:12px 22px 14px;backdrop-filter:blur(2px);}
+#resolve-overlay .ro-lbl{font-size:.6rem;letter-spacing:2px;color:#cfc9e0;margin-bottom:6px;}
+#resolve-overlay .ro-val{font-size:2.2rem;font-weight:900;display:flex;align-items:baseline;gap:6px;}
+#resolve-overlay .ro-val+.ro-val{margin-top:6px;}
+#resolve-overlay .ro-sub{font-size:1.1rem;}
 #resolve-overlay .ro-val.you{color:#64b5f6;}#resolve-overlay .ro-val.foe{color:#ff6b6b;}
 #resolve-overlay .ro-vs{font-size:1rem;color:var(--gold);letter-spacing:3px;}
-#resolve-overlay .ro-note{font-size:.7rem;color:var(--bal);letter-spacing:1px;min-height:.8rem;}
+#resolve-overlay .ro-note{font-size:.75rem;color:var(--bal);letter-spacing:1px;min-height:.8rem;background:rgba(5,3,12,.72);border-radius:10px;padding:6px 14px;}
+/* v4.2: overlay da moeda "Tudo ou Nada" */
+.coin-ov{position:absolute;inset:0;z-index:230;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(4,3,12,.72);backdrop-filter:blur(2px)}
+@keyframes coinSpin{0%{transform:rotateY(0)}100%{transform:rotateY(1440deg)}}
+.coin-ov .coin{font-size:92px;line-height:1;animation:coinSpin 1.2s cubic-bezier(.3,.6,.4,1) forwards;filter:drop-shadow(0 8px 24px rgba(240,180,41,.5))}
+.coin-ov .coin.landed{animation:none;transform:rotateY(0);}
+.coin-ov .coin-res{font-family:'Oswald';font-size:24px;font-weight:700;letter-spacing:2px;color:var(--bf-gold);background:rgba(5,3,12,.85);border:1px solid rgba(240,180,41,.5);border-radius:12px;padding:10px 26px;min-height:28px}
+.coin-ov .coin-res:empty{visibility:hidden}
+/* wiggle na carta que está entrando na soma (hotfix de clareza da resolução) */
+@keyframes cardWiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-5deg) scale(1.05)}45%{transform:rotate(4deg) scale(1.06)}70%{transform:rotate(-3deg) scale(1.04)}}
+.card-wiggle{animation:cardWiggle .34s ease-in-out;z-index:60!important}
 #resolve-overlay.show{animation:roIn .3s ease;}
 @keyframes roIn{0%{opacity:0;transform:translateY(10px) scale(.9);}100%{opacity:1;transform:translateY(0) scale(1);}}
 
@@ -436,8 +449,9 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-topright .bf-score b{font-family:'JetBrains Mono';color:var(--bf-gold);font-size:15px}
 .bf-iconbtn{width:28px;height:28px;border:1px solid var(--bf-line);border-radius:8px;display:grid;place-items:center;color:var(--bf-ink2);cursor:pointer;background:#0e0b1d}
 /* ARENA */
-#bf-arena{flex:1;display:grid;grid-template-columns:200px 1fr 286px;gap:12px;padding:12px;min-height:0;position:relative;transition:grid-template-columns .25s}
-#screen-game.rail-collapsed #bf-arena{grid-template-columns:200px 1fr 0px}
+#bf-arena{flex:1;display:grid;grid-template-columns:200px minmax(0,1fr) 264px;gap:12px;padding:12px;min-height:0;position:relative;transition:grid-template-columns .25s}
+#bf-arena>*{min-width:0}   /* hotfix: impede o trilho de estourar a largura do palco */
+#screen-game.rail-collapsed #bf-arena{grid-template-columns:200px minmax(0,1fr) 0px}
 /* COLUNA ESQUERDA — identidade */
 .bf-idcol{display:flex;flex-direction:column;gap:11px;min-height:0}
 .bf-id{flex:0 0 auto;border-radius:12px;padding:10px 11px;display:flex;flex-direction:column;gap:8px}
@@ -484,8 +498,16 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-slot.ai-slot:not(.has-card)::after{content:'UNIDADE INIMIGA';font-size:7px}   /* C2 */
 .bf-slot-drop{box-shadow:0 0 22px rgba(90,140,240,.7)!important;border-color:var(--bf-blue)!important;opacity:1!important}
 .bf-fdslot.bf-slot-drop{box-shadow:0 0 16px rgba(95,201,154,.8)!important;border-color:var(--bf-teal)!important}
-.bf-frontline{flex:0 0 1px;margin:14px 34px;border-top:1px dashed var(--bf-line2);position:relative}  /* C2: +50% de respiro entre os campos */
-.bf-frontline>span{position:absolute;top:-7px;left:50%;transform:translateX(-50%);font-family:'Oswald';font-size:9px;letter-spacing:2px;color:var(--bf-ink3);background:var(--bf-bg);padding:0 9px}
+/* v4.2: a linha central agora abriga o SLOT DE CAMPO COMPARTILHADO (disputa por ✦ poupada) */
+.bf-frontline{flex:0 0 auto;height:104px;margin:2px 34px;position:relative;display:grid;place-items:center}
+.bf-frontline::before{content:'';position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--bf-line2)}
+.bf-frontline>span{position:absolute;top:0;left:50%;transform:translateX(-50%);font-family:'Oswald';font-size:8px;letter-spacing:2px;color:var(--bf-ink3);background:var(--bf-bg);padding:0 9px;z-index:2}
+.bf-campo-slot{position:relative;width:74px;height:103px;border-radius:9px;border:2px dashed rgba(240,180,41,.4);background:rgba(240,180,41,.05);display:grid;place-items:center;cursor:pointer;z-index:5;transition:box-shadow .2s}
+.bf-campo-slot .lb{font-family:'Oswald';font-size:8px;letter-spacing:1.5px;color:var(--bf-ink3);text-align:center;line-height:1.6}
+.bf-campo-slot.declared{border-style:solid;border-color:var(--bf-gold)}
+.bf-campo-slot.active{border:2px solid var(--bf-gold);box-shadow:0 0 18px rgba(240,180,41,.4)}
+.bf-campo-slot .own{position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);font-family:'Oswald';font-size:7.5px;letter-spacing:1px;color:var(--bf-gold);white-space:nowrap;background:var(--bf-bg);padding:0 6px;z-index:3}
+.bf-campo-slot .zap{position:absolute;top:-9px;right:-9px;font-size:16px;z-index:4;filter:drop-shadow(0 0 6px rgba(240,180,41,.8))}
 .bf-drophl{display:none;position:absolute;inset:-7px;border:2px dashed var(--bf-blue);border-radius:13px;box-shadow:0 0 26px rgba(90,140,240,.45);pointer-events:none;z-index:5}
 #screen-game.drop-valid .bf-drophl{display:block}
 /* CARTA (slot e mão usam .bf-cardface) */
@@ -533,15 +555,15 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 /* COLUNA DIREITA — trilho */
 #bf-rail{background:var(--bf-panel);border:1px solid var(--bf-line);border-radius:13px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
 #screen-game.rail-collapsed #bf-rail{display:none}
-.bf-railtabs{display:flex;align-items:center;gap:6px;padding:8px}
-.bf-tab{flex:1;padding:9px 0;font-family:'Oswald';font-size:12px;font-weight:600;letter-spacing:.6px;cursor:pointer;border-radius:8px;border:1px solid var(--bf-line);background:#0e0b1d;color:var(--bf-ink2)}
+.bf-railtabs{display:flex;align-items:center;gap:4px;padding:7px;min-width:0}
+.bf-tab{flex:1 1 0;min-width:0;padding:8px 2px;font-family:'Oswald';font-size:9.5px;font-weight:600;letter-spacing:.3px;cursor:pointer;border-radius:8px;border:1px solid var(--bf-line);background:#0e0b1d;color:var(--bf-ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bf-tab.on{border-color:var(--bf-blue);background:var(--bf-blue);color:#fff}
 .bf-railbody{flex:1;padding:0 13px 13px;overflow-y:auto}
 #bf-handle{display:none;position:absolute;right:0;top:50%;transform:translateY(-50%);width:24px;height:96px;border-radius:9px 0 0 9px;background:linear-gradient(180deg,var(--bf-panel2),var(--bf-panel));border:1px solid var(--bf-line);border-right:0;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:8px;z-index:25}
 #screen-game.rail-collapsed #bf-handle{display:flex}
 #bf-handle span{writing-mode:vertical-rl;font-family:'Oswald';font-size:9px;letter-spacing:2px;color:var(--bf-ink3)}
-.bf-insp-art{width:170px;aspect-ratio:.72;margin:2px auto 12px;border-radius:11px;overflow:hidden;border:1px solid var(--bf-line2);position:relative;box-shadow:0 8px 20px rgba(0,0,0,.5)}
-.bf-insp-name{font-family:'Oswald';font-weight:600;font-size:19px;letter-spacing:.3px}
+.bf-insp-art{width:138px;aspect-ratio:.72;margin:2px auto 10px;border-radius:11px;overflow:hidden;border:1px solid var(--bf-line2);position:relative;box-shadow:0 8px 20px rgba(0,0,0,.5)}
+.bf-insp-name{font-family:'Oswald';font-weight:600;font-size:17px;letter-spacing:.3px}
 .bf-insp-tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 16px}
 .bf-insp-tags span{font-size:11px;padding:4px 9px;border-radius:7px;background:#0e0b1d;border:1px solid var(--bf-line);color:var(--bf-ink2)}
 .bf-insp-efflbl{font-family:'Oswald';font-size:11px;letter-spacing:1px;color:var(--bf-ink3);text-transform:uppercase;margin-bottom:6px}
@@ -989,10 +1011,10 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 
   <!-- ===== TOPBAR ===== -->
   <div id="bf-top">
-    <div class="bf-turn">Turno <b id="turn-num">1</b><span class="bf-turn-sim">simultâneo</span></div>
+    <div class="bf-turn">Turno <b id="turn-num">1</b><span class="bf-turn-sim" id="mode-label">simultâneo</span></div>
     <div id="phase-track">
-      <span class="bf-phase" id="ps-draw">DRAW</span>
-      <span class="bf-phase" id="ps-standby">STANDBY</span>
+      <span class="bf-phase" id="ps-draw">COMPRA</span>
+      <span class="bf-phase" id="ps-standby">PASSIVAS</span>
       <span class="bf-phase" id="ps-action">AÇÃO</span>
       <span class="bf-phase" id="ps-resolution">RESOLUÇÃO</span>
     </div>
@@ -1017,6 +1039,7 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
         <div class="bf-cmd-chips">
           <span class="bf-cmd-chip" title="Fusões disponíveis no turno">🌀 <b id="enemy-fuse">0/1</b></span>
           <span class="bf-cmd-chip inf" title="Influência">✦ <b id="enemy-inf">0</b></span>
+          <span class="bf-cmd-chip" title="Mão atual / alvo de compra">🃏 <b id="enemy-handsz">0/5</b></span>
         </div>
         <div class="bf-cmd-foot"><span>⚔ <b id="enemy-cmd-atk">0</b></span><span>♥ <b id="enemy-cmd-hp">2000</b></span><span class="vb" id="enemy-cmd-vibe">—</span></div>
       </div>
@@ -1029,6 +1052,7 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
         <div class="bf-cmd-chips">
           <span class="bf-cmd-chip" title="Fusões disponíveis no turno">🌀 <b id="you-fuse">0/1</b></span>
           <span class="bf-cmd-chip inf" title="Influência">✦ <b id="you-inf">0</b></span>
+          <span class="bf-cmd-chip" title="Mão atual / alvo de compra (muda com artefatos)">🃏 <b id="you-handsz">0/5</b></span>
         </div>
         <div class="bf-cmd-foot"><span>⚔ <b id="you-cmd-atk">0</b></span><span>♥ <b id="you-cmd-hp">2000</b></span><span class="vb" id="you-cmd-vibe">—</span></div>
       </div>
@@ -1056,9 +1080,10 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
         </div>
         <div class="bf-piles ghost"></div>
       </div>
-      <!-- campo de batalha (linha central) + HUD de pools + Lixo central compartilhado -->
+      <!-- linha central: HUD de pools · SLOT DE CAMPO COMPARTILHADO (v4.2) · Lixo -->
       <div class="bf-frontline"><span>CAMPO DE BATALHA</span>
         <div class="bf-poolhud" id="bf-poolhud" title="Seus pools de ATAQUE e DEFESA neste turno">⚔ <b>0</b> · 🛡 <b>0</b></div>
+        <div class="bf-campo-slot" id="bf-campo-slot" onclick="bfInspectCampo()" title="Disputa de Campo — vence quem POUPAR mais Influência"><span class="lb">DISPUTA<br>DE CAMPO</span></div>
         <div class="bf-trash clickable" id="bf-trash" onclick="bfOpenTrash()" title="Lixo — compartilhado pelos dois lados"><span class="ic">🗑</span><b id="trash-count">0</b></div>
       </div>
       <!-- linha do jogador: pilhas + 6 zonas -->
@@ -2125,6 +2150,11 @@ function initFight(fightNum,difficulty,playerDeck,extraHandSize=0){
     mods:newMods(), playerQuickUsed:false, aiQuickUsed:false,
     commanderInvoked:false,                          // Invocação do Comandante (1×/turno)
     fightFusions:{player:0,ai:0},                    // fusões NESTE fight (condição da Fanta)
+    // v4.2: CAMPO COMPARTILHADO — disputa por Influência poupada
+    campo:{active:null,activeOwner:null,declared:{player:null,ai:null}},
+    campoBonus:{player:{inf:0,draw:0,costReduce:0},ai:{inf:0,draw:0,costReduce:0}},  // bônus de 1✦/2✦ + resenha
+    costReduceTurn:{player:0,ai:0},                  // desconto de custo válido só neste turno (Resenha em Casa)
+    _coinQueue:[],                                   // coin flips pendentes de animação (Tudo ou Nada)
   };
   // flags de debug (modo Password, 5K) persistem entre fights
   if(APP.debug){
@@ -2200,7 +2230,7 @@ function updateFinalizarBtn(phase){
 }
 function finalizarClick(){ if(G.phase==='action'&&!G.actionDone)endAction(); }
 // Banner da troca de fase: entra pela esquerda, segura ~0.8s, sai pela direita. Bloqueia input ~0.5s.
-const PHASE_LABEL={draw:'DRAW',standby:'STANDBY',action:'AÇÃO',resolution:'RESOLUÇÃO'};
+const PHASE_LABEL={draw:'COMPRA',standby:'PASSIVAS',action:'AÇÃO',resolution:'RESOLUÇÃO'};
 function bfPhaseBanner(phase){
   if(!JUICE.on)return;
   const host=document.getElementById('screen-game'); if(!host||host.classList.contains('hidden'))return;
@@ -2265,7 +2295,12 @@ function invokeCommander(){
   updateFieldUI(); updateBaseUI(); juiceLand('player',free);
 }
 function spendInf(side,n){ if(side==='player')G.playerInf=Math.max(0,G.playerInf-n); else G.aiInf=Math.max(0,G.aiInf-n); }
-function playCost(card,side){ if(card&&card.cost!=null)return card.cost; const st=(G.stats&&G.stats[side||'player']); return st?st.play_cost_default:DEFAULT_PLAY_COST; }
+function playCost(card,side){
+  const s=side||'player';
+  let c=(card&&card.cost!=null)?card.cost:((G.stats&&G.stats[s])?G.stats[s].play_cost_default:DEFAULT_PLAY_COST);
+  const red=(G.costReduceTurn&&G.costReduceTurn[s])||0;         // v4.2: Resenha em Casa (−✦ neste turno)
+  return Math.max(0,c-red);
+}
 
 function phaseDraw(){
   // novo turno: zera buffs/debuffs temporários, fusões e o "1 carta rápida por turno"
@@ -2274,18 +2309,33 @@ function phaseDraw(){
   G.playerFuses={used:0,limit:statsOf('player').fuses_per_turn}; G.aiFuses={used:0,limit:statsOf('ai').fuses_per_turn};
   // Influência do turno (regen por-Comandante via CSV; fórmula condicional real EM ABERTO)
   regenInfluence('player'); regenInfluence('ai');
+  // v4.2: bônus da disputa de Campo do turno anterior (+✦ / desconto da Resenha)
+  ['player','ai'].forEach(side=>{
+    const b=(G.campoBonus&&G.campoBonus[side])||{inf:0,draw:0,costReduce:0};
+    if(b.inf>0){ const st=statsOf(side); if(side==='player')G.playerInf=Math.min(st.inf_cap,G.playerInf+b.inf); else G.aiInf=Math.min(st.inf_cap,G.aiInf+b.inf); if(side==='player')showMsg(`⚡ +${b.inf}✦ do Campo!`,'green'); b.inf=0; }
+    G.costReduceTurn[side]=b.costReduce||0; b.costReduce=0;    // desconto vale só neste turno
+  });
   // Deck vazio: reembaralha o Descarte automaticamente (UI_CAMPO §4)
   reshuffleIfEmpty('player'); reshuffleIfEmpty('ai');
   // C3: compra ATÉ completar a mão no alvo (hand_start do Comandante + artefatos), não +1 fixo
   refillHand('player'); refillHand('ai');
+  // v4.2: +N compras extras do bônus de Campo (LAN House / sobrou 1✦)
+  ['player','ai'].forEach(side=>{
+    const b=(G.campoBonus&&G.campoBonus[side]); if(!b||!b.draw)return;
+    const hand=side==='player'?G.playerHand:G.aiHand;
+    for(let i=0;i<b.draw&&hand.length<handLimitOf(side);i++){reshuffleIfEmpty(side);drawOne(side);}
+    if(side==='player'&&b.draw)showMsg(`💻 +${b.draw} carta(s) do Campo!`,'green');
+    b.draw=0;
+  });
   if(!G.playerDeck.length&&!G.playerHand.length){showMsg('💀 Deck Out! Derrota!','red');setTimeout(()=>endFight('ai'),1000);return;}
   playSFX('ui_card_draw');
   renderHand();updateDeckUI();updateBaseUI();startPhase('standby');
 }
-// C3: alvo de mão = hand_start do Comandante + modificadores de artefato (limitado pelo teto).
+// C3: alvo de mão = hand_start do Comandante + artefatos (hand_size E o artefato "+1 carta na
+// mão inicial"/extraHandSize — antes só valia no 1º turno; agora vale em TODOS os DRAWs).
 function handTargetOf(side){
   const st=statsOf(side);
-  const mods=(side==='player'&&APP.commanderMods&&APP.commanderMods.hand_size)||0;
+  const mods=side==='player'?(((APP.commanderMods&&APP.commanderMods.hand_size)||0)+(APP.extraHandSize||0)):0;
   return Math.min(st.hand_size, st.hand_start+mods);
 }
 function refillHand(side){
@@ -2353,7 +2403,7 @@ function playCard(cardIdx,zoneIdx){
   if(G.phase!=='action'||G.actionDone)return;
   const card=G.playerHand[cardIdx]; if(!card)return;
   const cost=playCost(card);
-  if(card.kind==='campo'){bfToast('🌍 Cartas de CAMPO chegam num update futuro');return;}   // mecânica não especificada ainda
+  if(card.kind==='campo'){declareCampo(cardIdx);return;}   // v4.2: clique também declara
   if(isUpgrade(card)){bfToast('⬆️ Funda o Upgrade com um monstro: clique nos dois, ou arraste-o pra cima de um monstro no campo');return;}
   if(card.kind==='item'){
     if(G.playerInf<cost){bfToast('Influência insuficiente ('+cost+' ✦)');playSFX('ui_error');return;}
@@ -2389,6 +2439,12 @@ function aiDecideAction(){
     const it=items.find(c=>c.effect==='atk_buff')||items.find(c=>c.effect&&c.effect.indexOf('debuff')===0)||items[0];
     if(it&&inf>=playCost(it,'ai')){ inf-=playCost(it,'ai'); G.aiPlan.items.push(it); }
   }
+  // v4.2: declara Carta de Campo se tiver uma na mão E sobrar 2+✦ (usa a mais forte: gold primeiro)
+  const campos=hand.filter(c=>c.kind==='campo');
+  if(campos.length&&inf>=2&&G.campo&&!G.campo.declared.ai){
+    campos.sort((a,b)=>((b.tier==='gold')?1:0)-((a.tier==='gold')?1:0));
+    G.aiPlan.campo=campos[0];
+  }
 }
 function applyAiPlan(){
   if(!G.aiPlan)return;
@@ -2398,6 +2454,7 @@ function applyAiPlan(){
     const fc=makeFC(p.card,'ai'); fc.faceDown=true; G.aiField[p.zone]=fc; spendInf('ai',playCost(p.card,'ai'));
   });
   G.aiPlan.items.forEach(it=>{ const i=G.aiHand.indexOf(it); if(i>=0)G.aiHand.splice(i,1); applyTurnItem(it,'ai'); G.aiGrave.push(it); spendInf('ai',playCost(it,'ai')); });
+  if(G.aiPlan.campo){ const i=G.aiHand.indexOf(G.aiPlan.campo); if(i>=0)G.aiHand.splice(i,1); G.campo.declared.ai=G.aiPlan.campo; renderCampoSlot(); }   // v4.2
 }
 
 function phaseLastMinute(){
@@ -2451,10 +2508,15 @@ function aiDecideLastMinute(){
 // ═══ RESOLUÇÃO v4 — POOL vs POOL ═══
 // 1) vira cartas · 2) arapucas · 3) pools (c/ mods de item) · 4) dano = atk − def inimiga
 // 5) TODO o campo (ambos os lados) vai pro DESCARTE dos donos · 6) vitória/derrota.
+// ═══ ORDEM FORMAL DA RESOLUÇÃO (v4.2 — ver GDD §8 e docs/design/design-campo-arapucas-cartas.md):
+// 1. Campo Compartilhado (disputa + ativação) · 2. imunidade (Pedras, setada na AÇÃO)
+// 3. arapucas do INIMIGO 1→6 · 4. arapucas do jogador 1→6 · 5-6. pools c/ mods · 7. dano
+// 8. limpeza → descarte (Comandante volta ao posto; Carta de Campo FICA) ═══
 function phaseResolution(){
   setActionBar(`<span class="action-hint">⚔️ RESOLUÇÃO — virando cartas e somando os pools...</span>`);
   flipFaceUp('player');flipFaceUp('ai');         // cartas baixadas viram p/ cima (UI_CAMPO §3)
-  resolveTraps('player');resolveTraps('ai');     // arapucas revelam ANTES do cálculo de dano
+  resolveCampo();                                 // 1. disputa de Campo + ativação (3+✦)
+  resolveTraps('ai');resolveTraps('player');      // 3-4. arapucas: inimigo antes do jogador
   updateFieldUI();
   const pp=computePools('player'), ap=computePools('ai');
   const dmgToEnemy=Math.max(0,pp.atk-ap.def);
@@ -2467,12 +2529,14 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 // depois mostra o dano que cada Comandante vai levar. Não muda estado — só visual.
 async function resolveSequence(pp,ap,dmgToEnemy,dmgToPlayer){
   const host=document.getElementById('screen-game'); if(!host)return;
+  await sleep(JUICE.resolvePreDelayMs||1100);   // respiro após o banner de fase, ANTES de começar a soma
+  await playCoinFlips();                        // v4.2: "Tudo ou Nada" revela a moeda antes da soma
   const foeName=(G.aiCmd&&G.aiCmd.name)||'INIMIGO';
   const ov=document.createElement('div'); ov.id='resolve-overlay'; ov.className='show';
   ov.innerHTML=`<div class="ro-row">
-    <div class="ro-side"><div class="ro-lbl">VOCÊ</div><div class="ro-val you"><span id="ro-you-atk">0</span><span class="ro-sub">⚔</span></div><div class="ro-val you" style="font-size:.6em"><span id="ro-you-def">0</span><span class="ro-sub">🛡</span></div></div>
+    <div class="ro-side"><div class="ro-lbl">VOCÊ</div><div class="ro-val you"><span id="ro-you-atk">0</span><span class="ro-sub">⚔</span></div><div class="ro-val you"><span id="ro-you-def">0</span><span class="ro-sub">🛡</span></div></div>
     <div class="ro-vs">⚔ VS ⚔</div>
-    <div class="ro-side"><div class="ro-lbl">${foeName.toUpperCase()}</div><div class="ro-val foe"><span id="ro-foe-atk">0</span><span class="ro-sub">⚔</span></div><div class="ro-val foe" style="font-size:.6em"><span id="ro-foe-def">0</span><span class="ro-sub">🛡</span></div></div>
+    <div class="ro-side"><div class="ro-lbl">${foeName.toUpperCase()}</div><div class="ro-val foe"><span id="ro-foe-atk">0</span><span class="ro-sub">⚔</span></div><div class="ro-val foe"><span id="ro-foe-def">0</span><span class="ro-sub">🛡</span></div></div>
   </div><div class="ro-note" id="ro-note"></div>`;
   host.appendChild(ov);
   await tallySide('player',pp,document.getElementById('ro-you-atk'),document.getElementById('ro-you-def'));
@@ -2491,7 +2555,7 @@ async function tallySide(side,poolsFinal,atkEl,defEl){
   for(let i=0;i<ZONES;i++){
     const c=field[i]; if(!c)continue;
     const slot=document.getElementById(pre+i);
-    if(slot){slot.classList.add('attacking');setTimeout(()=>slot&&slot.classList.remove('attacking'),Math.max(180,step));}
+    if(slot){slot.classList.add('attacking','card-wiggle');setTimeout(()=>{if(slot){slot.classList.remove('attacking','card-wiggle');}},Math.max(340,step));}
     atk+=cardAtkContrib(c); def+=cardDefContrib(c);
     atkEl.textContent=atk; defEl.textContent=def;
     [atkEl,defEl].forEach(el=>{el.classList.remove('num-pop'); void el.offsetWidth; el.classList.add('num-pop');});
@@ -2507,8 +2571,28 @@ async function tallySide(side,poolsFinal,atkEl,defEl){
     playSFXPitch('ui_atb_full',1.0); await sleep(380);
   }
 }
+// v4.2: overlay da moeda do "Tudo ou Nada" — gira ~1.2s, cai, mostra o efeito (~1.5s de pausa).
+async function playCoinFlips(){
+  const q=G._coinQueue||[]; if(!q.length)return;
+  const host=document.getElementById('screen-game'); if(!host){G._coinQueue=[];return;}
+  for(const cf of q){
+    const ov=document.createElement('div'); ov.className='coin-ov';
+    ov.innerHTML=`<div class="coin">🪙</div><div class="coin-res"></div>`;
+    host.appendChild(ov);
+    playSFXPitch('ui_card_select',1.3);
+    await sleep(1200);                                        // moeda girando (CSS rotateY ×4)
+    const c=ov.querySelector('.coin'), res=ov.querySelector('.coin-res');
+    if(c)c.classList.add('landed');
+    if(res)res.textContent=(cf.heads?'CARA 😎':'COROA 💀')+' — '+cf.label;
+    playSFX(cf.heads?'reward':'unit_die');
+    await sleep(1300);
+    ov.remove();
+  }
+  G._coinQueue=[];
+}
 // Aplica o dano nos COMANDANTES e varre TODO o campo pro descarte (ambos os lados).
 async function resolveApply(dmgToEnemy,dmgToPlayer){
+  G._coinQueue=[];   // sem JUICE a animação não roda — garante fila limpa
   juiceImpact(dmgToEnemy,dmgToPlayer);
   if(dmgToEnemy>0){G.aiBase.hp=Math.max(0,G.aiBase.hp-dmgToEnemy);showDmgFloat(dmgToEnemy,'ai');}
   if(dmgToPlayer>0){G.playerBase.hp=Math.max(0,G.playerBase.hp-dmgToPlayer);showDmgFloat(dmgToPlayer,'player');}
@@ -2601,10 +2685,12 @@ function applyTurnItem(card,side){
       while(myHand.length){myGrave.push(myHand.pop());}
       const n=v||7; for(let i=0;i<n;i++){reshuffleIfEmpty(side);drawOne(side);}
       if(me){showMsg(`🗑️ Mão renovada: +${n} cartas!`,'green');renderHand();}playSFX('ui_card_draw');break;}
-    case 'discard_draw_partial':{ // descarta 2 (aleatórias — chooser fino fica p/ depois) e compra N
-      for(let i=0;i<2&&myHand.length;i++){myGrave.push(myHand.splice(Math.floor(Math.random()*myHand.length),1)[0]);}
-      const n=v||3; for(let i=0;i<n;i++){reshuffleIfEmpty(side);drawOne(side);}
-      if(me){showMsg(`🔄 −2 cartas, +${n}!`,'green');renderHand();}playSFX('ui_card_draw');break;}
+    case 'discard_draw_partial':{ // v4.2: o JOGADOR escolhe as 2 cartas descartadas; IA descarta aleatório
+      const n=v||3;
+      const finish=()=>{for(let i=0;i<n;i++){reshuffleIfEmpty(side);drawOne(side);}if(me){showMsg(`🔄 −2 cartas, +${n}!`,'green');renderHand();updateDeckUI();}playSFX('ui_card_draw');};
+      if(me){ bfPickDiscard(2,finish); }
+      else { for(let i=0;i<2&&myHand.length;i++){myGrave.push(myHand.splice(Math.floor(Math.random()*myHand.length),1)[0]);} finish(); }
+      break;}
     case 'bonus_fusion':{const f=side==='player'?G.playerFuses:G.aiFuses;f.limit+=(v||1);if(me)showMsg(`🍹 +${v||1} fusão neste turno!`,'green');playSFX('item_buff');break;}
     case 'gain_influence':{const st=statsOf(side);if(side==='player')G.playerInf=Math.min(st.inf_cap,G.playerInf+(v||3));else G.aiInf=Math.min(st.inf_cap,G.aiInf+(v||3));if(me)showMsg(`💃 +${v||3}✦ de Influência!`,'green');playSFX('item_buff');break;}
     case 'evolve_choose':{ // evolui uma família à escolha (IA: aleatória)
@@ -2618,12 +2704,12 @@ function applyTurnItem(card,side){
       if(me){const snap=[...myGrave];bfChooser('Recuperar qual carta?',snap.map((c,i)=>({label:c.name,fn:()=>{const ix=myGrave.indexOf(c);if(ix>=0&&myHand.length<handLimitOf(side)){myHand.push(myGrave.splice(ix,1)[0]);renderHand();updateDeckUI();bfToast('🔍 '+c.name+' recuperada');}}})));}
       else if(myHand.length<handLimitOf(side))myHand.push(myGrave.pop());
       playSFX('special_healer');break;}
-    case 'scry_pick':{ // vê as N do topo, pega 1 (IA: a 1ª)
+    case 'scry_pick':{ // vê as N do topo, pega 1; o RESTO é embaralhado de volta (v4.2)
       const myDeck=side==='player'?G.playerDeck:G.aiDeck;
       const top=myDeck.slice(0,v||5);
       if(!top.length){if(me)showMsg('Deck vazio','orange');break;}
-      if(me)bfChooser('Topo do deck — pegue 1',top.map(c=>({label:c.name,fn:()=>{const ix=myDeck.indexOf(c);if(ix>=0&&myHand.length<handLimitOf(side)){myHand.push(myDeck.splice(ix,1)[0]);renderHand();updateDeckUI();bfToast('🔮 '+c.name+' na mão');}}})));
-      else if(myHand.length<handLimitOf(side))myHand.push(myDeck.shift());
+      if(me)bfChooser('Topo do deck — pegue 1 (o resto embaralha)',top.map(c=>({label:c.name,fn:()=>{const ix=myDeck.indexOf(c);if(ix>=0&&myHand.length<handLimitOf(side)){myHand.push(myDeck.splice(ix,1)[0]);shuffleDeck(side);renderHand();updateDeckUI();bfToast('🔮 '+c.name+' na mão');}}})));
+      else { if(myHand.length<handLimitOf(side))myHand.push(myDeck.shift()); shuffleDeck(side); }
       playSFX('ui_card_select');break;}
     case 'trap_immunity':{om.trapsDisabled=true;if(me)showMsg('🪨 Arapucas inimigas ANULADAS neste turno!','green');playSFX('item_buff');break;}
     // ── debuffs (atingem o pool de ATAQUE do oponente) ──
@@ -2656,6 +2742,20 @@ function bfPickAnyPawn(){
   const pawns=BASE_CARDS.filter(c=>c.kind==='pawn'&&c.tier==='bronze');
   bfChooser('Escolha um peão',pawns.map(p=>({label:`${vibeOf(p)?vibeOf(p).emoji:'🎴'} ${p.name} (⚔${p.atk||0}/🛡${p.hp||0})`,fn:()=>{if(G.playerHand.length<handLimitOf('player')){G.playerHand.push({...p});renderHand();bfToast('🎯 '+p.name+' na mão');}else bfToast('Mão cheia');}})));
 }
+// v4.2: seletor sequencial — o jogador escolhe N cartas da PRÓPRIA mão pra descartar, depois callback.
+function bfPickDiscard(n,done){
+  let left=n;
+  const step=()=>{
+    if(left<=0||!G.playerHand.length){renderHand();done();return;}
+    const snap=[...G.playerHand];
+    bfChooser(`Descarte ${left} carta(s) — escolha`,snap.map(c=>({label:c.name,fn:()=>{
+      const ix=G.playerHand.indexOf(c);
+      if(ix>=0){G.playerGrave.push(G.playerHand.splice(ix,1)[0]);left--;}
+      step();
+    }})));
+  };
+  step();
+}
 // Modal genérico de escolha (lista de botões).
 function bfChooser(title,opts){
   let m=document.getElementById('bf-modal-chooser');
@@ -2671,14 +2771,95 @@ function flipFaceUp(side){
   const field=side==='player'?G.playerField:G.aiField;
   field.forEach(c=>{ if(c&&c.faceDown)c.faceDown=false; });
 }
+// Render do slot central de Campo: vazio → "DISPUTA DE CAMPO" · declarado → verso + ⚡ · ativo → carta + dono.
+function renderCampoSlot(){
+  const el=document.getElementById('bf-campo-slot'); if(!el||!G.campo)return;
+  const cp=G.campo;
+  el.className='bf-campo-slot';
+  if(cp.declared.player||cp.declared.ai){
+    el.classList.add('declared');
+    el.innerHTML=`<div class="cc-back" style="position:absolute;inset:3px;border-radius:7px;border-width:2px"></div><span class="zap">⚡</span>`;
+    el.title='Há disputa de Campo neste turno! Quem poupar mais ✦ vence.';
+  } else if(cp.active){
+    el.classList.add('active');
+    el.innerHTML=bfCardArt(cp.active)+`<span class="own">${cp.activeOwner==='player'?'SEU CAMPO':'CAMPO INIMIGO'}</span>`;
+    el.title=cp.active.name+' — '+(cp.active.ability||'');
+  } else {
+    el.innerHTML='<span class="lb">DISPUTA<br>DE CAMPO</span>';
+    el.title='Disputa de Campo — arraste uma carta de CAMPO aqui (custo zero; vence quem POUPAR mais ✦)';
+  }
+}
+// Declara a Carta de Campo do jogador (custo ZERO — o custo é a ✦ que você deixa de gastar).
+function declareCampo(i){
+  if(G.phase!=='action'||G.actionDone){bfToast('Campo se declara na fase AÇÃO');playSFX('ui_error');return;}
+  if(G.campo.declared.player){bfToast('Você já declarou um Campo neste turno');playSFX('ui_error');return;}
+  const card=G.playerHand[i]; if(!card||card.kind!=='campo')return;
+  G.playerHand.splice(i,1);
+  G.campo.declared.player=card;
+  playSFX('trap_place');
+  bfToast('🌍 Campo declarado! Quem POUPAR mais ✦ vence a disputa na resolução.');
+  bfLog('Você declarou uma Carta de Campo (face-down)','gold');
+  renderCampoSlot(); renderHand(); updateBaseUI();
+}
+function bfInspectCampo(){ if(G.campo&&G.campo.active)bfInspect(G.campo.active); else bfToast('Nenhum Campo ativo — arraste uma carta de CAMPO pra cá na AÇÃO'); }
+// ═══ v4.2: CAMPO COMPARTILHADO — disputa decidida pela Influência POUPADA ═══
+function resolveCampo(){
+  const cp=G.campo; if(!cp)return;
+  const pd=cp.declared.player, ed=cp.declared.ai;
+  if(!pd&&!ed)return;                                        // ninguém declarou → Campo atual permanece
+  let winner=null,winnerCard=null,loser=null,loserCard=null;
+  if(pd&&!ed){winner='player';winnerCard=pd;}
+  else if(ed&&!pd){winner='ai';winnerCard=ed;}
+  else{
+    const pi=G.playerInf, ei=G.aiInf;                        // Influência RESTANTE após a AÇÃO
+    if(pi>ei){winner='player';winnerCard=pd;loser='ai';loserCard=ed;}
+    else if(ei>pi){winner='ai';winnerCard=ed;loser='player';loserCard=pd;}
+    else{ // empate: Campo anterior mantido, ambas as cartas voltam pro descarte dos donos
+      G.playerGrave.push(pd); G.aiGrave.push(ed);
+      cp.declared={player:null,ai:null};
+      showMsg('🤝 Empate na disputa de Campo! Campo anterior mantido.','orange'); bfLog('Disputa de Campo empatada','gold');
+      renderCampoSlot(); return;
+    }
+  }
+  if(loserCard)(loser==='player'?G.playerGrave:G.aiGrave).push(loserCard);   // perdedora → descarte do dono
+  if(cp.active&&cp.active!==winnerCard)(cp.activeOwner==='player'?G.playerGrave:G.aiGrave).push(cp.active); // campo substituído sai
+  cp.active=winnerCard; cp.activeOwner=winner; cp.declared={player:null,ai:null};
+  const leftover=winner==='player'?G.playerInf:G.aiInf;
+  const wName=winner==='player'?'Você':'Inimigo';
+  bfLog(`Campo: ${wName} venceu a disputa (${leftover}✦ sobrando)`,winner==='player'?'green':'red');
+  // Bônus pela Influência que sobrou (3+✦ ativa o efeito; 2✦ → +2✦; 1✦ → +1 compra)
+  if(leftover>=3){ activateCampoEffect(winnerCard,winner); showMsg(`⚡ Campo "${winnerCard.name}" ATIVADO!`,winner==='player'?'green':'red'); }
+  else if(leftover===2){ G.campoBonus[winner].inf+=2; showMsg(`Campo vencido! +2✦ no próximo turno.`,winner==='player'?'green':'orange'); }
+  else if(leftover===1){ G.campoBonus[winner].draw+=1; showMsg(`Campo vencido! +1 carta na próxima COMPRA.`,winner==='player'?'green':'orange'); }
+  else showMsg(`Campo vencido, mas sem ✦ sobrando — sem bônus.`,'orange');
+  renderCampoSlot();
+}
+// Efeitos das Cartas de Campo (ativam com 3+✦; aplicam nos mods desta resolução ou no próximo turno)
+function activateCampoEffect(card,owner){
+  const opp=owner==='player'?'ai':'player';
+  const v=card.effectVal;
+  switch(card.effect){
+    case 'campo_draw':          G.campoBonus[owner].draw+=(typeof v==='number'?v:2); break;                    // LAN House
+    case 'campo_def_buff':      G.mods[owner].defMult*=(1+Math.abs(v||0.30)); if(card.id==='campo_academia_gold'){const b=owner==='player'?G.playerBase:G.aiBase;b.hp=Math.min(b.maxHp,b.hp+200);} break;
+    case 'campo_enemy_atk_debuff':{G.mods[opp].atkMult*=(1-Math.abs(v||0.20)); if(card.id==='campo_manifestacao_gold'){if(opp==='player')G.playerInf=Math.max(0,G.playerInf-2);else G.aiInf=Math.max(0,G.aiInf-2);} break;}
+    case 'campo_atk_buff':      G.mods[owner].atkMult*=(1+Math.abs(v||0.20)); G.mods[opp].annulOneTrap=true; break;  // Baile Funk
+    case 'campo_cost_reduce':   G.campoBonus[owner].costReduce=(typeof v==='number'?v:1); break;               // Resenha em Casa
+    case 'campo_trap_immune':   G.mods[opp].trapsDisabled=true; break;                                          // Funerária
+    default:break;
+  }
+}
 // ── ARAPUCAS (face-down numa zona; REVELAM na RESOLUÇÃO antes do cálculo de dano) ──
+// Arapucas ativam em ordem de posição 1→6. Imunidade ("Pedras"/Funerária) anula todas;
+// Baile Funk anula UMA (a primeira encontrada). Ativadas ou anuladas → descarte do dono.
 function resolveTraps(side){
   const field=side==='player'?G.playerField:G.aiField;
   const grave=side==='player'?G.playerGrave:G.aiGrave;
-  const disabled=G.mods[side]&&G.mods[side].trapsDisabled;   // "Pedras Anti Bad Vibes" do oponente
+  const m=G.mods[side]||{};
+  const disabled=m.trapsDisabled;
   field.forEach((t,i)=>{
     if(!t||t.kind!=='trap')return;
     if(disabled){grave.push(t);field[i]=null;showMsg(`🪨 ${t.name} foi anulada!`,side==='player'?'orange':'green');return;}
+    if(m.annulOneTrap){m.annulOneTrap=false;grave.push(t);field[i]=null;showMsg(`🎵 ${t.name} anulada pelo Baile Funk!`,side==='player'?'orange':'green');return;}
     applyTrap(t,side);grave.push(t);field[i]=null;
     playSFX('trap_trigger');
     showMsg(`🪤 ${t.name} disparou!`,side==='player'?'green':'orange');
@@ -2701,8 +2882,10 @@ function applyTrap(t,side){
     case 'remove_random_unit':{ // manda 1 unidade inimiga aleatória pro LIXO antes do cálculo
       const occ=[];oppField.forEach((c,i)=>{if(c&&isMonster(c)&&!c.isCommander)occ.push(i);});
       if(occ.length){const z=occ[Math.floor(Math.random()*occ.length)];G.trash.push(oppField[z]);oppField[z]=null;} break;}
-    case 'coin_flip_atk':{const heads=Math.random()<0.5;if(heads)om.atkMult*=(1-Math.abs(v||0.5));else m.atkMult*=(1-Math.abs(v||0.5));showMsg(heads?'🪙 Cara! ATK inimigo −50%':'🪙 Coroa! Seu ATK −50%','orange');break;}
-    case 'coin_flip_def':{const heads=Math.random()<0.5;if(heads)om.defMult*=(1-Math.abs(v||0.5));else m.defMult*=(1-Math.abs(v||0.5));showMsg(heads?'🪙 Cara! DEF inimiga −50%':'🪙 Coroa! Sua DEF −50%','orange');break;}
+    case 'coin_flip_atk':{const heads=Math.random()<0.5;if(heads)om.atkMult*=(1-Math.abs(v||0.5));else m.atkMult*=(1-Math.abs(v||0.5));
+      G._coinQueue.push({heads,label:heads?(side==='player'?'ATK inimigo −50%!':'ATK do jogador −50%!'):(side==='player'?'Seu ATK −50%!':'ATK da IA −50%!')});break;}
+    case 'coin_flip_def':{const heads=Math.random()<0.5;if(heads)om.defMult*=(1-Math.abs(v||0.5));else m.defMult*=(1-Math.abs(v||0.5));
+      G._coinQueue.push({heads,label:heads?(side==='player'?'DEF inimiga −50%!':'DEF do jogador −50%!'):(side==='player'?'Sua DEF −50%!':'DEF da IA −50%!')});break;}
     default:break;
   }
 }
@@ -2739,6 +2922,7 @@ function startFight(){
   const foe=(G.aiCmd&&G.aiCmd.name)||(AI_DECKS[APP.difficulty]&&AI_DECKS[APP.difficulty].label)||'?';
   const lbl=APP.mode==='free'?'Duelo Livre':APP.mode==='rogue'?`Fight ${APP.fightNum}/${rogueEnemyOrder().length}`:'Fight '+APP.fightNum+'/3';
   const fi=document.getElementById('fight-info');if(fi)fi.textContent=`${lbl} · vs ${foe}`;
+  const ml=document.getElementById('mode-label');if(ml)ml.textContent=APP.mode==='rogue'?'ROGUE':APP.mode==='free'?'DUELO LIVRE':'simultâneo';   // modo no cabeçalho
   startMusic();showMsg(`⚔ ${lbl} — vs ${foe}!`,'green');startPhase('draw');
 }
 function showRewardScreen(){showScreen('reward');playSFX('reward');const opts=generateRewards(3);const cont=document.getElementById('reward-options');cont.innerHTML='';opts.forEach(opt=>{const d=document.createElement('div');d.className='reward-card';const cat=opt.cat==='unit'?'<span class="reward-cat cat-unit">UNIDADE</span>':opt.cat==='artifact'?'<span class="reward-cat cat-artifact">ARTEFATO</span>':'';d.innerHTML=`${cat}<div class="reward-icon">${opt.icon}</div><div class="reward-title">${opt.title}</div><div class="reward-desc">${opt.desc}</div>`;d.onclick=()=>pickReward(opt);cont.appendChild(d);});document.getElementById('reward-fight-score').textContent=G.score;document.getElementById('reward-total-score').textContent=APP.totalScore;}
@@ -3436,6 +3620,8 @@ function renderCmd(side){
   }
   setText(side==='player'?'you-fuse':'enemy-fuse',`${fuses.used}/${fuses.limit}`);
   setText(side==='player'?'you-inf':'enemy-inf',inf);
+  const handNow=side==='player'?G.playerHand.length:G.aiHand.length;
+  setText(side==='player'?'you-handsz':'enemy-handsz',`${handNow}/${handTargetOf(side)}`);   // 🃏 alvo dinâmico
   setText(side==='player'?'you-cmd-atk':'enemy-cmd-atk',cmd.atk||0);
   setText(side==='player'?'you-cmd-hp':'enemy-cmd-hp',Math.max(0,base.hp));
   setText(side==='player'?'you-cmd-vibe':'enemy-cmd-vibe',v?v.name:'—');
@@ -3464,6 +3650,7 @@ function updateFieldUI(){
   setText('grave-count',G.playerGrave.length);
   setText('trash-count',(G.trash||[]).length);
   bfUpdatePoolHUD();
+  renderCampoSlot();   // v4.2
 }
 // HUD em tempo real (fase AÇÃO): pools ⚔/🛡 do jogador; hover numa carta da mão = preview +X.
 function bfUpdatePoolHUD(previewCard){
@@ -3543,12 +3730,14 @@ function bfCardArt(card){
       <div class="r2"><span class="fa">⚔ ${card.atk||0}</span><span class="fd">🛡 ${card.hp||0}</span></div></div>
     </div>`;
   }
-  // item / arapuca / upgrade — fundo preto, sem estrelas, sem foto: ícone grande + rodapé com custo
+  // item / arapuca / upgrade — fundo preto, sem estrelas: imagem quando existir (C4),
+  // senão ícone grande. Emoji NUNCA sobrepõe a foto (bug energético/rodada corrigido).
   const emo=card.emoji||'🎴';
   const eff=(card.ability||'').split(/[.—]/)[0]||'';
+  const artIn=src?`<div class="bigemo" style="display:none">${emo}</div><img src="${src}" onerror="this.previousElementSibling.style.display='grid';this.remove()" style="position:absolute;inset:26px 6px 34px;width:auto;height:auto;max-width:calc(100% - 12px);max-height:calc(100% - 60px);margin:auto;object-fit:cover;border-radius:5px">`:`<div class="bigemo">${emo}</div>`;
   return `<div class="bf-cardface itm41">
     <div class="hd"><span class="nm">${card.name}</span><span class="vdot" style="background:${vcol}"></span></div>
-    <div class="bigemo">${emo}</div>${tier}
+    ${artIn}${tier}
     <div class="ft41"><div class="r1">${bfKindBadge(card)}<span class="cost-in">✦${cost}</span></div>
     <div class="fx">${eff}</div></div>
   </div>`;
@@ -3649,13 +3838,15 @@ function bfShowGhost(card){ const g=document.getElementById('bf-dragghost'); if(
 // hit-test: qual slot do jogador está sob o ponteiro
 function bfSlotAt(e){
   const hit=(id)=>{const el=document.getElementById(id);if(!el)return false;const r=el.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top-12&&e.clientY<=r.bottom+12;};
+  if(hit('bf-campo-slot'))return {kind:'campo'};              // v4.2: slot de Campo central
   for(let i=0;i<ZONES;i++)if(hit('player-slot-'+i))return {kind:'slot',idx:i};
   return null;
 }
-function bfSlotEl(at){ if(!at)return null; if(at.kind==='slot')return document.getElementById('player-slot-'+at.idx); return null; }
+function bfSlotEl(at){ if(!at)return null; if(at.kind==='slot')return document.getElementById('player-slot-'+at.idx); if(at.kind==='campo')return document.getElementById('bf-campo-slot'); return null; }
 function bfDropValid(card,at){
   if(!card)return false;
   if(G.phase!=='action'||G.actionDone)return false;
+  if(card.kind==='campo')return !!(at&&at.kind==='campo'&&!G.campo.declared.player);   // v4.2: campo → slot central (custo zero)
   if(G.playerInf<playCost(card))return false;
   if(isUpgrade(card))return !!(at&&at.kind==='slot'&&G.playerField[at.idx]&&isMonster(G.playerField[at.idx])); // upgrade: solta EM CIMA de um monstro seu
   if(card.kind==='item')return true;                                   // item: solta em qualquer ponto do board
@@ -3665,6 +3856,7 @@ function bfDropValid(card,at){
 function bfPlay(i,at){
   const card=G.playerHand[i]; if(!card)return;
   if(G.phase!=='action'||G.actionDone){bfToast('Só dá pra agir na fase AÇÃO');return;}
+  if(card.kind==='campo'){ if(at&&at.kind==='campo')declareCampo(i); else bfToast('🌍 Arraste a carta de Campo pro slot central dourado'); return; }
   if(G.playerInf<playCost(card)){bfToast('Influência insuficiente ('+playCost(card)+' ✦)');playSFX('ui_error');return;}
   if(isUpgrade(card)){ // arrastou o Upgrade em cima de um monstro no campo → evolui a família
     const tgt=at&&at.kind==='slot'?G.playerField[at.idx]:null;
@@ -3837,7 +4029,7 @@ function bfInspect(card){ if(!card)return; const box=document.getElementById('bf
   const tc=bfTypeChip(card.type); const lv=card._lv||1; const isMon=isMonster(card); const vibe=card.vibe&&VIBES.find(v=>v.id===card.vibe);
   const hp=card.currentHp!=null?card.currentHp:card.hp;
   const artBg=cardImgSrc(card)?`background:url('${cardImgSrc(card)}') center/cover`:`background:${bfGrad(card.type)}`;
-  box.innerHTML=`<div class="bf-insp-art"><div style="position:absolute;inset:0;${artBg}"></div><span style="position:absolute;top:7px;left:7px;font-family:'Oswald';font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600;background:${tc[1]};color:${tc[2]}">${tc[0]}</span><div style="position:absolute;left:0;right:0;bottom:0;padding:22px 9px 9px;background:linear-gradient(transparent,rgba(0,0,0,.85))"><div style="font-family:'Oswald';font-weight:600;font-size:16px">${card.name}</div></div></div>
+  box.innerHTML=`<div class="bf-insp-art"><div style="position:absolute;inset:0;${artBg}"></div><div style="position:absolute;left:0;right:0;bottom:0;padding:22px 9px 9px;background:linear-gradient(transparent,rgba(0,0,0,.85))"><div style="font-family:'Oswald';font-weight:600;font-size:16px">${card.name}</div></div></div>
   <div class="bf-insp-name">${card.name}</div>
   <div class="bf-insp-tags">${isMon?`<span style="background:rgba(226,83,63,.14);border-color:rgba(226,83,63,.3);color:#f4a597">⚔ ${card.atk||0}</span><span style="background:rgba(95,201,154,.12);border-color:rgba(95,201,154,.3);color:#9fe0c2">🛡 ${card.hp||0}</span>`:''}<span style="color:var(--bf-gold)">${'★'.repeat(card.star||0)||'—'}</span>${card.cost!=null?`<span>✦ ${card.cost}</span>`:''}${vibe?`<span>${vibe.emoji} ${vibe.name}</span>`:''}${card.tier?`<span style="background:${(TIER_BADGE[card.tier]||{bg:'#8a6a3a'}).bg}22;color:${card.tier==='bronze'?'#c9955c':(TIER_BADGE[card.tier]||{}).bg}">${card.tier.toUpperCase()}</span>`:''}</div>
   <div class="bf-insp-efflbl">Efeito</div><div class="bf-insp-eff">${card.ability||card.desc||(card.special?('Habilidade especial: '+card.special):(card.kind==='trap'?'Arapuca — dispara na resolução.':card.kind==='item'?'Item — jogado na fase ITENS.':'—'))}</div>`;
@@ -3909,6 +4101,7 @@ function bfInspectCmd(side){
   ${cmd.tagline?`<div style="font-size:11.5px;font-style:italic;color:var(--bf-ink2);margin-bottom:2px">“${cmd.tagline}”</div>`:''}
   ${abil('♾️','PASSIVA',cmd.passName,cmd.passDesc,cmd.passTrigger)}
   ${abil('⚡','ATIVA',cmd.actName,cmd.actDesc,cmd.actTrigger?cmd.actTrigger+(cmd.actUses?' · '+cmd.actUses:''):cmd.actUses)}
+  ${(()=>{const m=commanderById(cmd.id);return m&&m.summon_condition_desc?abil('🎴','CONDIÇÃO DE INVOCAÇÃO','1× por turno',m.summon_condition_desc,''):'';})()}
   ${cmd.fieldBonusDesc?`<div style="font-size:10.5px;color:var(--bf-ink3);margin-top:8px">Campo: ${cmd.fieldBonusDesc}</div>`:''}`;
   bfSetTab('insp');
 }
@@ -3983,6 +4176,7 @@ const OST_BY_SCREEN={
   title:'ost_menu', disclaimer:'ost_menu', nameload:'ost_menu', menu:'ost_menu',
   library:'ost_menu', shop:'ost_menu', campaign:'ost_menu', deckbuilder:'ost_menu',
   deckselect:'ost_select', runsetup:'ost_select', freeduel:'ost_select', password:'ost_select',
+  cmdselect:'ost_select',   // Seleção de Comandante (estava sem OST — ver docs/OST_GUIA.md)
   score:'ost_scores', reward:'ost_reward',
   // stubs sem tela ainda: ost_preduel (stinger pré-fight), ost_sudden (morte súbita)
 };

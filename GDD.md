@@ -123,9 +123,18 @@ Cada Comandante é **assimétrico de verdade** (não é skin):
 - ✅ **INVOCAÇÃO DO COMANDANTE (v4.1):** 1×/turno, cada Comandante tem uma **condição própria** (`summon_condition` no CSV — ex.: Fanta 2+ fusões no fight, Nathan 4+ cartas na mão, Garopaba PV<50%, Zaga paga 5✦, Bala campo 6/6, Letti turno 3+). Quando atendida, o botão no perfil vira "⚡ Invocar!" (dourado pulsante): o Comandante ocupa uma zona livre, **contribui aos pools** do turno e **volta ao slot de Comandante** após a resolução (não vai pro descarte). Reset no DRAW. Condição exibida no seletor de Comandante.
 - ✅ **Tipos ATK/DEF/BAL abolidos do VISUAL (v4.1 A1):** seguem como metadado interno do motor/boss deck, mas as cartas mostram só ⚔ atk e 🛡 hp (escudo, não coração). 🟡 TEMP: pool de ATK com multiplicador **×3** no motor até o CSV ser rebalanceado (Bloco E).
 - ✅ **DRAW compra até o alvo (v4.1 C3):** completa a mão até `hand_start` do Comandante + artefatos (não +1 fixo).
+- ✅ **CAMPO COMPARTILHADO (v4.2):** zona única central entre os dois campos. Na AÇÃO, cada lado pode declarar 1 carta de CAMPO face-down (custo **zero** — o custo é a Influência que você **deixa de gastar**). Na resolução, vence a disputa quem tiver **mais ✦ sobrando**; empate mantém o Campo anterior. Bônus do vencedor pela ✦ poupada: **1✦** → +1 carta na próxima COMPRA · **2✦** → +2✦ no próximo turno · **3+✦** → o **efeito da carta ativa** (LAN House +2 compras, Academia +30% DEF, Manifestação −20% ATK inimigo, Baile Funk +20% ATK + anula 1 arapuca, Resenha −1✦ nos custos do próximo turno, Funerária anula todas as arapucas inimigas; golds têm versões turbinadas). A carta vencedora **fica na zona** até ser substituída; a perdedora vai pro descarte do dono. IA declara se tiver carta de Campo e 2+✦ sobrando.
+- ✅ **Arapucas formalizadas (v4.2):** ocupam zona face-down como qualquer carta, não contribuem aos pools, ativam por posição 1→6 (**inimigo antes do jogador**), vão pro descarte do dono. Imunidade (Pedras/Funerária) anula todas; Baile Funk anula uma. "Tudo ou Nada" tem **animação de moeda** (gira ~1.2s → CARA 😎/COROA 💀 + efeito).
+- ✅ **ORDEM COMPLETA DA RESOLUÇÃO (v4.2):**
+  1. Cartas viram face-up
+  2. Disputa de Campo (bid por ✦ poupada) + ativação do efeito (se 3+✦)
+  3. Imunidade a arapucas (flags setadas por itens/Campo na AÇÃO)
+  4. Arapucas do inimigo (posição 1→6), depois as do jogador
+  5. Pools ⚔/🛡 calculados com todos os modificadores acumulados
+  6. Dano = max(0, ATK − DEF inimiga) direto no PV de cada Comandante
+  7. Limpeza: unidades e arapucas → **descarte** dos donos; Comandante invocado **volta ao posto**; Carta de Campo **fica**
 - ❓ **Passivas/ativas dos Comandantes** (descritas no CSV, exibidas na UI) — efeitos mecânicos ainda não implementados.
 - ❓ **Regras assimétricas de tabuleiro** por Comandante (além dos stats).
-- ❓ **Cartas de CAMPO** (kind `campo` no CSV v2.1): parseadas mas **inertes** — mecânica de onde/como jogar ainda não especificada.
 
 ### Constantes atuais (tunáveis, em `index.html`)
 `ZONES=6` · `BASE_HP=2000` · `HAND_LIMIT=9` · `INITIAL_HAND=5` · `INF_START=4` · `INF_PER_TURN=3` · `INF_PER_ZONE=1` · `INF_CAP=12` · `DEFAULT_PLAY_COST=2` · `FUSES_PER_TURN=1` · `SHOP_PAWN_COST=3`
