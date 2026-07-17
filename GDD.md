@@ -120,8 +120,12 @@ Cada Comandante é **assimétrico de verdade** (não é skin):
 - ✅ Na AÇÃO o jogador age livremente gastando Influência (baixa monstros/arapucas nas zonas, usa itens, funde, compra na Loja). A IA monta plano secreto, revelado na resolução. HUD ⚔/🛡 em tempo real + preview no hover.
 - ✅ **MOTOR v4 (pool vs pool):** cartas ATK somam `.atk` ao pool de ataque; DEF somam `.hp` ao pool de defesa; BAL soma metade de cada (arred. p/ cima). Itens/arapucas modificam os pools. **Dano = max(0, seu ATK − DEF inimiga)**, aplicado direto no PV do Comandante. Após a resolução, **todo o campo (ambos os lados) vai pro descarte** — cada turno é um board novo. Cartas não têm HP em campo, não morrem. Ambos ≤0 → **jogador perde** (empate técnico punitivo). **Rank por tempo de campo: ABOLIDO.**
 - ✅ **Stats por-Comandante** vêm do `commanders_database.csv` (PV, Influência inicial/por turno/teto, mão, fusões/turno), com fallback nas constantes globais e incrementos de artefato (`APP.commanderMods`).
+- ✅ **INVOCAÇÃO DO COMANDANTE (v4.1):** 1×/turno, cada Comandante tem uma **condição própria** (`summon_condition` no CSV — ex.: Fanta 2+ fusões no fight, Nathan 4+ cartas na mão, Garopaba PV<50%, Zaga paga 5✦, Bala campo 6/6, Letti turno 3+). Quando atendida, o botão no perfil vira "⚡ Invocar!" (dourado pulsante): o Comandante ocupa uma zona livre, **contribui aos pools** do turno e **volta ao slot de Comandante** após a resolução (não vai pro descarte). Reset no DRAW. Condição exibida no seletor de Comandante.
+- ✅ **Tipos ATK/DEF/BAL abolidos do VISUAL (v4.1 A1):** seguem como metadado interno do motor/boss deck, mas as cartas mostram só ⚔ atk e 🛡 hp (escudo, não coração). 🟡 TEMP: pool de ATK com multiplicador **×3** no motor até o CSV ser rebalanceado (Bloco E).
+- ✅ **DRAW compra até o alvo (v4.1 C3):** completa a mão até `hand_start` do Comandante + artefatos (não +1 fixo).
 - ❓ **Passivas/ativas dos Comandantes** (descritas no CSV, exibidas na UI) — efeitos mecânicos ainda não implementados.
 - ❓ **Regras assimétricas de tabuleiro** por Comandante (além dos stats).
+- ❓ **Cartas de CAMPO** (kind `campo` no CSV v2.1): parseadas mas **inertes** — mecânica de onde/como jogar ainda não especificada.
 
 ### Constantes atuais (tunáveis, em `index.html`)
 `ZONES=6` · `BASE_HP=2000` · `HAND_LIMIT=9` · `INITIAL_HAND=5` · `INF_START=4` · `INF_PER_TURN=3` · `INF_PER_ZONE=1` · `INF_CAP=12` · `DEFAULT_PLAY_COST=2` · `FUSES_PER_TURN=1` · `SHOP_PAWN_COST=3`

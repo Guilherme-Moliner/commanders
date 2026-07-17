@@ -105,3 +105,26 @@ fus_mentemestra,Mente Mestra,fusion,BAL,roxo,mid,5,0,260,210,medium,0,0,,,,,🧠
 fus_zen,Zen Master,fusion,DEF,azul,mid,5,0,500,90,medium,0,0,,,,,🧘,Fusão Controle+Sustain,,,,
 fus_surto,Surto Coletivo,fusion,ATK,roxo,melee,5,0,60,220,medium,0,0,,,,,🤯,Fusão Caos+Caos,,,,
 fus_mauelemento,Mau Elemento,fusion,BAL,verde,mid,5,0,200,195,medium,0,0,,,,,🚬,Fusão Caos+Sustain,,,,
+
+# === NOVAS CARTAS DE ITEM ===
+item_mao_cagada,Mão Cagada,item,ITEM,qualquer,-,0,2,,,-,0,2,,discard_draw,7,,🗑️,"Descarte a mão inteira e compre 7 cartas novas",,,,
+item_rolezim,Rolezim,item,ITEM,qualquer,-,0,1,,,-,0,3,,discard_draw_partial,3,,🔄,"Descarte 2 cartas escolhidas e compre 3",,,,
+item_mistura,Mistura de Drinks,item,ITEM,qualquer,-,0,3,,,-,0,2,,bonus_fusion,1,,🍹,"+1 fusão disponível neste turno",,,,
+item_mulher,Botar Mulher pra Galera,item,ITEM,qualquer,-,0,2,,,-,0,3,,gain_influence,3,,💃,"+3✦ de Influência imediatamente",,,,
+item_promocao,Promoção,item,ITEM,qualquer,-,0,4,,,-,0,1,,evolve_choose,1,,📈,"Evolua todas as cópias de um tipo de carta no baralho (Bronze→Prata ou Prata→Gold)",,,,
+item_revirar,Revirar o Lixo,item,ITEM,qualquer,-,0,2,,,-,0,3,,salvage_discard,1,,🔍,"Busque 1 carta do descarte e adicione à mão",,,,
+item_antecipacao,Antecipação,item,ITEM,qualquer,-,0,3,,,-,0,2,,scry_pick,5,,🔮,"Veja as 5 cartas do topo do deck. Pegue 1 para a mão",,,,
+item_pedras,Pedras Anti Bad Vibes,item,ITEM,qualquer,-,0,2,,,-,0,3,,trap_immunity,1,,🪨,"Todas as arapucas inimigas são anuladas nesta resolução",,,,
+# === NOVAS ARAPUCAS ===
+trap_relacionamento_toxico,Relacionamento Tóxico,trap,TRAP,vermelho,-,0,2,,,-,0,3,,debuff_atk_pct,-0.25,,💔,"ATK pool do adversário -25% nesta resolução",,,,
+trap_zoado,Zoado no Grupo,trap,TRAP,roxo,-,0,2,,,-,0,3,,debuff_def_pct,-0.30,,😂,"DEF pool do adversário -30% nesta resolução",,,,
+trap_historia_ingrata,História Ingrata Relembrada,trap,TRAP,amarelo,-,0,3,,,-,0,2,,remove_random_unit,1,,📸,"Remove 1 unidade aleatória do adversário antes do cálculo (vai ao Lixo)",,,,
+trap_tudo_ou_nada_atk,Tudo ou Nada,trap,TRAP,roxo,-,0,3,,,-,0,2,,coin_flip_atk,0.5,,🪙,"Cara: ATK inimigo -50%. Coroa: seu ATK -50%. (coin flip)",,,,
+trap_tudo_ou_nada_def,Tudo ou Nada #2,trap,TRAP,roxo,-,0,3,,,-,0,2,,coin_flip_def,0.5,,🪙,"Cara: DEF inimiga -50%. Coroa: sua DEF -50%. (coin flip)",,,,
+# === CARTAS DE CAMPO (kind: campo) ===
+campo_lan,LAN House,campo,CAMPO,amarelo,-,0,0,,,-,0,2,,campo_draw,2,,💻,"Controlador compra +2 cartas no próximo DRAW (ativa com 3+✦)",,,,
+campo_academia,Academia,campo,CAMPO,azul,-,0,0,,,-,0,2,,campo_def_buff,0.30,,🏋️,"DEF pool do controlador +30% nesta resolução (ativa com 3+✦)",,,,
+campo_manifestacao,Manifestação,campo,CAMPO,vermelho,-,0,0,,,-,0,2,,campo_enemy_atk_debuff,-0.20,,✊,"ATK pool do adversário -20% nesta resolução (ativa com 3+✦)",,,,
+campo_baile,Baile Funk,campo,CAMPO,roxo,-,0,0,,,-,0,2,,campo_atk_buff,0.20,,🎵,"ATK pool do controlador +20% e anula 1 arapuca inimiga (ativa com 3+✦)",,,,
+campo_resenha,Resenha em Casa,campo,CAMPO,verde,-,0,0,,,-,0,2,,campo_cost_reduce,1,,🏠,"Custo de todas as cartas do controlador -1✦ no próximo turno (ativa com 3+✦)",,,,
+campo_funeraria,Funerária,campo,CAMPO,roxo,-,0,0,,,-,0,1,,campo_trap_immune,1,,⚰️,"Adversário não pode ativar arapucas neste turno (ativa com 3+✦)",,,,

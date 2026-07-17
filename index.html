@@ -477,13 +477,14 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-fdcell{width:110px;display:grid;place-items:center;height:30px}
 .bf-fdslot{width:62px;height:28px;border-radius:5px;border:1px dashed var(--bf-line2);display:grid;place-items:center;color:var(--bf-ink3);font-size:11px;font-weight:700;opacity:.6;transition:all .15s}
 .bf-fdslot.set{background:repeating-linear-gradient(45deg,#33312a 0 5px,#211f19 5px 10px);border-style:solid;opacity:1}
-.bf-slot{width:92px;aspect-ratio:.72;border-radius:9px;position:relative;display:grid;place-items:center;border:1px solid var(--bf-line);background:var(--bf-slot)}
+.bf-slot{width:104px;aspect-ratio:.72;border-radius:9px;position:relative;display:grid;place-items:center;border:1px solid var(--bf-line);background:var(--bf-slot)}  /* C2: +13% */
 /* zonas herdam a cor da vibe do Comandante daquele lado (--bf-zone setado em JS) */
 .bf-row .bf-slot{border-color:var(--bf-zone,var(--bf-line));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bf-zone,transparent) 22%,transparent)}
 .bf-slot:not(.has-card)::after{content:'UNIDADE';position:absolute;font-family:'Oswald';font-size:8px;letter-spacing:1.5px;color:var(--bf-ink3);opacity:.6}
+.bf-slot.ai-slot:not(.has-card)::after{content:'UNIDADE INIMIGA';font-size:7px}   /* C2 */
 .bf-slot-drop{box-shadow:0 0 22px rgba(90,140,240,.7)!important;border-color:var(--bf-blue)!important;opacity:1!important}
 .bf-fdslot.bf-slot-drop{box-shadow:0 0 16px rgba(95,201,154,.8)!important;border-color:var(--bf-teal)!important}
-.bf-frontline{flex:0 0 1px;margin:1px 34px;border-top:1px dashed var(--bf-line2);position:relative}
+.bf-frontline{flex:0 0 1px;margin:14px 34px;border-top:1px dashed var(--bf-line2);position:relative}  /* C2: +50% de respiro entre os campos */
 .bf-frontline>span{position:absolute;top:-7px;left:50%;transform:translateX(-50%);font-family:'Oswald';font-size:9px;letter-spacing:2px;color:var(--bf-ink3);background:var(--bf-bg);padding:0 9px}
 .bf-drophl{display:none;position:absolute;inset:-7px;border:2px dashed var(--bf-blue);border-radius:13px;box-shadow:0 0 26px rgba(90,140,240,.45);pointer-events:none;z-index:5}
 #screen-game.drop-valid .bf-drophl{display:block}
@@ -605,35 +606,39 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-pile2.clickable{cursor:pointer}
 /* mão do oponente — versos espiando no topo */
 .bf-foehand{height:26px;display:flex;justify-content:center;align-items:flex-start;position:relative}
-.bf-foecard{width:46px;height:64px;margin:0 -10px;border-radius:7px;border:1px solid var(--bf-line2);background:repeating-linear-gradient(45deg,#2a2440 0 6px,#1c1733 6px 12px);box-shadow:0 4px 10px rgba(0,0,0,.5);transition:transform .18s}
+.bf-foecard{width:46px;height:64px;margin:0 -10px;border-radius:7px;box-shadow:0 4px 10px rgba(0,0,0,.5);transition:transform .18s}
 .bf-foehand:hover .bf-foecard{transform:translateY(8px)}
 .bf-foecount{position:absolute;right:4px;top:0;font-size:10px;color:var(--bf-ink3);font-family:'JetBrains Mono'}
 /* Lixo central compartilhado */
 .bf-trash{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:5px;background:#0e0b1d;border:1px solid var(--bf-line2);border-radius:9px;padding:3px 9px;font-family:'JetBrains Mono';font-size:11px;color:var(--bf-ink2);cursor:pointer}
 .bf-trash .ic{font-size:13px}
 .bf-frontline{position:relative}
-/* carta virada (face down) na zona, até a RESOLUÇÃO */
-.bf-cardface.facedown .art{background:repeating-linear-gradient(45deg,#2a2440 0 8px,#1c1733 8px 16px)!important}
-.bf-cardface.facedown .ov,.bf-cardface.facedown .ty,.bf-cardface.facedown .cost,.bf-cardface.facedown .tier,.bf-cardface.facedown .vibe-sph{display:none!important}
-.bf-cardface.facedown::after{content:'VIRADA';position:absolute;inset:0;display:grid;place-items:center;font-family:'Oswald';font-size:9px;letter-spacing:2px;color:var(--bf-ink3)}
-/* ═══ FRAME v2 (mockup v2) ═══ */
-.bf-cardface .cost{position:absolute;top:4px;right:4px;display:flex;gap:3px;align-items:center;font-family:'JetBrains Mono';font-size:10px;font-weight:700;color:var(--bf-gold);background:rgba(8,5,18,.8);border-radius:7px;padding:1px 5px;z-index:3}
-.bf-cardface.mon{border:3px solid #f4f2ec;border-radius:9px;background:#141020}
-.bf-cardface.mon .art{position:absolute;inset:0;background:linear-gradient(165deg,#1c1730,#0d0a18)}
-.bf-cardface .bigemo{position:absolute;inset:0 0 22% 0;display:grid;place-items:center;font-size:44px;opacity:.95;z-index:1}
-.bf-cardface .vdot{position:absolute;top:5px;left:5px;width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),0 0 7px rgba(0,0,0,.6);z-index:3}
-.bf-cardface .tier{position:absolute;top:22px;right:4px;min-width:16px;height:16px;padding:0 3px;border-radius:8px;display:grid;place-items:center;font-family:'Oswald';font-size:10px;font-weight:700;z-index:3}
-.bf-cardface.mon .ov{position:absolute;left:0;right:0;bottom:17px;padding:10px 6px 2px;background:linear-gradient(transparent,rgba(0,0,0,.85));z-index:2}
-.bf-cardface.mon .ft{position:absolute;left:0;right:0;bottom:0;height:17px;display:flex;z-index:2;font-family:'JetBrains Mono';font-size:9px;font-weight:700;background:#0a0814;border-top:1px solid rgba(255,255,255,.14)}
-.bf-cardface.mon .ft span{flex:1;display:grid;place-items:center}
-.bf-cardface.mon .ft .fa{color:#f4a597;border-right:1px solid rgba(255,255,255,.1)}
-.bf-cardface.mon .ft .fd{color:#9fc4e8}
-.bf-cardface.itm{background:#000;border-radius:9px}
-.bf-cardface.itm .bigemo{inset:0 0 30% 0;font-size:40px}
-.bf-cardface.itm .klb{position:absolute;top:5px;left:5px;font-family:'Oswald';font-size:7px;letter-spacing:1.4px;color:#8f8fa8;z-index:3}
-.bf-cardface.itm .ft.itmft{position:absolute;left:0;right:0;bottom:0;padding:4px 6px 5px;background:linear-gradient(transparent,#000 40%);z-index:2}
-.bf-cardface.itm .itmft .nm{font-family:'Oswald';font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bf-cardface.itm .itmft .fx{font-size:7.5px;line-height:1.25;color:#9d9db4;max-height:19px;overflow:hidden}
+/* carta virada (face down) na zona: usa o verso oficial .cc-back (A3) */
+/* ═══ FRAME v4.1 (referência: carta do Arthur) ═══ */
+.bf-cardface .cost{position:absolute;top:22px;right:4px;display:flex;gap:3px;align-items:center;font-family:'JetBrains Mono';font-size:10px;font-weight:700;color:var(--bf-gold);background:rgba(8,5,18,.8);border-radius:7px;padding:1px 5px;z-index:3}
+.bf-cardface .tier{position:absolute;top:40px;right:4px;min-width:16px;height:16px;padding:0 3px;border-radius:8px;display:grid;place-items:center;font-family:'Oswald';font-size:10px;font-weight:700;z-index:3}
+.bf-cardface.mon41{border:2.5px solid #f4f2ec;border-radius:9px;background:linear-gradient(170deg,color-mix(in srgb,var(--cv,#666) 32%,#140d14),#170e14 75%);display:flex;flex-direction:column}
+.bf-cardface.mon41 .hd,.bf-cardface.itm41 .hd{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:4px;padding:3px 5px 2px;z-index:2}
+.bf-cardface.mon41 .hd .nm,.bf-cardface.itm41 .hd .nm{font-family:'Oswald';font-size:10.5px;font-weight:600;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.bf-cardface .hd .vdot{width:11px;height:11px;flex:0 0 11px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),0 0 6px rgba(0,0,0,.6)}
+.bf-cardface.mon41 .art41{flex:1 1 auto;min-height:0;margin:0 4px;border-radius:5px;position:relative;overflow:hidden;background:rgba(0,0,0,.28)}
+.bf-cardface.mon41 .art41 .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:'Cinzel Decorative',serif;font-size:38px;color:color-mix(in srgb,var(--cv,#888) 45%,#fff 14%);opacity:.55}
+.bf-cardface.mon41 .art41 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.bf-cardface .ft41{flex:0 0 auto;margin-top:3px;background:rgba(0,0,0,.42);border-top:1px solid rgba(255,255,255,.12);padding:2px 4px 3px;z-index:2}
+.bf-cardface .ft41 .r1{display:flex;align-items:center;justify-content:space-between;gap:3px}
+.bf-cardface .ft41 .stars{font-size:7.5px;letter-spacing:.5px;color:#e8c66a;white-space:nowrap}
+.bf-cardface .ft41 .kb{font-family:'Oswald';font-size:7px;font-weight:700;letter-spacing:.8px;color:#fff;padding:1px 5px;border-radius:5px}
+.bf-cardface .ft41 .r2{display:flex;gap:3px;margin-top:2px;font-family:'JetBrains Mono';font-size:8.5px;font-weight:700}
+.bf-cardface .ft41 .r2 span{flex:1;text-align:center;background:rgba(255,255,255,.07);border-radius:4px;padding:1px 0}
+.bf-cardface .ft41 .fa{color:#f4a597}
+.bf-cardface .ft41 .fd{color:#9fc4e8}
+.bf-cardface.itm41{background:#000;border-radius:9px;display:flex;flex-direction:column}
+.bf-cardface.itm41 .bigemo{flex:1 1 auto;display:grid;place-items:center;font-size:40px}
+.bf-cardface.itm41 .cost-in{font-family:'JetBrains Mono';font-size:9px;font-weight:700;color:var(--bf-gold)}
+.bf-cardface.itm41 .fx{font-size:7.5px;line-height:1.25;color:#9d9db4;max-height:19px;overflow:hidden;margin-top:2px}
+/* ═══ VERSO DA CARTA (A3): rosa + manchas de onça + oval preto central + borda branca ═══ */
+.cc-back{background-color:#cc2e6e;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.16' numOctaves='3' seed='11'/><feComponentTransfer><feFuncR type='discrete' tableValues='0 0 0 1'/></feComponentTransfer><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");background-size:70px 70px;border:3px solid #fff;border-radius:8px;position:relative;overflow:hidden}
+.cc-back::after{content:'';position:absolute;inset:16% 24%;background:#000;border-radius:50%}
 /* HUD de pools em tempo real (fase AÇÃO) */
 .bf-poolhud{position:absolute;left:0;top:50%;transform:translateY(-50%);display:flex;gap:8px;align-items:center;background:#0e0b1d;border:1px solid var(--bf-line2);border-radius:9px;padding:3px 10px;font-family:'JetBrains Mono';font-size:11px;color:var(--bf-ink2);z-index:4}
 .bf-poolhud b{color:var(--bf-ink)}
@@ -702,8 +707,16 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 /* item de menu desativado (5C) */
 .vmenu-item.disabled{opacity:.42;cursor:not-allowed}
 .vmenu-item.disabled .vm-sub{color:#7a6e54}
-/* 6.1: carta voando do deck pra mão (verso padrão de losangos) */
-.bf-flycard{position:absolute;width:64px;height:90px;border-radius:8px;border:1px solid var(--bf-line2);background:repeating-linear-gradient(45deg,#2a2440 0 8px,#1c1733 8px 16px);box-shadow:0 10px 22px rgba(0,0,0,.6);z-index:210;pointer-events:none}
+/* 6.1: carta voando do deck pra mão (usa o verso oficial .cc-back) */
+.bf-flycard{position:absolute;width:64px;height:90px;box-shadow:0 10px 22px rgba(0,0,0,.6);z-index:210;pointer-events:none}
+/* D3: botão de invocação do Comandante */
+.bf-summon{width:100%;padding:7px 0;border-radius:9px;font-family:'Oswald';font-size:12px;font-weight:700;letter-spacing:.8px;border:1px solid var(--bf-line2);background:#1a1630;color:var(--bf-ink3);cursor:not-allowed}
+.bf-summon.ready{background:var(--bf-gold);border-color:var(--bf-gold);color:#1c1405;cursor:pointer;animation:cmdPulse 1.8s ease-in-out infinite}
+.bf-summon.done{background:rgba(95,201,154,.16);border-color:rgba(95,201,154,.5);color:var(--bf-teal);cursor:default}
+/* C1: botão de fase fixo no canto inferior direito */
+#btn-finalizar{position:absolute;bottom:24px;right:24px;z-index:100;font-family:'Oswald';font-size:15px;font-weight:700;letter-spacing:1px;padding:12px 26px;border-radius:12px;border:1px solid var(--bf-line2);background:var(--bf-panel2);color:var(--bf-ink2);cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.5)}
+#btn-finalizar:disabled{opacity:.55;cursor:default}
+#btn-finalizar.gold{background:var(--bf-gold);border-color:var(--bf-gold);color:#1c1405;animation:cmdPulse 2.4s ease-in-out infinite;cursor:pointer}
 /* 6.3: banner de troca de fase (desliza esq → centro → dir) */
 @keyframes phaseBanner{0%{transform:translate(-120%,-50%);opacity:0}18%{transform:translate(-50%,-50%);opacity:1}72%{transform:translate(-50%,-50%);opacity:1}100%{transform:translate(90%,-50%);opacity:0}}
 #bf-phasebanner{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:199;pointer-events:none;animation:phaseBanner 1.65s cubic-bezier(.3,.7,.3,1) forwards}
@@ -832,7 +845,7 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
   <div class="cs-foot">
     <button class="btn btn-ghost" onclick="showScreen('menu')">‹ MENU</button>
     <span class="cs-hint">passe o mouse pra ver o deck · clique pra selecionar</span>
-    <button class="btn btn-primary" id="cs-enter" disabled onclick="csEnterRun()">ENTRAR NA RUN →</button>
+    <button class="btn btn-primary" id="cs-enter" disabled onclick="csConfirm()">ENTRAR NA RUN →</button>
   </div>
 </div>
 
@@ -893,9 +906,7 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 <div id="screen-password" class="screen hidden">
   <div class="menu-panel">
     <h1>🔑 PASSWORD</h1>
-    <div class="who">insira um código pra carregar um deck</div>
-    <label>CÓDIGO</label>
-    <input type="text" id="inp-pass" placeholder="Ex: BOTECO" maxlength="16" style="text-transform:uppercase" onkeydown="if(event.key==='Enter')submitPassword()">
+    <input type="text" id="inp-pass" maxlength="16" style="text-transform:uppercase" onkeydown="if(event.key==='Enter')submitPassword()">
     <button class="btn btn-primary" style="width:100%" onclick="submitPassword()">▶ CARREGAR</button>
     <div id="pass-msg" style="font-size:.5rem;letter-spacing:1px;margin-top:10px;min-height:14px;"></div>
     <button class="btn btn-ghost back-btn" onclick="showScreen('menu')">‹ VOLTAR</button>
@@ -1014,6 +1025,7 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
         <div class="bf-cmd-art" id="you-cmd-art"></div>
         <div class="bf-cmd-pv"><span class="lbl">PV</span><b id="you-lp">2000</b></div>
         <div class="bf-lpbar"><i id="you-lp-bar" style="width:100%"></i></div>
+        <button class="bf-summon" id="you-summon" onclick="event.stopPropagation();invokeCommander()">Invocar</button>
         <div class="bf-cmd-chips">
           <span class="bf-cmd-chip" title="Fusões disponíveis no turno">🌀 <b id="you-fuse">0/1</b></span>
           <span class="bf-cmd-chip inf" title="Influência">✦ <b id="you-inf">0</b></span>
@@ -1044,8 +1056,8 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
         </div>
         <div class="bf-piles ghost"></div>
       </div>
-      <!-- linha de frente + HUD de pools + Lixo central compartilhado -->
-      <div class="bf-frontline"><span>LINHA DE FRENTE</span>
+      <!-- campo de batalha (linha central) + HUD de pools + Lixo central compartilhado -->
+      <div class="bf-frontline"><span>CAMPO DE BATALHA</span>
         <div class="bf-poolhud" id="bf-poolhud" title="Seus pools de ATAQUE e DEFESA neste turno">⚔ <b>0</b> · 🛡 <b>0</b></div>
         <div class="bf-trash clickable" id="bf-trash" onclick="bfOpenTrash()" title="Lixo — compartilhado pelos dois lados"><span class="ic">🗑</span><b id="trash-count">0</b></div>
       </div>
@@ -1095,6 +1107,9 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
     </div>
     <div id="bf-handle" onclick="bfToggleRail()" title="abrir trilho"><span>‹ PAINEL</span></div>
   </div>
+
+  <!-- C1: botão de fase fixo no canto inferior direito -->
+  <button id="btn-finalizar" onclick="finalizarClick()" disabled>—</button>
 
   <!-- ghost de arraste + toast -->
   <div id="bf-dragghost"><div style="position:absolute;left:0;right:0;bottom:0;padding:16px 7px 7px;background:linear-gradient(transparent,rgba(0,0,0,.9));font-family:'Oswald';font-size:13px;font-weight:600" id="bf-dragghost-name"></div></div>
@@ -1369,6 +1384,29 @@ fus_mentemestra,Mente Mestra,fusion,BAL,roxo,mid,5,0,260,210,medium,0,0,,,,,🧠
 fus_zen,Zen Master,fusion,DEF,azul,mid,5,0,500,90,medium,0,0,,,,,🧘,Fusão Controle+Sustain,,,,
 fus_surto,Surto Coletivo,fusion,ATK,roxo,melee,5,0,60,220,medium,0,0,,,,,🤯,Fusão Caos+Caos,,,,
 fus_mauelemento,Mau Elemento,fusion,BAL,verde,mid,5,0,200,195,medium,0,0,,,,,🚬,Fusão Caos+Sustain,,,,
+
+# === NOVAS CARTAS DE ITEM ===
+item_mao_cagada,Mão Cagada,item,ITEM,qualquer,-,0,2,,,-,0,2,,discard_draw,7,,🗑️,"Descarte a mão inteira e compre 7 cartas novas",,,,
+item_rolezim,Rolezim,item,ITEM,qualquer,-,0,1,,,-,0,3,,discard_draw_partial,3,,🔄,"Descarte 2 cartas escolhidas e compre 3",,,,
+item_mistura,Mistura de Drinks,item,ITEM,qualquer,-,0,3,,,-,0,2,,bonus_fusion,1,,🍹,"+1 fusão disponível neste turno",,,,
+item_mulher,Botar Mulher pra Galera,item,ITEM,qualquer,-,0,2,,,-,0,3,,gain_influence,3,,💃,"+3✦ de Influência imediatamente",,,,
+item_promocao,Promoção,item,ITEM,qualquer,-,0,4,,,-,0,1,,evolve_choose,1,,📈,"Evolua todas as cópias de um tipo de carta no baralho (Bronze→Prata ou Prata→Gold)",,,,
+item_revirar,Revirar o Lixo,item,ITEM,qualquer,-,0,2,,,-,0,3,,salvage_discard,1,,🔍,"Busque 1 carta do descarte e adicione à mão",,,,
+item_antecipacao,Antecipação,item,ITEM,qualquer,-,0,3,,,-,0,2,,scry_pick,5,,🔮,"Veja as 5 cartas do topo do deck. Pegue 1 para a mão",,,,
+item_pedras,Pedras Anti Bad Vibes,item,ITEM,qualquer,-,0,2,,,-,0,3,,trap_immunity,1,,🪨,"Todas as arapucas inimigas são anuladas nesta resolução",,,,
+# === NOVAS ARAPUCAS ===
+trap_relacionamento_toxico,Relacionamento Tóxico,trap,TRAP,vermelho,-,0,2,,,-,0,3,,debuff_atk_pct,-0.25,,💔,"ATK pool do adversário -25% nesta resolução",,,,
+trap_zoado,Zoado no Grupo,trap,TRAP,roxo,-,0,2,,,-,0,3,,debuff_def_pct,-0.30,,😂,"DEF pool do adversário -30% nesta resolução",,,,
+trap_historia_ingrata,História Ingrata Relembrada,trap,TRAP,amarelo,-,0,3,,,-,0,2,,remove_random_unit,1,,📸,"Remove 1 unidade aleatória do adversário antes do cálculo (vai ao Lixo)",,,,
+trap_tudo_ou_nada_atk,Tudo ou Nada,trap,TRAP,roxo,-,0,3,,,-,0,2,,coin_flip_atk,0.5,,🪙,"Cara: ATK inimigo -50%. Coroa: seu ATK -50%. (coin flip)",,,,
+trap_tudo_ou_nada_def,Tudo ou Nada #2,trap,TRAP,roxo,-,0,3,,,-,0,2,,coin_flip_def,0.5,,🪙,"Cara: DEF inimiga -50%. Coroa: sua DEF -50%. (coin flip)",,,,
+# === CARTAS DE CAMPO (kind: campo) ===
+campo_lan,LAN House,campo,CAMPO,amarelo,-,0,0,,,-,0,2,,campo_draw,2,,💻,"Controlador compra +2 cartas no próximo DRAW (ativa com 3+✦)",,,,
+campo_academia,Academia,campo,CAMPO,azul,-,0,0,,,-,0,2,,campo_def_buff,0.30,,🏋️,"DEF pool do controlador +30% nesta resolução (ativa com 3+✦)",,,,
+campo_manifestacao,Manifestação,campo,CAMPO,vermelho,-,0,0,,,-,0,2,,campo_enemy_atk_debuff,-0.20,,✊,"ATK pool do adversário -20% nesta resolução (ativa com 3+✦)",,,,
+campo_baile,Baile Funk,campo,CAMPO,roxo,-,0,0,,,-,0,2,,campo_atk_buff,0.20,,🎵,"ATK pool do controlador +20% e anula 1 arapuca inimiga (ativa com 3+✦)",,,,
+campo_resenha,Resenha em Casa,campo,CAMPO,verde,-,0,0,,,-,0,2,,campo_cost_reduce,1,,🏠,"Custo de todas as cartas do controlador -1✦ no próximo turno (ativa com 3+✦)",,,,
+campo_funeraria,Funerária,campo,CAMPO,roxo,-,0,0,,,-,0,1,,campo_trap_immune,1,,⚰️,"Adversário não pode ativar arapucas neste turno (ativa com 3+✦)",,,,
 `;
 
 function parseCSVLine(line){
@@ -1418,17 +1456,17 @@ const BASE_CARDS = parseCardsCSV(CARDS_CSV);
 
 // ══ COMANDANTES — fonte única: commanders_database.csv (rode `node tools/sync_cards.js` p/ sincronizar) ══
 const COMMANDERS_CSV = `
-id,name,vibe,vibe_color,diff,tagline,base_hp,inf_start,inf_per_turn,inf_cap,hand_size,hand_start,zones,play_cost_default,fuses_per_turn,pass_name,pass_desc,pass_trigger,act_name,act_desc,act_trigger,act_uses,field_bonus,field_bonus_desc,rogue_order,is_boss,deck_ids_base,artifact_notes
-fanta,Fanta,nerdola,#f5c542,★★★,Fusões em cadeia. Cada jogada abre a próxima.,2000,4,3,12,9,5,6,2,1,Reação em Cadeia,Toda fusão bem-sucedida reduz em 1✦ o custo da próxima fusão neste turno.,ao realizar fusão,Overclock,Compra 2 cartas e libera uma fusão extra imediata.,3+ fusões no mesmo turno,1x por turno,vibe_fusion_boost,Cartas de fusão Nerdola no campo geram +1✦ extra na STANDBY,enemy_1,FALSE,"peon_nerd,peon_nerd2,peon_nerd3,fanta,rodada,energetico",Artefatos de draw e fusão se combinam bem
-nathan,Nathan,nerdola,#f5c542,★★☆,Cada peão no campo vale ouro. Literalmente.,2000,4,3,12,9,5,6,2,1,Folha de Pagamento,Cada peão seu em campo gera +1✦ de Influência adicional por turno.,passiva contínua,Bônus,Converte metade da Influência guardada em cura para o Comandante.,4+ peões em campo,1x por turno,vibe_pawn_boost,Peões Nerdola têm +30 HP enquanto este Comandante estiver em campo,player,FALSE,"peon_nerd,peon_nerd2,peon_nerd3,peon_nerd4,nathan,rodada,reforco",Artefatos de peão e influência se combinam bem
-garopaba,Garopaba,socialista,#e63946,BOSS,Quanto mais apanha mais perigoso fica. Cuidado.,2500,3,3,14,9,5,6,2,2,Revolta,A cada 200 de PV perdido suas unidades de ATAQUE ganham +50 de ATK permanente no fight.,ao receber dano,Levante,Todas as unidades atacam com +30% de ATK imediatamente.,PV abaixo de 50%,1x por fight,vibe_atk_overflow,Dano excedente (overflow) +20% ao acertar o Comandante inimigo,enemy_4,TRUE,"peon_atk,peon_atk2,peon_atk3,peon_atk4,peon_atk5,garopaba,trap_emboscada,barraco",Deck boss — mais agressivo com cartas exclusivas de boss
-borba,Borba,socialista,#e63946,★★☆,Cada morte aliada machuca o inimigo. Quem disse que perder é ruim?,2000,4,3,12,9,5,6,2,1,Mártir,Toda unidade sua destruída causa 120 de dano direto à base inimiga.,ao unidade aliada morrer,Comício,Ressuscita o último peão caído e dobra o dano de Mártir neste turno.,3 aliados no cemitério,1x por fight,vibe_death_bonus,Unidades Socialistas causam 80 de dano bônus ao morrer,player,FALSE,"peon_atk,peon_atk2,peon_atk3,borba,trap_emboscada,jogaareia,barraco",Artefatos de dano direto amplificam bem
-arthur,Arthur,marombeiro,#2196f3,★☆☆,Defesa inabalável. Quanto mais no campo mais forte.,2000,4,3,12,9,5,6,2,1,Muralha,Cada unidade de DEFESA em campo dá +8% de redução de dano à sua base.,passiva contínua,Formação,Todas as defesas recuperam 100 de PV e bloqueiam o próximo overflow.,3+ unidades de DEFESA,1x por fight,vibe_def_boost,Unidades Marombeiro com tipo DEFESA têm custo -1✦ para baixar,enemy_2,FALSE,"peon_def,peon_def2,peon_def3,peon_def4,arthur,churrasco,reforco",Artefatos de redução de dano e cura se combinam bem
-vitao,Vitão,marombeiro,#2196f3,★★☆,Ataque bruto. Sem finesse só pancada.,2000,4,3,12,9,5,6,2,1,Marra,Suas unidades ignoram 20% da defesa inimiga na resolução.,passiva contínua,Supino,A unidade de maior ATK ataca duas vezes neste turno.,a qualquer momento,1x por run,vibe_atk_pierce,Unidades Marombeiro com tipo ATAQUE ganham +15 ATK por turno que ficam em campo,player,FALSE,"peon_def,peon_def2,peon_atk,peon_atk2,vitao,energetico,turboboost",Artefatos de ATK bônus são os melhores aqui
-leo,Léo,rolezeiro,#9c27b0,★★★,Sorte e caos. Você nunca sabe o que vai sair.,2000,4,3,12,9,5,6,2,1,Zoeira,Ao baixar uma carta 25% de chance de copiar seu efeito num aliado aleatório.,ao baixar carta,Roleta,Embaralha a mão e compra o mesmo número de cartas de volta.,a qualquer momento,1x por turno,vibe_random_bonus,30% de chance de gerar +1✦ extra no DRAW,player,FALSE,"peon_role,peon_role2,peon_role3,leo,rodada,barraco,calunia",Artefatos com % de proc são amplificados pela passiva do Léo
-zaga,Zaga,rolezeiro,#9c27b0,★★★,Embaralha tudo. Seu e o do inimigo.,2000,4,3,12,9,5,6,2,1,Caos,No início do turno troca de posição uma unidade sua e uma inimiga aleatórias.,início do turno,Reset,Devolve todas as unidades não-Comandante para as mãos dos donos.,a qualquer momento,1x por fight,vibe_swap_bonus,Ao trocar posição de unidade ganhe 1✦ extra,player,FALSE,"peon_role,peon_role2,vp_roxo,zaga,dedinho,calunia,trap_fumaca",Artefatos de controle e disrução funcionam bem
-bala,Bala,dinheirista,#4caf50,★★☆,Grana gera grana. Campo cheio Influência infinita.,2000,5,3,14,9,5,6,2,1,Juros,Ganha +1✦ para cada 2 zonas suas ocupadas ao fim do turno.,fim do turno,Investir,Gasta metade da Influência para comprar cartas igual ao valor gasto.,10+ ✦ acumulados,1x por turno,vibe_inf_boost,Loja custa -1✦ para este Comandante,enemy_3,FALSE,"peon_bal,peon_bal2,peon_bal3,peon_bal4,bala,ressurreicao,reforco",Deck mais econômico — usa a Loja para escalar
-letti,Letti,dinheirista,#4caf50,★☆☆,Mais Influência que todos. Mais cartas que todos. Simples assim.,2000,6,4,16,9,6,6,2,1,Fartura,Começa cada duelo com +2✦ e +1 carta na mão inicial.,início do duelo,Ostentação,Baixa até 2 cartas sem pagar custo de Influência.,mão cheia (9 cartas),1x por turno,vibe_cap_bonus,Teto de Influência +4 acima do padrão (total 16),player,FALSE,"peon_bal,peon_bal2,peon_bal3,peon_bal4,letti,ressurreicao,reforco,rodada",Artefatos de cap e geração de influência são os melhores
+id,name,vibe,vibe_color,diff,tagline,base_hp,inf_start,inf_per_turn,inf_cap,hand_size,hand_start,zones,play_cost_default,fuses_per_turn,pass_name,pass_desc,pass_trigger,act_name,act_desc,act_trigger,act_uses,field_bonus,field_bonus_desc,rogue_order,is_boss,deck_ids_base,artifact_notes,summon_condition,summon_condition_desc
+fanta,Fanta,nerdola,#f5c542,★★★,Fusões em cadeia. Cada jogada abre a próxima.,2000,4,3,12,9,5,6,2,1,Reação em Cadeia,Toda fusão bem-sucedida reduz em 1✦ o custo da próxima fusão neste turno.,ao realizar fusão,Overclock,Compra 2 cartas e libera uma fusão extra imediata.,3+ fusões no mesmo turno,1x por turno,vibe_fusion_boost,Cartas de fusão Nerdola no campo geram +1✦ extra na STANDBY,enemy_1,FALSE,"peon_nerd,peon_nerd2,peon_nerd3,fanta,rodada,energetico",Artefatos de draw e fusão se combinam bem,fusions_2,"Realize 2 fusões neste combate"
+nathan,Nathan,nerdola,#f5c542,★★☆,Cada peão no campo vale ouro. Literalmente.,2000,4,3,12,9,5,6,2,1,Folha de Pagamento,Cada peão seu em campo gera +1✦ de Influência adicional por turno.,passiva contínua,Bônus,Converte metade da Influência guardada em cura para o Comandante.,4+ peões em campo,1x por turno,vibe_pawn_boost,Peões Nerdola têm +30 HP enquanto este Comandante estiver em campo,player,FALSE,"peon_nerd,peon_nerd2,peon_nerd3,peon_nerd4,nathan,rodada,reforco",Artefatos de peão e influência se combinam bem,hand_4,"Tenha 4 ou mais cartas na mão"
+garopaba,Garopaba,socialista,#e63946,BOSS,Quanto mais apanha mais perigoso fica. Cuidado.,2500,3,3,14,9,5,6,2,2,Revolta,A cada 200 de PV perdido suas unidades de ATAQUE ganham +50 de ATK permanente no fight.,ao receber dano,Levante,Todas as unidades atacam com +30% de ATK imediatamente.,PV abaixo de 50%,1x por fight,vibe_atk_overflow,Dano excedente (overflow) +20% ao acertar o Comandante inimigo,enemy_4,TRUE,"peon_atk,peon_atk2,peon_atk3,peon_atk4,peon_atk5,garopaba,trap_emboscada,barraco",Deck boss — mais agressivo com cartas exclusivas de boss,hp_below_50,"Seu HP caiu abaixo de 50%"
+borba,Borba,socialista,#e63946,★★☆,Cada morte aliada machuca o inimigo. Quem disse que perder é ruim?,2000,4,3,12,9,5,6,2,1,Mártir,Toda unidade sua destruída causa 120 de dano direto à base inimiga.,ao unidade aliada morrer,Comício,Ressuscita o último peão caído e dobra o dano de Mártir neste turno.,3 aliados no cemitério,1x por fight,vibe_death_bonus,Unidades Socialistas causam 80 de dano bônus ao morrer,player,FALSE,"peon_atk,peon_atk2,peon_atk3,borba,trap_emboscada,jogaareia,barraco",Artefatos de dano direto amplificam bem,discard_3,"Envie 3 cartas ao descarte"
+arthur,Arthur,marombeiro,#2196f3,★☆☆,Defesa inabalável. Quanto mais no campo mais forte.,2000,4,3,12,9,5,6,2,1,Muralha,Cada unidade de DEFESA em campo dá +8% de redução de dano à sua base.,passiva contínua,Formação,Todas as defesas recuperam 100 de PV e bloqueiam o próximo overflow.,3+ unidades de DEFESA,1x por fight,vibe_def_boost,Unidades Marombeiro com tipo DEFESA têm custo -1✦ para baixar,enemy_2,FALSE,"peon_def,peon_def2,peon_def3,peon_def4,arthur,churrasco,reforco",Artefatos de redução de dano e cura se combinam bem,slots_4,"Preencha 4 zonas no campo"
+vitao,Vitão,marombeiro,#2196f3,★★☆,Ataque bruto. Sem finesse só pancada.,2000,4,3,12,9,5,6,2,1,Marra,Suas unidades ignoram 20% da defesa inimiga na resolução.,passiva contínua,Supino,A unidade de maior ATK ataca duas vezes neste turno.,a qualquer momento,1x por run,vibe_atk_pierce,Unidades Marombeiro com tipo ATAQUE ganham +15 ATK por turno que ficam em campo,player,FALSE,"peon_def,peon_def2,peon_atk,peon_atk2,vitao,energetico,turboboost",Artefatos de ATK bônus são os melhores aqui,atk_pool_300,"Acumule 300 pontos de ATK no campo"
+leo,Léo,rolezeiro,#9c27b0,★★★,Sorte e caos. Você nunca sabe o que vai sair.,2000,4,3,12,9,5,6,2,1,Zoeira,Ao baixar uma carta 25% de chance de copiar seu efeito num aliado aleatório.,ao baixar carta,Roleta,Embaralha a mão e compra o mesmo número de cartas de volta.,a qualquer momento,1x por turno,vibe_random_bonus,30% de chance de gerar +1✦ extra no DRAW,player,FALSE,"peon_role,peon_role2,peon_role3,leo,rodada,barraco,calunia",Artefatos com % de proc são amplificados pela passiva do Léo,turns_4,"Sobreviva por 4 turnos"
+zaga,Zaga,rolezeiro,#9c27b0,★★★,Embaralha tudo. Seu e o do inimigo.,2000,4,3,12,9,5,6,2,1,Caos,No início do turno troca de posição uma unidade sua e uma inimiga aleatórias.,início do turno,Reset,Devolve todas as unidades não-Comandante para as mãos dos donos.,a qualquer momento,1x por fight,vibe_swap_bonus,Ao trocar posição de unidade ganhe 1✦ extra,player,FALSE,"peon_role,peon_role2,vp_roxo,zaga,dedinho,calunia,trap_fumaca",Artefatos de controle e disrução funcionam bem,pay_5,"Pague 5✦ para invocar"
+bala,Bala,dinheirista,#4caf50,★★☆,Grana gera grana. Campo cheio Influência infinita.,2000,5,3,14,9,5,6,2,1,Juros,Ganha +1✦ para cada 2 zonas suas ocupadas ao fim do turno.,fim do turno,Investir,Gasta metade da Influência para comprar cartas igual ao valor gasto.,10+ ✦ acumulados,1x por turno,vibe_inf_boost,Loja custa -1✦ para este Comandante,enemy_3,FALSE,"peon_bal,peon_bal2,peon_bal3,peon_bal4,bala,ressurreicao,reforco",Deck mais econômico — usa a Loja para escalar,slots_6,"Preencha todas as 6 zonas"
+letti,Letti,dinheirista,#4caf50,★☆☆,Mais Influência que todos. Mais cartas que todos. Simples assim.,2000,6,4,16,9,6,6,2,1,Fartura,Começa cada duelo com +2✦ e +1 carta na mão inicial.,início do duelo,Ostentação,Baixa até 2 cartas sem pagar custo de Influência.,mão cheia (9 cartas),1x por turno,vibe_cap_bonus,Teto de Influência +4 acima do padrão (total 16),player,FALSE,"peon_bal,peon_bal2,peon_bal3,peon_bal4,letti,ressurreicao,reforco,rodada",Artefatos de cap e geração de influência são os melhores,turn_3,"Aguarde o turno 3"
 `;
 function parseCommandersCSV(csv){
   const lines=csv.split(/\r?\n/).filter(l=>l.trim()&&!l.trim().startsWith('#'));
@@ -2085,6 +2123,8 @@ function initFight(fightNum,difficulty,playerDeck,extraHandSize=0){
     selectedHandIdx:null,selectedHandCard:null,
     actionDone:false, aiPlan:null,                  // AÇÃO: plano da IA revelado na RESOLUÇÃO
     mods:newMods(), playerQuickUsed:false, aiQuickUsed:false,
+    commanderInvoked:false,                          // Invocação do Comandante (1×/turno)
+    fightFusions:{player:0,ai:0},                    // fusões NESTE fight (condição da Fanta)
   };
   // flags de debug (modo Password, 5K) persistem entre fights
   if(APP.debug){
@@ -2144,11 +2184,21 @@ function drawOne(side){
 
 function startPhase(phase){
   G.phase=phase;updatePhaseBanner(phase);updatePhaseBadge(phase);
+  if(typeof updateFinalizarBtn==='function')updateFinalizarBtn(phase);   // C1
   if(typeof bfPhaseBanner==='function')bfPhaseBanner(phase);   // 6.3: banner desliza esq→dir
   const delay=phase==='draw'||phase==='standby'?700:200;
   const h={draw:phaseDraw,standby:phaseStandby,action:phaseAction,resolution:phaseResolution};
   if(h[phase])setTimeout(h[phase],delay);
 }
+// ── C1: botão de fase (canto inferior direito). Só a AÇÃO é clicável (Finalizar, dourado). ──
+const FINALIZAR_LABEL={draw:'Comprando…',standby:'Continuar ›',action:'Finalizar ›',resolution:'Calculando…'};
+function updateFinalizarBtn(phase){
+  const b=document.getElementById('btn-finalizar'); if(!b)return;
+  b.textContent=FINALIZAR_LABEL[phase]||'—';
+  const on=(phase==='action'&&!G.actionDone);
+  b.disabled=!on; b.classList.toggle('gold',on);
+}
+function finalizarClick(){ if(G.phase==='action'&&!G.actionDone)endAction(); }
 // Banner da troca de fase: entra pela esquerda, segura ~0.8s, sai pela direita. Bloqueia input ~0.5s.
 const PHASE_LABEL={draw:'DRAW',standby:'STANDBY',action:'AÇÃO',resolution:'RESOLUÇÃO'};
 function bfPhaseBanner(phase){
@@ -2173,25 +2223,76 @@ function regenInfluence(side){
   else G.aiInf=Math.min(st.inf_cap,G.aiInf+gain);
 }
 function infOf(side){return side==='player'?G.playerInf:G.aiInf;}
+// ═══ INVOCAÇÃO DO COMANDANTE (v4.1 Bloco D) ═══
+// 1×/turno, condição própria por Comandante (summon_condition no CSV). Invocado ocupa uma zona,
+// contribui aos pools e VOLTA ao slot de Comandante na resolução (não vai pro descarte).
+function summonMeta(side){const cmd=side==='player'?G.playerCmd:G.aiCmd;return cmd?commanderById(cmd.id):null;}
+function checkSummonCondition(side){
+  const m=summonMeta(side); if(!m||!m.summon_condition)return false;
+  const field=side==='player'?G.playerField:G.aiField;
+  const hand=side==='player'?G.playerHand:G.aiHand;
+  const grave=side==='player'?G.playerGrave:G.aiGrave;
+  const base=side==='player'?G.playerBase:G.aiBase;
+  const occ=field.filter(Boolean).length;
+  switch(m.summon_condition){
+    case 'fusions_2':  return ((G.fightFusions&&G.fightFusions[side])||0)>=2;   // Fanta
+    case 'hand_4':     return hand.length>=4;                                    // Nathan
+    case 'hp_below_50':return base.hp<base.maxHp*0.5;                            // Garopaba
+    case 'discard_3':  return grave.length>=3;                                   // Borba
+    case 'slots_4':    return occ>=4;                                            // Arthur
+    case 'atk_pool_300':return rawPools(field).atk>=300;                         // Vitão
+    case 'turns_4':    return G.turn>=4;                                         // Léo
+    case 'pay_5':      return infOf(side)>=5;                                    // Zaga
+    case 'slots_6':    return occ>=ZONES;                                        // Bala
+    case 'turn_3':     return G.turn>=3;                                         // Letti
+    default:return false;
+  }
+}
+function invokeCommander(){
+  if(G.phase!=='action'||G.actionDone){bfToast('Invocação só na fase AÇÃO');playSFX('ui_error');return;}
+  const free=G.playerField.findIndex(s=>!s);
+  if(free<0){bfToast('Campo cheio!');playSFX('ui_error');return;}
+  if(G.commanderInvoked){bfToast('Já invocado neste turno.');playSFX('ui_error');return;}
+  if(!checkSummonCondition('player')){const m=summonMeta('player');bfToast('Condição não atendida: '+((m&&m.summon_condition_desc)||'—'));playSFX('ui_error');return;}
+  const m=summonMeta('player');
+  if(m.summon_condition==='pay_5'){ if(G.playerInf<5){bfToast('Influência insuficiente (5✦)');playSFX('ui_error');return;} spendInf('player',5); }
+  const hero=cardById(G.playerCmd.id)||{};
+  G.playerField[free]={...hero,id:G.playerCmd.id,name:G.playerCmd.name,kind:hero.kind||'hero',vibe:G.playerCmd.vibe,
+    atk:hero.atk||G.playerCmd.atk||0,hp:hero.hp||0,star:hero.star||5,tier:hero.tier||'bronze',
+    isCommander:true,faceDown:false};
+  G.commanderInvoked=true;
+  playSFX('reward'); showMsg('⚡ '+G.playerCmd.name+' entrou na batalha!','green'); bfLog('⚡ Comandante invocado!','green');
+  updateFieldUI(); updateBaseUI(); juiceLand('player',free);
+}
 function spendInf(side,n){ if(side==='player')G.playerInf=Math.max(0,G.playerInf-n); else G.aiInf=Math.max(0,G.aiInf-n); }
 function playCost(card,side){ if(card&&card.cost!=null)return card.cost; const st=(G.stats&&G.stats[side||'player']); return st?st.play_cost_default:DEFAULT_PLAY_COST; }
 
 function phaseDraw(){
   // novo turno: zera buffs/debuffs temporários, fusões e o "1 carta rápida por turno"
   G.mods=newMods(); G.playerQuickUsed=false; G.aiQuickUsed=false;
+  G.commanderInvoked=false;                                    // Invocação reseta a cada turno (D4)
   G.playerFuses={used:0,limit:statsOf('player').fuses_per_turn}; G.aiFuses={used:0,limit:statsOf('ai').fuses_per_turn};
   // Influência do turno (regen por-Comandante via CSV; fórmula condicional real EM ABERTO)
   regenInfluence('player'); regenInfluence('ai');
   // Deck vazio: reembaralha o Descarte automaticamente (UI_CAMPO §4)
   reshuffleIfEmpty('player'); reshuffleIfEmpty('ai');
-  // turno 1 já recebeu a mão inicial no initFight; a partir do turno 2, +1/turno (acumula até o teto)
-  if(G.turn>1){
-    if(G.playerHand.length<handLimitOf('player')&&G.playerDeck.length)G.playerHand.push(G.playerDeck.shift());
-    if(G.aiHand.length<handLimitOf('ai')&&G.aiDeck.length)G.aiHand.push(G.aiDeck.shift());
-  }
+  // C3: compra ATÉ completar a mão no alvo (hand_start do Comandante + artefatos), não +1 fixo
+  refillHand('player'); refillHand('ai');
   if(!G.playerDeck.length&&!G.playerHand.length){showMsg('💀 Deck Out! Derrota!','red');setTimeout(()=>endFight('ai'),1000);return;}
   playSFX('ui_card_draw');
   renderHand();updateDeckUI();updateBaseUI();startPhase('standby');
+}
+// C3: alvo de mão = hand_start do Comandante + modificadores de artefato (limitado pelo teto).
+function handTargetOf(side){
+  const st=statsOf(side);
+  const mods=(side==='player'&&APP.commanderMods&&APP.commanderMods.hand_size)||0;
+  return Math.min(st.hand_size, st.hand_start+mods);
+}
+function refillHand(side){
+  const hand=side==='player'?G.playerHand:G.aiHand;
+  const deck=side==='player'?G.playerDeck:G.aiDeck;
+  const need=Math.max(0,handTargetOf(side)-hand.length);
+  for(let i=0;i<need&&deck.length;i++){hand.push(deck.shift());reshuffleIfEmpty(side);}
 }
 // Deck esgotado → reembaralha o Descarte e ele volta a ser fonte de compra.
 function reshuffleIfEmpty(side){
@@ -2219,11 +2320,13 @@ function phaseAction(){
   renderHand();clearSlotHighlights();updateBaseUI();
 }
 function actionBarPhase(){
-  setActionBar(`<span class="action-hint">⚙ AÇÃO — arraste cartas pras zonas (custa ✦), use itens e funda (máx 2). Influência: <b>${G.playerInf}</b> ✦</span><button class="play-btn confirm" onclick="endAction()">Resolver ›</button>`);
+  setActionBar(`<span class="action-hint">⚙ AÇÃO — arraste cartas pras zonas (custa ✦), use itens e funda (máx 2). Influência: <b>${G.playerInf}</b> ✦ · conclua no botão <b>Finalizar ›</b></span>`);
+  if(typeof updateFinalizarBtn==='function')updateFinalizarBtn('action');
 }
 function endAction(){
   if(G.phase!=='action'||G.actionDone)return;
   G.actionDone=true; G.selectedHandCard=null;G.selectedHandIdx=null;clearSlotHighlights();
+  if(typeof updateFinalizarBtn==='function')updateFinalizarBtn('resolution');
   applyAiPlan(); updateFieldUI();renderHand();updateDeckUI();updateBaseUI();
   showMsg('⚔ Resolução!'); setTimeout(()=>startPhase('resolution'),900);
 }
@@ -2238,7 +2341,7 @@ function selectHandCard(idx){
   if(isQuickCard(card)){ playCard(idx); return; }           // item/arapuca: joga direto
   playSFX('ui_card_select');
   if(G.selectedHandIdx===idx){G.selectedHandIdx=null;G.selectedHandCard=null;clearSlotHighlights();actionBarPhase();}
-  else{G.selectedHandIdx=idx;G.selectedHandCard=card;highlightSlots();setActionBar(`<span class="action-info">${card.name} (custo ${playCost(card)} ✦) — escolha uma zona</span><button class="play-btn confirm" onclick="endAction()">Resolver ›</button>`);}
+  else{G.selectedHandIdx=idx;G.selectedHandCard=card;highlightSlots();setActionBar(`<span class="action-info">${card.name} (custo ${playCost(card)} ✦) — escolha uma zona</span>`);}
   renderHand();
 }
 function clickSlot(zoneIdx){
@@ -2250,6 +2353,7 @@ function playCard(cardIdx,zoneIdx){
   if(G.phase!=='action'||G.actionDone)return;
   const card=G.playerHand[cardIdx]; if(!card)return;
   const cost=playCost(card);
+  if(card.kind==='campo'){bfToast('🌍 Cartas de CAMPO chegam num update futuro');return;}   // mecânica não especificada ainda
   if(isUpgrade(card)){bfToast('⬆️ Funda o Upgrade com um monstro: clique nos dois, ou arraste-o pra cima de um monstro no campo');return;}
   if(card.kind==='item'){
     if(G.playerInf<cost){bfToast('Influência insuficiente ('+cost+' ✦)');playSFX('ui_error');return;}
@@ -2414,7 +2518,8 @@ async function resolveApply(dmgToEnemy,dmgToPlayer){
   ['player','ai'].forEach(side=>{
     const field=side==='player'?G.playerField:G.aiField;
     const grave=side==='player'?G.playerGrave:G.aiGrave;
-    for(let i=0;i<ZONES;i++){ if(field[i]){grave.push(field[i]);field[i]=null;} }
+    // Comandante invocado NÃO vai pro descarte — volta ao slot de Comandante (D4)
+    for(let i=0;i<ZONES;i++){ if(field[i]){ if(!field[i].isCommander)grave.push(field[i]); field[i]=null; } }
   });
   setTimeout(()=>{updateBaseUI();updateDeckUI();}, JUICE.on?JUICE.hpDrainDelayMs:0);
   updateFieldUI();
@@ -2446,7 +2551,9 @@ function floatCardDmg(slot,dmg){ if(!slot)return; const r=slot.getBoundingClient
 // ═══ MOTOR v4 — POOL vs POOL ═══
 // ATK cards somam .atk ao pool de ataque; DEF cards somam .hp ao pool de defesa;
 // BAL contribui metade de cada (arredondado p/ cima). Dano = max(0, atk − def inimiga).
-function cardAtkContrib(c){ if(!c||!isMonster(c))return 0; if(c.type==='ATK')return c.atk||0; if(c.type==='BAL')return Math.ceil((c.atk||0)*0.5); return 0; }
+// TEMP: multiplicador ×3 no ATK até rebalancear cards_database_v2.csv (Bloco E do v4.1) — não altera o CSV.
+const ATK_TEMP_MULT=3;
+function cardAtkContrib(c){ if(!c||!(isMonster(c)||c.isCommander))return 0; if(c.type==='ATK')return (c.atk||0)*ATK_TEMP_MULT; if(c.type==='BAL')return Math.ceil((c.atk||0)*0.5)*ATK_TEMP_MULT; return 0; }
 function cardDefContrib(c){ if(!c||!isMonster(c))return 0; if(c.type==='DEF')return c.hp||0; if(c.type==='BAL')return Math.ceil((c.hp||0)*0.5); return 0; }
 // Pools crus (sem mods) — usado no HUD em tempo real da fase AÇÃO (só cartas visíveis p/ quem olha).
 function rawPools(field){
@@ -2489,6 +2596,36 @@ function applyTurnItem(card,side){
     case 'buy_pawn_any':{ if(me){bfPickVibePawn(1);}else{aiGainPawn(side,null,1);} playSFX('reward');break;}
     case 'buy_pawn_random':{const n=v||2;if(me){for(let i=0;i<n;i++)aiGainPawn('player',null,1);showMsg(`🕶 +${n} peões aleatórios!`,'green');renderHand();}else aiGainPawn(side,null,n);playSFX('reward');break;}
     case 'buy_pawn_pick':{ if(me){bfPickAnyPawn();}else{aiGainPawn(side,null,1);} playSFX('reward');break;}
+    // ── novos itens (CSV v2.1) ──
+    case 'discard_draw':{ // descarta a mão inteira e compra N
+      while(myHand.length){myGrave.push(myHand.pop());}
+      const n=v||7; for(let i=0;i<n;i++){reshuffleIfEmpty(side);drawOne(side);}
+      if(me){showMsg(`🗑️ Mão renovada: +${n} cartas!`,'green');renderHand();}playSFX('ui_card_draw');break;}
+    case 'discard_draw_partial':{ // descarta 2 (aleatórias — chooser fino fica p/ depois) e compra N
+      for(let i=0;i<2&&myHand.length;i++){myGrave.push(myHand.splice(Math.floor(Math.random()*myHand.length),1)[0]);}
+      const n=v||3; for(let i=0;i<n;i++){reshuffleIfEmpty(side);drawOne(side);}
+      if(me){showMsg(`🔄 −2 cartas, +${n}!`,'green');renderHand();}playSFX('ui_card_draw');break;}
+    case 'bonus_fusion':{const f=side==='player'?G.playerFuses:G.aiFuses;f.limit+=(v||1);if(me)showMsg(`🍹 +${v||1} fusão neste turno!`,'green');playSFX('item_buff');break;}
+    case 'gain_influence':{const st=statsOf(side);if(side==='player')G.playerInf=Math.min(st.inf_cap,G.playerInf+(v||3));else G.aiInf=Math.min(st.inf_cap,G.aiInf+(v||3));if(me)showMsg(`💃 +${v||3}✦ de Influência!`,'green');playSFX('item_buff');break;}
+    case 'evolve_choose':{ // evolui uma família à escolha (IA: aleatória)
+      const fams=[...new Set((side==='player'?[...G.playerDeck,...myHand,...myGrave]:G.aiDeck).filter(c=>c.evolveTo).map(c=>c.id))];
+      if(!fams.length){if(me)showMsg('Nada pra evoluir','orange');break;}
+      if(me)bfChooser('Evoluir qual família?',fams.map(id=>{const c=cardById(id);return {label:`${c.name} (${c.tier}→)`,fn:()=>{const n=evolveCard(id);bfToast('📈 '+c.name+' evoluiu ('+n+')');}};}));
+      else evolveCard(fams[Math.floor(Math.random()*fams.length)]);
+      playSFX('reward');break;}
+    case 'salvage_discard':{ // busca 1 carta do descarte pra mão (IA: a última)
+      if(!myGrave.length){if(me)showMsg('Descarte vazio','orange');break;}
+      if(me){const snap=[...myGrave];bfChooser('Recuperar qual carta?',snap.map((c,i)=>({label:c.name,fn:()=>{const ix=myGrave.indexOf(c);if(ix>=0&&myHand.length<handLimitOf(side)){myHand.push(myGrave.splice(ix,1)[0]);renderHand();updateDeckUI();bfToast('🔍 '+c.name+' recuperada');}}})));}
+      else if(myHand.length<handLimitOf(side))myHand.push(myGrave.pop());
+      playSFX('special_healer');break;}
+    case 'scry_pick':{ // vê as N do topo, pega 1 (IA: a 1ª)
+      const myDeck=side==='player'?G.playerDeck:G.aiDeck;
+      const top=myDeck.slice(0,v||5);
+      if(!top.length){if(me)showMsg('Deck vazio','orange');break;}
+      if(me)bfChooser('Topo do deck — pegue 1',top.map(c=>({label:c.name,fn:()=>{const ix=myDeck.indexOf(c);if(ix>=0&&myHand.length<handLimitOf(side)){myHand.push(myDeck.splice(ix,1)[0]);renderHand();updateDeckUI();bfToast('🔮 '+c.name+' na mão');}}})));
+      else if(myHand.length<handLimitOf(side))myHand.push(myDeck.shift());
+      playSFX('ui_card_select');break;}
+    case 'trap_immunity':{om.trapsDisabled=true;if(me)showMsg('🪨 Arapucas inimigas ANULADAS neste turno!','green');playSFX('item_buff');break;}
     // ── debuffs (atingem o pool de ATAQUE do oponente) ──
     case 'debuff_enemy_atk': case 'debuff_all_atk':{om.atkFlat-=(v||40);if(me)showMsg(`🥴 Pool inimigo −${v||40} ATK!`,'orange');playSFX('item_debuff');break;}
     case 'debuff_flat':{om.atkFlat-=(v||50);if(me)showMsg(`🏖 Pool inimigo −${v||50} ATK!`,'orange');playSFX('item_debuff');break;}
@@ -2538,8 +2675,10 @@ function flipFaceUp(side){
 function resolveTraps(side){
   const field=side==='player'?G.playerField:G.aiField;
   const grave=side==='player'?G.playerGrave:G.aiGrave;
+  const disabled=G.mods[side]&&G.mods[side].trapsDisabled;   // "Pedras Anti Bad Vibes" do oponente
   field.forEach((t,i)=>{
     if(!t||t.kind!=='trap')return;
+    if(disabled){grave.push(t);field[i]=null;showMsg(`🪨 ${t.name} foi anulada!`,side==='player'?'orange':'green');return;}
     applyTrap(t,side);grave.push(t);field[i]=null;
     playSFX('trap_trigger');
     showMsg(`🪤 ${t.name} disparou!`,side==='player'?'green':'orange');
@@ -2548,13 +2687,22 @@ function resolveTraps(side){
 function applyTrap(t,side){
   const opp=side==='player'?'ai':'player';
   const m=G.mods[side], om=G.mods[opp];
+  const oppField=opp==='player'?G.playerField:G.aiField;
   const v=t.effectVal;
   switch(t.effect){
     case 'trap_atk_zero': case 'trap_skip':om.silence=true;break;          // zera ATK inimigo
-    case 'trap_atk_double': case 'trap_double':m.atkMult*=(typeof v==='number'?v:2);break;
+    case 'trap_atk_double': case 'trap_double':m.atkMult*=(typeof v==='number'?Math.abs(v):2);break;
     case 'trap_def_boost': case 'trap_net':{m.defFlat+=(v||100);om.atkFlat-=40;break;}
     case 'trap_drain_atk': case 'trap_drain':{om.atkFlat-=(v||50);m.defFlat+=(v||50);break;}
     case 'trap_atk_reduce': case 'trap_smoke':om.atkFlat-=(v||30);break;
+    // ── novas arapucas (CSV v2.1) ──
+    case 'debuff_atk_pct':om.atkMult*=(1-Math.abs(v||0.25));break;
+    case 'debuff_def_pct':om.defMult*=(1-Math.abs(v||0.30));break;
+    case 'remove_random_unit':{ // manda 1 unidade inimiga aleatória pro LIXO antes do cálculo
+      const occ=[];oppField.forEach((c,i)=>{if(c&&isMonster(c)&&!c.isCommander)occ.push(i);});
+      if(occ.length){const z=occ[Math.floor(Math.random()*occ.length)];G.trash.push(oppField[z]);oppField[z]=null;} break;}
+    case 'coin_flip_atk':{const heads=Math.random()<0.5;if(heads)om.atkMult*=(1-Math.abs(v||0.5));else m.atkMult*=(1-Math.abs(v||0.5));showMsg(heads?'🪙 Cara! ATK inimigo −50%':'🪙 Coroa! Seu ATK −50%','orange');break;}
+    case 'coin_flip_def':{const heads=Math.random()<0.5;if(heads)om.defMult*=(1-Math.abs(v||0.5));else m.defMult*=(1-Math.abs(v||0.5));showMsg(heads?'🪙 Cara! DEF inimiga −50%':'🪙 Coroa! Sua DEF −50%','orange');break;}
     default:break;
   }
 }
@@ -2802,10 +2950,10 @@ const VMenu={
 // 5C: Campanha, Biblioteca, Meu Baralho e Score desativados na demo (Password fica — é o debug).
 const LOCKED_TT='Pode ser disponibilizado num update futuro, mas não prometo rs 🤷';
 function menuLocked(){ showMsg(LOCKED_TT,'orange'); playSFX('ui_error'); }
-const MENU_ACTIONS=[ menuLocked, ()=>showScreen('cmdselect'), ()=>showScreen('freeduel'), ()=>showScreen('shop'), menuLocked, menuLocked, menuLocked, ()=>showScreen('password') ];
-// aplica o visual de bloqueado nos itens do menu
+const MENU_ACTIONS=[ menuLocked, ()=>csOpen('rogue'), ()=>csOpen('free'), menuLocked, menuLocked, menuLocked, menuLocked, ()=>showScreen('password') ];
+// aplica o visual de bloqueado nos itens do menu (B1: Loja do menu também trancada)
 function applyMenuLocks(){
-  const locked=[0,4,5,6];
+  const locked=[0,3,4,5,6];
   document.querySelectorAll('#menu-list .vmenu-item').forEach((li,i)=>{
     if(locked.indexOf(i)>=0){ li.classList.add('disabled'); li.title=LOCKED_TT;
       const sub=li.querySelector('.vm-sub'); if(sub)sub.textContent='🔒 futuro rs';
@@ -2863,23 +3011,33 @@ function updateHud(){
   const lw=document.getElementById('hud-license-wrap'); if(lw)lw.title=`Licença ${lic.name} — ${lic.unlock} (${d.duels||0} duelos)`;
 }
 
-// ══ SELEÇÃO DE COMANDANTE + ROGUE v4 (5E: Menu → seleção → Fight 1; 5F: ordem fixa do CSV) ══
-const CS={sel:null,hover:null};
+// ══ SELEÇÃO DE COMANDANTE (componente único) ══
+// Fluxos: 'rogue' (1 etapa → Entrar na Run) e 'free' (B4: 2 etapas — seu deck → deck do adversário).
+const CS={sel:null,hover:null,flow:'rogue',step:1,playerSel:null};
+function csOpen(flow){ CS.flow=flow||'rogue'; CS.step=1; CS.sel=null; CS.playerSel=null; showScreen('cmdselect'); }
 function csVibeColor(meta){const v=VIBES.find(x=>x.id===vibeIdOf(meta));return v?v.color:'#8888a0';}
 function csVibeName(meta){const v=VIBES.find(x=>x.id===vibeIdOf(meta));return v?v.name:meta.vibe;}
 function renderCmdSelect(){
   CS.sel=CS.sel||null; CS.hover=null;
   const grid=document.getElementById('cs-grid'); if(!grid)return;
+  const isFree=CS.flow==='free', step2=isFree&&CS.step===2;
+  // título/subtítulo/botão por fluxo e etapa
+  const tt=document.querySelector('#screen-cmdselect .cs-title');
+  const sb=document.querySelector('#screen-cmdselect .cs-sub');
+  if(tt)tt.textContent=step2?'QUEM SERÁ O ADVERSÁRIO':(isFree?'ESCOLHA O SEU DECK':'QUEM VAI SER O SEU COMANDANTE');
+  if(sb)sb.textContent=step2?'DUELO LIVRE · ETAPA 2/2 · DECK DO ADVERSÁRIO':(isFree?'DUELO LIVRE · ETAPA 1/2 · SEU DECK':'MODO ROGUE · ESCOLHA 1 COMANDANTE · 4 INIMIGOS PELA FRENTE');
   grid.innerHTML='';
   COMMANDERS.forEach(m=>{
     const t=document.createElement('div'); t.className='cs-tile'+(CS.sel===m.id?' sel':''); t.style.setProperty('--csv',csVibeColor(m));
-    t.innerHTML=`${CS.sel===m.id?'<span class="p1">P1</span>':''}<span class="dot"></span><div class="mono">${m.name[0]}</div><div class="nm">${m.name}</div>`;
+    const badge=CS.sel===m.id?`<span class="p1">${step2?'VS':'P1'}</span>`:'';
+    t.innerHTML=`${badge}<span class="dot"></span><div class="mono">${m.name[0]}</div><div class="nm">${m.name}</div>`;
     t.onmouseenter=()=>{CS.hover=m.id;csRenderSide();};
     t.onmouseleave=()=>{if(CS.hover===m.id){CS.hover=null;csRenderSide();}};
     t.onclick=()=>{playSFX('ui_card_select');CS.sel=m.id;renderCmdSelect();};
     grid.appendChild(t);
   });
-  const btn=document.getElementById('cs-enter'); if(btn)btn.disabled=!CS.sel;
+  const btn=document.getElementById('cs-enter');
+  if(btn){ btn.disabled=!CS.sel; btn.textContent=step2?'INICIAR DUELO →':(isFree?'PRÓXIMO →':'ENTRAR NA RUN →'); }
   csRenderSide();
 }
 // Painéis laterais seguem o hover (preview) ou a seleção.
@@ -2905,6 +3063,7 @@ function csRenderSide(){
     <div class="cs-panel gold">
       <div class="cs-abil"><div class="ic">♾️</div><div><div class="tg">PASSIVA <span style="color:#ece9fb">${m.pass_name||''}</span></div><div class="ds">${m.pass_desc||''}</div></div></div>
       <div class="cs-abil"><div class="ic">⚡</div><div><div class="tg">ATIVA <span style="color:#ece9fb">${m.act_name||''}</span></div><div class="tr">Gatilho: ${m.act_trigger||'—'}</div><div class="ds">${m.act_desc||''}</div></div></div>
+      ${m.summon_condition_desc?`<div class="cs-abil"><div class="ic">🎴</div><div><div class="tg">CONDIÇÃO DE INVOCAÇÃO</div><div class="ds">${m.summon_condition_desc}</div></div></div>`:''}
       <div class="cs-diff">DIFICULDADE <b>${m.diff||'—'}</b></div>
     </div>
     <div class="cs-panel">
@@ -2921,10 +3080,19 @@ function buildCommanderPlayerDeck(cmdId){
   const ids=commanderDeckIds(cmdId)||[];
   return shuffle(ids.map(id=>{const c=cardById(id);return c?{...c,uid:uid()}:null;}).filter(Boolean));
 }
+// Confirmação do seletor: despacha pelo fluxo/etapa (B4).
+function csConfirm(){
+  if(!CS.sel)return;
+  playSFX('ui_click');
+  if(CS.flow==='free'){
+    if(CS.step===1){ CS.playerSel=CS.sel; CS.step=2; CS.sel=null; renderCmdSelect(); return; }
+    startFreeDuelVs(CS.playerSel,CS.sel); return;
+  }
+  csEnterRun();
+}
 // ENTRAR NA RUN (5E): sem seletor de dificuldade; inimigos na ordem fixa do CSV (5F).
 function csEnterRun(){
   if(!CS.sel)return;
-  playSFX('ui_click');
   const order=rogueEnemyOrder();
   resetRunState();
   APP.mode='rogue'; APP.playerName=APP.playerName||(Save.data&&Save.data.name)||'BC'; APP.difficulty='medium';
@@ -2932,6 +3100,15 @@ function csEnterRun(){
   APP.playerCommanderId=CS.sel; APP.enemyCommanderId=order[0];
   APP.playerDeck=buildCommanderPlayerDeck(CS.sel); APP.extraHandSize=0;
   if(Save.data){ Save.data.runs=(Save.data.runs||0)+1; Save.touch(); }
+  startFight();
+}
+// Duelo Livre com os DOIS decks escolhidos no seletor (etapas 1 e 2).
+function startFreeDuelVs(playerId,oppId){
+  const m=commanderById(oppId)||COMMANDERS[0];
+  APP.mode='free'; APP.opponentName=m.name; APP.playerName=APP.playerName||(Save.data&&Save.data.name)||'BC'; APP.difficulty='medium';
+  APP.fightNum=1; APP.totalScore=0; APP.fightScore=[0,0,0];
+  APP.playerCommanderId=playerId; APP.enemyCommanderId=m.id;
+  APP.playerDeck=buildCommanderPlayerDeck(playerId); APP.extraHandSize=0;
   startFight();
 }
 // legado (tela runsetup antiga) — redireciona pra seleção de Comandante
@@ -3019,7 +3196,7 @@ function showCardViewer(id){
   const c=BASE_CARDS.find(x=>x.id===id); if(!c)return;
   const isEffectCard=(c.type==='ITEM'||c.type==='TRAP');
   const stats=isEffectCard ? `<div style="font-size:.6rem;color:var(--dim);margin-bottom:12px">${TYPE_EMOJI[c.type]} ${c.type==='TRAP'?'Arapuca':'Item'} · custo ${c.cost}</div>`
-    : `<div class="cv-stats"><span style="color:var(--atk)">⚔ ${c.atk}</span><span style="color:var(--def)">❤ ${c.hp}</span></div>`;
+    : `<div class="cv-stats"><span style="color:var(--atk)">⚔ ${c.atk}</span><span style="color:var(--def)">🛡 ${c.hp}</span></div>`;
   const vibe=c.vibe&&VIBES.find(v=>v.id===c.vibe);
   const role=c.ability||(c.special?('habilidade: '+c.special):(c.kind==='trap'?'arapuca':c.pawn?'peão':c.hero?'herói':'item'));
   const lvNow=cardLevels[c.id]||1;
@@ -3143,11 +3320,10 @@ function closeSettings(){ document.getElementById('settings-modal').classList.re
 function openLogin(){ document.getElementById('login-modal').classList.add('open'); }
 function closeLogin(){ document.getElementById('login-modal').classList.remove('open'); }
 
-// ── FUNDO ANIMADO (cartas flutuando — dica do que vem) ──
-let cardBgMounted=false;
+// ── FUNDO ANIMADO (cartas flutuando — re-sorteadas a cada entrada na tela, B3) ──
 function mountCardBg(){
-  if(cardBgMounted)return; cardBgMounted=true;
   const bg=document.getElementById('menu-bg'); if(!bg)return;
+  bg.innerHTML='';
   const N=8;
   // 5A: cartas ALEATÓRIAS da base (sem moldura branca) — visual de verso/vibe, não frame de monstro
   const pool=shuffle(BASE_CARDS.filter(c=>c.kind!=='fusion').slice());
@@ -3247,6 +3423,17 @@ function renderCmd(side){
   const dot=document.getElementById(side==='player'?'you-cmd-dot':'enemy-cmd-dot'); if(dot)dot.style.background=v?v.color:'#6a6a82';
   const art=document.getElementById(side==='player'?'you-cmd-art':'enemy-cmd-art');
   if(art){const src=cardImgSrc(cmd); art.innerHTML=src?`<img src="${src}" onerror="this.remove()">`:(cmd.name||'?')[0].toUpperCase(); } // monograma por ora (5H)
+  // D3: estado do botão de invocação (cinza → dourado pulsante → invocado)
+  if(side==='player'){
+    const sb=document.getElementById('you-summon');
+    if(sb){
+      const meta=summonMeta('player');
+      const onField=G.playerField.some(c=>c&&c.isCommander);
+      if(G.commanderInvoked||onField){ sb.className='bf-summon done'; sb.textContent='✓ Invocado'; sb.disabled=true; sb.title='Volta ao posto após a resolução'; }
+      else if(checkSummonCondition('player')){ sb.className='bf-summon ready'; sb.textContent='⚡ Invocar!'; sb.disabled=false; sb.title=(meta&&meta.summon_condition_desc)||''; }
+      else { sb.className='bf-summon'; sb.textContent='Invocar'; sb.disabled=true; sb.title=(meta&&meta.summon_condition_desc)||'Condição de invocação'; }
+    }
+  }
   setText(side==='player'?'you-fuse':'enemy-fuse',`${fuses.used}/${fuses.limit}`);
   setText(side==='player'?'you-inf':'enemy-inf',inf);
   setText(side==='player'?'you-cmd-atk':'enemy-cmd-atk',cmd.atk||0);
@@ -3257,7 +3444,7 @@ function renderCmd(side){
 function renderFoeHand(){
   const host=document.getElementById('bf-foehand'); if(!host)return;
   const n=G.aiHand.length; const show=Math.min(n,10);
-  host.innerHTML=Array.from({length:show},()=>`<div class="bf-foecard"></div>`).join('')+`<span class="bf-foecount">${n}</span>`;
+  host.innerHTML=Array.from({length:show},()=>`<div class="bf-foecard cc-back"></div>`).join('')+`<span class="bf-foecount">${n}</span>`;
 }
 function bfSlotGhost(kind,n){
   if(kind==='terreno')return `<div class="bf-ghosticon" style="opacity:.5"><div style="font-size:24px;line-height:1">🌍</div><div class="lb">TERRENO</div></div>`;
@@ -3296,9 +3483,9 @@ function bfUpdatePoolHUD(previewCard){
 function renderFC(card,side){
   const div=document.createElement('div');div.className='field-card';
   if(card.faceDown){
-    const fd=document.createElement('div');fd.className='card-face-down';
-    fd.style.cssText='position:absolute;inset:0;border-radius:inherit;display:grid;place-items:center;background:repeating-linear-gradient(45deg,#2a2440 0 9px,#1c1733 9px 18px);font-family:\'Oswald\';font-size:9px;letter-spacing:2px;color:var(--bf-ink3)';
-    fd.textContent='VIRADA';div.appendChild(fd);
+    const fd=document.createElement('div');fd.className='card-face-down cc-back';
+    fd.style.cssText='position:absolute;inset:0;border-radius:inherit;';
+    div.appendChild(fd);
     div.onclick=(e)=>{e.stopPropagation();if(side==='player')showCardDetail(card);};
     return div;
   }
@@ -3330,24 +3517,41 @@ function bfTypeChip(t){return {ATK:['ATK','var(--bf-red)','#fff'],DEF:['DEF','va
 function vibeOf(card){ return card&&card.vibe?VIBES.find(v=>v.id===card.vibe):null; }
 function bfVibeColor(card){ const v=vibeOf(card); return v?v.color:'#7a7a92'; }
 function bfGrad(card){ const c=(typeof card==='string')?(VIBES.find(v=>v.id===card)||{}).color:bfVibeColor(card); return `linear-gradient(160deg, ${(c||'#5a4a6a')}cc, #15111e)`; }
-// ═══ FRAME v2 (mockup v2): monstro = borda branca + dot de vibe + rodapé ATK|DEF (contribuições
-// aos pools); item/arapuca/upgrade = fundo preto sólido, sem borda, emoji grande + efeito curto. ═══
+// ═══ FRAME v4.1 (referência: carta do Arthur) ═══
+// Monstro: fundo escuro tingido pela vibe · topo = nome (esq) + dot de vibe (dir), SEM badge de tipo
+// · centro = arte ~65% (monograma se não houver imagem; emoji NUNCA sobrepõe imagem — C4)
+// · rodapé = estrelas | badge de categoria | ⚔ atk · 🛡 hp (escudo, não coração — A1).
+// Item/arapuca/upgrade: fundo preto, sem estrelas, ícone grande, rodapé só com custo.
 const TIER_BADGE={prata:{lb:'P',bg:'#c0c8d4',fg:'#20242c'},gold:{lb:'G',bg:'#f0b429',fg:'#3a2a05'}};
+const KIND_BADGE={hero:['HERÓI','#2e6fd8'],pawn:['PEÃO','#5a5a72'],fusion:['FUSÃO','#8a4bd1'],item:['ITEM','#b8860b'],trap:['ARAPUCA','#c0392b'],upgrade:['UPGRADE','#0f9b8e'],commander:['CMD','#f0b429'],campo:['CAMPO','#2f7d4f']};
+function bfKindBadge(card){const k=isUpgrade(card)?'upgrade':(card.kind||'pawn');const b=KIND_BADGE[k]||KIND_BADGE.pawn;return `<span class="kb" style="background:${b[1]}">${b[0]}</span>`;}
+function bfStars(card){const n=Math.max(0,Math.min(5,card.star||0));return '★'.repeat(n)+'☆'.repeat(5-n);}
 function bfCardArt(card){
-  const src=cardImgSrc(card),emo=card.emoji||TYPE_EMOJI[card.type]||'?';
-  const isMon=isMonster(card); const vcol=bfVibeColor(card);
+  const src=cardImgSrc(card);
+  const vcol=bfVibeColor(card); const isMon=isMonster(card)||card.kind==='commander';
   const cost=(typeof playCost==='function')?playCost(card):(card.cost!=null?card.cost:2);
   const tb=TIER_BADGE[card.tier]; const tier=tb?`<span class="tier" style="background:${tb.bg};color:${tb.fg}">${tb.lb}</span>`:'';
-  const imgTag=src?`<img src="${src}" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:'';
   if(isMon){
-    const a=cardAtkContrib(card),d=cardDefContrib(card);
-    const fall=`<div class="bigemo" style="font-size:34px">${emo}</div>`;
-    return `<div class="bf-cardface mon"><div class="art"></div>${fall}${imgTag}<span class="vdot" style="background:${vcol}"></span><span class="cost">✦${cost}</span>${tier}<div class="ov"><div class="nm">${card.name}</div></div><div class="ft"><span class="fa">⚔ ${a}</span><span class="fd">🛡 ${d}</span></div></div>`;
+    // C4: com imagem → SÓ a imagem; onerror revela o monograma escondido atrás
+    const mono=`<div class="mono">${(card.name||'?')[0].toUpperCase()}</div>`;
+    const artIn=src?`${mono}<img src="${src}" onerror="this.remove()">`:mono;
+    return `<div class="bf-cardface mon41" style="--cv:${vcol}">
+      <div class="hd"><span class="nm">${card.name}</span><span class="vdot" style="background:${vcol}"></span></div>
+      <div class="art41">${artIn}</div>
+      <span class="cost">✦${cost}</span>${tier}
+      <div class="ft41"><div class="r1"><span class="stars">${bfStars(card)}</span>${bfKindBadge(card)}</div>
+      <div class="r2"><span class="fa">⚔ ${card.atk||0}</span><span class="fd">🛡 ${card.hp||0}</span></div></div>
+    </div>`;
   }
-  // item / arapuca / upgrade — fundo preto, sem borda branca
+  // item / arapuca / upgrade — fundo preto, sem estrelas, sem foto: ícone grande + rodapé com custo
+  const emo=card.emoji||'🎴';
   const eff=(card.ability||'').split(/[.—]/)[0]||'';
-  const kindLb=card.kind==='trap'?'ARAPUCA':(isUpgrade(card)?'UPGRADE':'ITEM');
-  return `<div class="bf-cardface itm"><div class="bigemo">${emo}</div>${imgTag}<span class="cost">✦${cost}</span>${tier}<div class="ft itmft"><div class="nm">${card.name}</div><div class="fx">${eff}</div></div><span class="klb">${kindLb}</span></div>`;
+  return `<div class="bf-cardface itm41">
+    <div class="hd"><span class="nm">${card.name}</span><span class="vdot" style="background:${vcol}"></span></div>
+    <div class="bigemo">${emo}</div>${tier}
+    <div class="ft41"><div class="r1">${bfKindBadge(card)}<span class="cost-in">✦${cost}</span></div>
+    <div class="fx">${eff}</div></div>
+  </div>`;
 }
 function bfMeasure(){ const el=document.getElementById('bf-handwrap'); if(!el)return; const w=el.clientWidth; if(w&&Math.abs(w-BF.wrapW)>1)BF.wrapW=w; }
 function renderHand(){
@@ -3387,7 +3591,7 @@ function bfFlyDraws(idxs){
     const dx=x1-x0, dy=y1-y0;
     el.style.visibility='hidden';
     setTimeout(()=>{
-      const g=document.createElement('div'); g.className='bf-flycard';
+      const g=document.createElement('div'); g.className='bf-flycard cc-back';
       g.style.left=x0+'px'; g.style.top=y0+'px';
       stage.appendChild(g);
       playSFXPitch('ui_card_draw',1+k*0.06);
@@ -3472,7 +3676,7 @@ function bfPlay(i,at){
     G.playerHand.splice(i,1); G.trash.push(card);           // upgrade vai pro LIXO (não volta ao deck)
     spendInf('player',playCost(card));
     const n=evolveCard(tgt.id);
-    G.playerFuses.used++; if(APP.runStats)APP.runStats.fusions++;
+    G.playerFuses.used++; if(APP.runStats)APP.runStats.fusions++; if(G.fightFusions)G.fightFusions.player++;
     playSFX('reward'); bfToast(`⬆️ ${tgt.name} evoluiu! (${n} cópia(s))`); bfLog(`Upgrade → família de ${tgt.name} evoluiu`,'green');
     renderHand(); updateBaseUI(); updateDeckUI(); return;
   }
@@ -3605,7 +3809,7 @@ async function bfDoFusion(){
     BF.fusion=[]; const fb0=document.getElementById('bf-fusionbar'); if(fb0)fb0.style.display='none';
     const n=evolveCard(target.id);
     G.playerFuses.used++;
-    if(APP.runStats)APP.runStats.fusions++;
+    if(APP.runStats)APP.runStats.fusions++; if(G.fightFusions)G.fightFusions.player++;
     playSFX('reward');
     bfToast(`⬆️ ${target.name} evoluiu! (${n} cópia(s) da família)`); bfLog(`Upgrade → família de ${target.name} evoluiu (${n})`,'green');
     updateDeckUI(); updateBaseUI(); renderHand(); return;
@@ -3621,7 +3825,7 @@ async function bfDoFusion(){
   // §5: as 2 cartas-material VOLTAM PRO DECK (não pro descarte); o resultado vai pra MÃO
   cards.forEach(c=>G.playerDeck.push(c)); shuffleDeck('player');
   G.playerHand.push(result);
-  G.playerFuses.used++; if(APP.runStats)APP.runStats.fusions++;
+  G.playerFuses.used++; if(APP.runStats)APP.runStats.fusions++; if(G.fightFusions)G.fightFusions.player++;
   bfToast('🌀 '+result.name+' foi pra sua mão (materiais voltaram ao deck)');
   bfLog('Fusão → '+result.name+' (materiais → deck)','green');
   updateDeckUI(); updateBaseUI(); renderHand();
@@ -3635,7 +3839,7 @@ function bfInspect(card){ if(!card)return; const box=document.getElementById('bf
   const artBg=cardImgSrc(card)?`background:url('${cardImgSrc(card)}') center/cover`:`background:${bfGrad(card.type)}`;
   box.innerHTML=`<div class="bf-insp-art"><div style="position:absolute;inset:0;${artBg}"></div><span style="position:absolute;top:7px;left:7px;font-family:'Oswald';font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600;background:${tc[1]};color:${tc[2]}">${tc[0]}</span><div style="position:absolute;left:0;right:0;bottom:0;padding:22px 9px 9px;background:linear-gradient(transparent,rgba(0,0,0,.85))"><div style="font-family:'Oswald';font-weight:600;font-size:16px">${card.name}</div></div></div>
   <div class="bf-insp-name">${card.name}</div>
-  <div class="bf-insp-tags">${isMon?`<span style="background:rgba(226,83,63,.14);border-color:rgba(226,83,63,.3);color:#f4a597">⚔ ${cardAtkContrib(card)} ao pool</span><span style="background:rgba(95,201,154,.12);border-color:rgba(95,201,154,.3);color:#9fe0c2">🛡 ${cardDefContrib(card)} ao pool</span>`:''}<span style="color:var(--bf-gold)">${'★'.repeat(card.star||0)||'—'}</span>${card.cost!=null?`<span>✦ ${card.cost}</span>`:''}${vibe?`<span>${vibe.emoji} ${vibe.name}</span>`:''}${card.tier?`<span style="background:${(TIER_BADGE[card.tier]||{bg:'#8a6a3a'}).bg}22;color:${card.tier==='bronze'?'#c9955c':(TIER_BADGE[card.tier]||{}).bg}">${card.tier.toUpperCase()}</span>`:''}</div>
+  <div class="bf-insp-tags">${isMon?`<span style="background:rgba(226,83,63,.14);border-color:rgba(226,83,63,.3);color:#f4a597">⚔ ${card.atk||0}</span><span style="background:rgba(95,201,154,.12);border-color:rgba(95,201,154,.3);color:#9fe0c2">🛡 ${card.hp||0}</span>`:''}<span style="color:var(--bf-gold)">${'★'.repeat(card.star||0)||'—'}</span>${card.cost!=null?`<span>✦ ${card.cost}</span>`:''}${vibe?`<span>${vibe.emoji} ${vibe.name}</span>`:''}${card.tier?`<span style="background:${(TIER_BADGE[card.tier]||{bg:'#8a6a3a'}).bg}22;color:${card.tier==='bronze'?'#c9955c':(TIER_BADGE[card.tier]||{}).bg}">${card.tier.toUpperCase()}</span>`:''}</div>
   <div class="bf-insp-efflbl">Efeito</div><div class="bf-insp-eff">${card.ability||card.desc||(card.special?('Habilidade especial: '+card.special):(card.kind==='trap'?'Arapuca — dispara na resolução.':card.kind==='item'?'Item — jogado na fase ITENS.':'—'))}</div>`;
   bfSetTab('insp');
 }
