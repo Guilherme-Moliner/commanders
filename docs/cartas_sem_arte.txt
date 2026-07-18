@@ -1,0 +1,138 @@
+CHECKLIST DE ARTE — Comandante do Caos (snapshot 2026-07-18)
+Gerado pelo Card Lab v4.3 · 67 carta(s) sem arte
+Salve cada arquivo no caminho indicado (ou preencha a coluna img do CSV).
+
+[ ] Sem Terra Organizado  (peão · vermelho · prata)
+    → assets/cards/peon_atk_prata.png
+[ ] Sem Terra Lendário  (peão · vermelho · gold)
+    → assets/cards/peon_atk_gold.png
+[ ] Camarada Veterano  (peão · vermelho · prata)
+    → assets/cards/peon_atk2_prata.png
+[ ] Camarada Élite  (peão · vermelho · gold)
+    → assets/cards/peon_atk2_gold.png
+[ ] Malhadinho Rasgado  (peão · azul · prata)
+    → assets/cards/peon_def_prata.png
+[ ] Malhadinho Gold  (peão · azul · gold)
+    → assets/cards/peon_def_gold.png
+[ ] Bombado Plus  (peão · azul · prata)
+    → assets/cards/peon_def2_prata.png
+[ ] Bombado Supremo  (peão · azul · gold)
+    → assets/cards/peon_def2_gold.png
+[ ] Economista Sênior  (peão · verde · prata)
+    → assets/cards/peon_bal_prata.png
+[ ] Economista Chefe  (peão · verde · gold)
+    → assets/cards/peon_bal_gold.png
+[ ] Streamer Prata  (peão · amarelo · prata)
+    → assets/cards/peon_nerd_prata.png
+[ ] Streamer Gold  (peão · amarelo · gold)
+    → assets/cards/peon_nerd_gold.png
+[ ] Muleque Piranha+  (peão · roxo · prata)
+    → assets/cards/peon_role_prata.png
+[ ] Muleque Piranha Gold  (peão · roxo · gold)
+    → assets/cards/peon_role_gold.png
+[ ] Arthur Elite  (herói · azul · gold)
+    → assets/cards/arthur_gold.png
+[ ] Garopaba Revoltado  (herói · vermelho · bronze)
+    → assets/cards/gold
+[ ] Reforço  (item · verde · bronze)
+    → assets/cards/reforco.png
+[ ] Ressaca  (item · amarelo · bronze)
+    → assets/cards/ressaca.png
+[ ] Dedinho Mindinho  (item · roxo · bronze)
+    → assets/cards/dedinho.png
+[ ] Calúnia  (item · roxo · bronze)
+    → assets/cards/calunia.png
+[ ] Joga Areia  (item · vermelho · bronze)
+    → assets/cards/jogaareia.png
+[ ] Barraco  (item · roxo · bronze)
+    → assets/cards/barraco.png
+[ ] Upgrade!  (item · qualquer · bronze)
+    → assets/cards/upgrade_bronze.png
+[ ] Upgrade Gold!  (item · qualquer · bronze)
+    → assets/cards/upgrade_prata.png
+[ ] Recruta  (item · qualquer · bronze)
+    → assets/cards/recruta.png
+[ ] Mercado Negro  (item · qualquer · bronze)
+    → assets/cards/mercado_negro.png
+[ ] Headhunter  (item · qualquer · bronze)
+    → assets/cards/headhunter.png
+[ ] Buraco na Pista  (arapuca · amarelo · bronze)
+    → assets/cards/trap_buraco.png
+[ ] Emboscada  (arapuca · vermelho · bronze)
+    → assets/cards/trap_emboscada.png
+[ ] Rede  (arapuca · azul · bronze)
+    → assets/cards/trap_rede.png
+[ ] Praga  (arapuca · verde · bronze)
+    → assets/cards/trap_praga.png
+[ ] Bomba de Fumaça  (arapuca · roxo · bronze)
+    → assets/cards/trap_fumaca.png
+[ ] A Resenha  (fusão · amarelo · bronze)
+    → assets/cards/fus_resenha.png
+[ ] Rei do Camarote  (fusão · amarelo · bronze)
+    → assets/cards/fus_camarote.png
+[ ] O Climão  (fusão · vermelho · bronze)
+    → assets/cards/fus_climao.png
+[ ] Brotheragem Eterna  (fusão · verde · bronze)
+    → assets/cards/fus_brotheragem.png
+[ ] Lenda do Rolê  (fusão · vermelho · bronze)
+    → assets/cards/fus_lenda.png
+[ ] Brigou no Rolê  (fusão · vermelho · bronze)
+    → assets/cards/fus_brigarole.png
+[ ] Apagão Total  (fusão · roxo · bronze)
+    → assets/cards/fus_apagao.png
+[ ] Resistência Etílica  (fusão · verde · bronze)
+    → assets/cards/fus_resistencia.png
+[ ] Marombeiro Supremo  (fusão · vermelho · bronze)
+    → assets/cards/fus_marombeiro.png
+[ ] Leão de Chácara  (fusão · azul · bronze)
+    → assets/cards/fus_leaochacara.png
+[ ] Tanque Humano  (fusão · verde · bronze)
+    → assets/cards/fus_tanque.png
+[ ] Mestre de Cerimônia  (fusão · azul · bronze)
+    → assets/cards/fus_mestrecerimonia.png
+[ ] Mente Mestra  (fusão · roxo · bronze)
+    → assets/cards/fus_mentemestra.png
+[ ] Zen Master  (fusão · azul · bronze)
+    → assets/cards/fus_zen.png
+[ ] Surto Coletivo  (fusão · roxo · bronze)
+    → assets/cards/fus_surto.png
+[ ] Mau Elemento  (fusão · verde · bronze)
+    → assets/cards/fus_mauelemento.png
+[ ] Mão Cagada  (item · qualquer · bronze)
+    → assets/cards/item_mao_cagada.png
+[ ] Rolezim  (item · qualquer · bronze)
+    → assets/cards/item_rolezim.png
+[ ] Mistura de Drinks  (item · qualquer · bronze)
+    → assets/cards/item_mistura.png
+[ ] Botar Mulher pra Galera  (item · qualquer · bronze)
+    → assets/cards/item_mulher.png
+[ ] Promoção  (item · qualquer · bronze)
+    → assets/cards/item_promocao.png
+[ ] Revirar o Lixo  (item · qualquer · bronze)
+    → assets/cards/item_revirar.png
+[ ] Antecipação  (item · qualquer · bronze)
+    → assets/cards/item_antecipacao.png
+[ ] Pedras Anti Bad Vibes  (item · qualquer · bronze)
+    → assets/cards/item_pedras.png
+[ ] Relacionamento Tóxico  (arapuca · vermelho · bronze)
+    → assets/cards/trap_relacionamento_toxico.png
+[ ] Zoado no Grupo  (arapuca · roxo · bronze)
+    → assets/cards/trap_zoado.png
+[ ] História Ingrata Relembrada  (arapuca · amarelo · bronze)
+    → assets/cards/trap_historia_ingrata.png
+[ ] Tudo ou Nada  (arapuca · roxo · bronze)
+    → assets/cards/trap_tudo_ou_nada_atk.png
+[ ] Tudo ou Nada #2  (arapuca · roxo · bronze)
+    → assets/cards/trap_tudo_ou_nada_def.png
+[ ] LAN House  (campo · amarelo · bronze)
+    → assets/cards/campo_lan.png
+[ ] Academia  (campo · azul · bronze)
+    → assets/cards/campo_academia.png
+[ ] Manifestação  (campo · vermelho · bronze)
+    → assets/cards/campo_manifestacao.png
+[ ] Baile Funk  (campo · roxo · bronze)
+    → assets/cards/campo_baile.png
+[ ] Resenha em Casa  (campo · verde · bronze)
+    → assets/cards/campo_resenha.png
+[ ] Funerária  (campo · roxo · bronze)
+    → assets/cards/campo_funeraria.png

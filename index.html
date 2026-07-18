@@ -546,7 +546,8 @@ body{background:#000;color:var(--text);font-family:'Cinzel',serif;overflow:hidde
 .bf-hcard{position:absolute;bottom:6px;width:110px;height:153px;border-radius:10px;overflow:hidden;border:1px solid var(--bf-line2);transform-origin:50% 100%;box-shadow:0 8px 18px rgba(0,0,0,.5);cursor:grab;transition:transform .13s ease,box-shadow .13s;touch-action:none}
 .bf-fusemini{position:absolute;width:124px;height:172px;border-radius:12px;overflow:hidden;border:1px solid var(--bf-line2);box-shadow:0 12px 34px rgba(0,0,0,.6);transition:transform .5s cubic-bezier(.4,.9,.3,1),filter .5s ease,opacity .5s ease;will-change:transform,filter,opacity}
 .bf-hcard .fbadge{position:absolute;top:5px;left:5px;width:22px;height:22px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Oswald';font-size:13px;font-weight:700;color:#06291f;background:var(--bf-teal);box-shadow:0 0 0 2px rgba(0,0,0,.4),0 2px 6px rgba(0,0,0,.5);z-index:3}
-.bf-fusionbar{display:none;position:absolute;top:-2px;left:50%;transform:translateX(-50%);z-index:90;align-items:center;gap:10px;background:#0c0918f2;border:1px solid var(--bf-teal);border-radius:22px;padding:5px 6px 5px 15px;box-shadow:0 8px 22px rgba(0,0,0,.55)}
+/* fix v4.3: fica ACIMA das cartas do leque (hover chega a z-index 130) — botão sempre clicável */
+.bf-fusionbar{display:none;position:absolute;top:-2px;left:50%;transform:translateX(-50%);z-index:160;align-items:center;gap:10px;background:#0c0918f2;border:1px solid var(--bf-teal);border-radius:22px;padding:5px 6px 5px 15px;box-shadow:0 8px 22px rgba(0,0,0,.55)}
 .bf-fusionbar .lbl{font-family:'Oswald';font-size:12px;letter-spacing:.6px;color:var(--bf-teal)}
 .bf-fusionbar .lbl b{font-family:'JetBrains Mono'}
 .bf-fbtn{font-family:'Oswald';font-size:12px;font-weight:600;letter-spacing:.5px;padding:5px 13px;border-radius:16px;cursor:pointer;border:1px solid var(--bf-teal);background:var(--bf-teal);color:#06291f}
@@ -3722,12 +3723,15 @@ function bfCardArt(card){
     // C4: com imagem → SÓ a imagem; onerror revela o monograma escondido atrás
     const mono=`<div class="mono">${(card.name||'?')[0].toUpperCase()}</div>`;
     const artIn=src?`${mono}<img src="${src}" onerror="this.remove()">`:mono;
+    // fix v4.3: rodapé mostra a CONTRIBUIÇÃO REAL aos pools (inclui ×3 temp e metade do BAL)
+    // — antes mostrava o valor cru do CSV e divergia da soma da resolução.
+    const a=cardAtkContrib(card),d=cardDefContrib(card);
     return `<div class="bf-cardface mon41" style="--cv:${vcol}">
       <div class="hd"><span class="nm">${card.name}</span><span class="vdot" style="background:${vcol}"></span></div>
       <div class="art41">${artIn}</div>
       <span class="cost">✦${cost}</span>${tier}
       <div class="ft41"><div class="r1"><span class="stars">${bfStars(card)}</span>${bfKindBadge(card)}</div>
-      <div class="r2"><span class="fa">⚔ ${card.atk||0}</span><span class="fd">🛡 ${card.hp||0}</span></div></div>
+      <div class="r2"><span class="fa">⚔ ${a}</span><span class="fd">🛡 ${d}</span></div></div>
     </div>`;
   }
   // item / arapuca / upgrade — fundo preto, sem estrelas: imagem quando existir (C4),
@@ -4031,7 +4035,7 @@ function bfInspect(card){ if(!card)return; const box=document.getElementById('bf
   const artBg=cardImgSrc(card)?`background:url('${cardImgSrc(card)}') center/cover`:`background:${bfGrad(card.type)}`;
   box.innerHTML=`<div class="bf-insp-art"><div style="position:absolute;inset:0;${artBg}"></div><div style="position:absolute;left:0;right:0;bottom:0;padding:22px 9px 9px;background:linear-gradient(transparent,rgba(0,0,0,.85))"><div style="font-family:'Oswald';font-weight:600;font-size:16px">${card.name}</div></div></div>
   <div class="bf-insp-name">${card.name}</div>
-  <div class="bf-insp-tags">${isMon?`<span style="background:rgba(226,83,63,.14);border-color:rgba(226,83,63,.3);color:#f4a597">⚔ ${card.atk||0}</span><span style="background:rgba(95,201,154,.12);border-color:rgba(95,201,154,.3);color:#9fe0c2">🛡 ${card.hp||0}</span>`:''}<span style="color:var(--bf-gold)">${'★'.repeat(card.star||0)||'—'}</span>${card.cost!=null?`<span>✦ ${card.cost}</span>`:''}${vibe?`<span>${vibe.emoji} ${vibe.name}</span>`:''}${card.tier?`<span style="background:${(TIER_BADGE[card.tier]||{bg:'#8a6a3a'}).bg}22;color:${card.tier==='bronze'?'#c9955c':(TIER_BADGE[card.tier]||{}).bg}">${card.tier.toUpperCase()}</span>`:''}</div>
+  <div class="bf-insp-tags">${isMon?`<span style="background:rgba(226,83,63,.14);border-color:rgba(226,83,63,.3);color:#f4a597">⚔ ${cardAtkContrib(card)}</span><span style="background:rgba(95,201,154,.12);border-color:rgba(95,201,154,.3);color:#9fe0c2">🛡 ${cardDefContrib(card)}</span>`:''}<span style="color:var(--bf-gold)">${'★'.repeat(card.star||0)||'—'}</span>${card.cost!=null?`<span>✦ ${card.cost}</span>`:''}${vibe?`<span>${vibe.emoji} ${vibe.name}</span>`:''}${card.tier?`<span style="background:${(TIER_BADGE[card.tier]||{bg:'#8a6a3a'}).bg}22;color:${card.tier==='bronze'?'#c9955c':(TIER_BADGE[card.tier]||{}).bg}">${card.tier.toUpperCase()}</span>`:''}</div>
   <div class="bf-insp-efflbl">Efeito</div><div class="bf-insp-eff">${card.ability||card.desc||(card.special?('Habilidade especial: '+card.special):(card.kind==='trap'?'Arapuca — dispara na resolução.':card.kind==='item'?'Item — jogado na fase ITENS.':'—'))}</div>`;
   bfSetTab('insp');
 }

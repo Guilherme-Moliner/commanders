@@ -175,7 +175,7 @@ Testado no preview: **run completa de ponta a ponta** (seleção de Comandante �
 
 ## 11. Ferramentas & conteúdo
 
-- **Card Lab** (`cardlab/`): ferramenta de criação de cartas. Reaproveitável.
+- **Card Lab v4.3** (`cardlab/`): **auditoria de arte** — grid de todas as cartas do CSV, testa a existência real dos arquivos (✅ com arte / ❌ sem), filtros por vibe/kind/tier/status, exporta checklist `.txt`, mostra o caminho que o jogo espera. Convenção de arte: coluna `img` do CSV **ou** simplesmente `assets/cards/<id>.png` (heróis também tentam `assets/heroes/<id>.png`). Snapshot atual: **40/107 com arte** — pendências em `docs/cartas_sem_arte.txt`. Roda pelo servidor local ou em `/cardlab/` no Pages.
 - **Dados de cartas:** `CARDS_CSV` embutido no `index.html` (fonte única) + espelho `GAME_DATA.csv`. 72 cartas hoje.
 - **Fusões:** `FUSIONS_CSV` no `index.html` + espelho `FUSIONS.csv`.
 - **Assets:** `assets/heroes`, `assets/cards`, `assets/audio`. Fallback base64 dos heróis embutido.
